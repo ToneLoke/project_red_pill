@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {default as ErrorTracker} from '../utils/AppError'
 
 export const adminInitialState = {

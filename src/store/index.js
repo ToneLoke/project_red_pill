@@ -14,7 +14,6 @@ const compose = (...funcs) => x =>
 
 const createStore = (reducer, initialState, middlewares) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log("create store", middlewares)
 
   if (typeof middlewares !== "undefined") {
     // return middlewares(createStore)(reducer, initialState);
@@ -23,7 +22,6 @@ const createStore = (reducer, initialState, middlewares) => {
       dispatch: action => dispatch(action)
     };
     const chain = middlewares.map(middleware => middleware(middlewareAPI));
-    console.log("chain", chain)
     const enhancedDispatch = compose(...chain)(dispatch);
     return { state, dispatch: enhancedDispatch };
   }
