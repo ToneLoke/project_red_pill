@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { StoreProvider } from "./store/useStore";
+import theme from './views/common/theme';
 import App from './Router';
 import * as serviceWorker from './serviceWorker';
+import 'typeface-roboto';
 
 function Main() {
   return (
-    <StoreProvider>
-      <App />
-    </StoreProvider>
+    <Fragment>
+      <CssBaseline />
+      <MuiThemeProvider theme={theme}>
+        <StoreProvider>
+          <App />
+        </StoreProvider>
+      </MuiThemeProvider>
+    </Fragment>
   );
 }
 

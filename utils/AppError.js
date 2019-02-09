@@ -5,7 +5,7 @@ import _ from 'underscore';
 class AppError extends Error {
 	/**
 	 * @param {String} message The error message
-	 * @param {Number} code The status code of the error
+	 * @param {String} code The status code of the error
 	 * @param {Object} messages The optional error messages
 	 */
 	constructor(message, code, messages = null) {

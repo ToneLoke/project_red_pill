@@ -1,4 +1,4 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv';
 const cfg = {}
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
@@ -38,4 +38,4 @@ cfg.secret = process.env.APP_SECRET || 'keyboard cat'
 // }
 
 // Export configuration object
-module.exports = cfg
+export default cfg

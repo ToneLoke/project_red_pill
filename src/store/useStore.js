@@ -17,7 +17,7 @@ const Actions = {
 // We apply the update to existing state, and return a new copy of state.
 const reducer = (state, action) => {
   const act = Actions[action.type];
-  const update = act(state);
+  const update = act(state,action);
   return { ...state, ...update };
 };
 

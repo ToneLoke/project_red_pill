@@ -1,17 +1,25 @@
+import { useFetch } from './helpers';
 
 export const adminInitialState = {
-  user: {
-    loggedIn: false,
-    prevGames: [], // list of game ids
+  user: null
+};
 
+const login = async (state, action) => {
+  const payload = {
+    url: 'http://localhost:8000/admin',
+    method: 'POST',
+    data: action.payload
+  }
+  try {
+   const admin = await useFetch(payload)
+   console.log("200:", admin)
+   return {...state, admin}
+  } catch (error) {
+   return {...state}
   }
 };
+
 
 export const adminActions = {
-  login: state => {
-    return { user: { loggedIn: true } };
-  },
-  logout: state => {
-    return { user: { loggedIn: false } };
-  }
-};
+  login,
+}
