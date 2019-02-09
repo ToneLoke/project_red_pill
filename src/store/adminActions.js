@@ -1,25 +1,14 @@
-import { useFetch } from './helpers';
+import axios from 'axios';
+import {default as ErrorTracker} from '../utils/AppError'
 
 export const adminInitialState = {
-  user: null
+  user: {email:null, password:null},
+  loggedIn: false,
 };
 
-const login = async (state, action) => {
-  const payload = {
-    url: 'http://localhost:8000/admin',
-    method: 'POST',
-    data: action.payload
-  }
-  try {
-   const admin = await useFetch(payload)
-   console.log("200:", admin)
-   return {...state, admin}
-  } catch (error) {
-   return {...state}
-  }
-};
+const setUser = (state, user) => ({user, loggedIn: true});
 
 
 export const adminActions = {
-  login,
+  setUser,
 }

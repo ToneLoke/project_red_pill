@@ -1,4 +1,4 @@
-import ErrorTracker from '../../utils';
+import {default as ErrorTracker} from '../../src/utils/AppError';
 /**
  * The App controller class where other controller inherits or
  * overrides pre defined and existing properties

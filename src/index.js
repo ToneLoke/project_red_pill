@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { StoreProvider } from "./store/useStore";
+import { Provider } from "./store";
 import theme from './views/common/theme';
 import App from './Router';
 import * as serviceWorker from './serviceWorker';
@@ -13,9 +13,9 @@ function Main() {
     <Fragment>
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
-        <StoreProvider>
+        <Provider>
           <App />
-        </StoreProvider>
+        </Provider>
       </MuiThemeProvider>
     </Fragment>
   );

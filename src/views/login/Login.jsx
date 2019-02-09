@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -6,10 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send'
-import {useStore} from '../../store/useStore'
+import { authenticate } from '../../store/helpers'
 
 const styles = theme => ({
-  root: {},
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -20,24 +19,31 @@ const styles = theme => ({
   extendedIcon: {
     marginLeft: theme.spacing.unit
   },
-  paper: {}
 });
 
-const Main = ({classes}) => {
+const Login = (props) => {
+  const { user, setUser, classes } = props
   //======================= Local state, state = {} =======================
-  const [admin, setAdmin] = useState({email:null, password:null})
-  //======================= connect to app store state =======================
-  const { state, dispatch } = useStore();
-  //======================= events to dispatch based on action in store =======================
-  const login = useCallback(() => dispatch({ type: "login", payload: admin }), [dispatch]);
-  //======================= combine form data =======================
+  const [admin, setAdmin] = useState(user)
+ //======================= combine form data =======================
   const handleChange = (e) => {
     //======================= new way to use this.setState =======================
      setAdmin({ ...admin, [e.target.name]: e.target.value});
   }
-  console.info("Main Store STATE:", state)
+  const handleSubmit = async (e) => {
+  //======================= events to dispatch based on action in store =======================
+    e.preventDefault();
+    try {
+    const { data } = await authenticate(admin)
+    setUser( data );
+    } catch (error) {
+      console.error("ERROR FETCHING AUTH USER")
+    }
+  }
+  console.info("Login local STATE:", props)
   return (
     <Paper className={classes.control}>
+    <form onSubmit={handleSubmit} />
       <Grid container>
         <Grid item>
           <TextField
@@ -66,7 +72,7 @@ const Main = ({classes}) => {
             color="primary"
             aria-label="Add"
             size="large"
-            onClick={login}
+            onClick={handleSubmit}
             className={classes.margin}>
             Plug In
             <SendIcon className={classes.extendedIcon}/>
@@ -77,8 +83,10 @@ const Main = ({classes}) => {
   );
 }
 
-Main.propTypes = {
-  classes: PropTypes.object.isRequired
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Main);
+export default withStyles(styles)(Login);
