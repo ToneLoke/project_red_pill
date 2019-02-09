@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import {forEach, isEmpty} from 'underscore';
 /**
  * The App Error class
  */
@@ -8,7 +8,7 @@ class AppError extends Error {
 	 * @param {String} code The status code of the error
 	 * @param {Object} messages The optional error messages
 	 */
-	constructor(message, code, messages = null) {
+	constructor({message, code, messages = null}) {
 		super(message);
 		this._code = code;
 		if (messages) {
@@ -49,10 +49,10 @@ class AppError extends Error {
 	 */
 	validationErrorsToArray(error) {
 		let errorsArray = [];
-		if (!_.isEmpty(error)) {
+		if (!isEmpty(error)) {
 			for (let prop in error) {
 				if (error.hasOwnProperty(prop)) {
-					_.forEach(error[prop], (errorMessage) => {
+					forEach(error[prop], (errorMessage) => {
 						errorsArray.push(errorMessage);
 					});
 				}

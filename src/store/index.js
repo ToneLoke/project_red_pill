@@ -1,22 +1,26 @@
 import React, { createContext, useReducer, useContext } from "react";
-import reducer, { initialState } from "./reducers";
+import reducers, { initialState } from "./reducers";
+import { createLogger } from 'redux-logger'
 
-const customMiddleware = store => next => action => {
-  console.log("Action Triggered");
-  console.log(action);
-  next(action);
-};
+const logger = createLogger({
+  diff: true
+});
 
-const Store = createContext(initialState);
+// const customMiddleware = store => next => action => {
+//   console.log("Action Triggered");
+//   logger(action);
+//   next(action);
+// };
+
+const Store = createContext();
 
 const compose = (...funcs) => x =>
   funcs.reduceRight((composed, f) => f(composed), x);
 
-const createStore = (reducer, initialState, middlewares) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const createStore = (reducer, initial, middlewares) => {
+  const [state, dispatch] = useReducer(reducer, initial);
 
   if (typeof middlewares !== "undefined") {
-    // return middlewares(createStore)(reducer, initialState);
     const middlewareAPI = {
       getState: () => state,
       dispatch: action => dispatch(action)
@@ -30,24 +34,14 @@ const createStore = (reducer, initialState, middlewares) => {
 };
 
 const Provider = ({ children }) => {
-  const store = createStore(reducer, initialState, [customMiddleware]);
+  const store = createStore(reducers, initialState, [logger]);
   return <Store.Provider value={store}>{children}</Store.Provider>;
 };
 
-const connect = (
-  mapStateToProps = () => {},
-  mapDispatchToProps = () => {}
-) => WrappedComponent => {
-  return props => {
-    const { dispatch, state } = useContext(Store);
-    return (
-      <WrappedComponent
-        dispatch={dispatch}
-        {...mapStateToProps(state, props)}
-        {...mapDispatchToProps(dispatch)}
-      />
-    );
-  };
-};
 
-export { connect, Store, Provider };
+const useStore = () => {
+  const { state, dispatch } = useContext(Store);
+  return { state, dispatch };
+}
+
+export { Store, Provider, useStore };

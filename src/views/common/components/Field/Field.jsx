@@ -18,7 +18,7 @@ const Field = ({ value, name, bubbleUp, className}) => {
     }
   }, [state])
 
-  const mergeProps = { onChange: handleChange, onBlur: bubbleUp, error, helperText: error, className }
+  const mergeProps = { onChange: handleChange, onBlur: bubbleUp, error: !!error , helperText: error, className }
 
   return (
       <Fragment>

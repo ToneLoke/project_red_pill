@@ -4,9 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import SendIcon from '@material-ui/icons/Send'
-import { authenticate } from '../../store/helpers'
+import SendIcon from '@material-ui/icons/Send';
+import { useStore } from '../../store';
+import { authenticate } from '../../store/helpers';
 import { Field } from '../common/components';
+
 
 const styles = theme => ({
   textField: {
@@ -21,8 +23,9 @@ const styles = theme => ({
   },
 });
 
-const Login = (props) => {
-  const { user, setUser, classes, history } = props
+const Login = ({classes, history}) => {
+  //======================= Connect to store using hooks =======================
+  const { state: { user }, dispatch } = useStore();
   //======================= Local state, state = {} =======================
   const [admin, setAdmin] = useState(user)
   //======================= combine form data =======================
@@ -35,14 +38,13 @@ const Login = (props) => {
     try {
       const { data } = await authenticate(admin)
       //======================= events to dispatch based on action in store =======================
-      setUser(data);
+      dispatch({ type: 'setUser', payload: data });
       history.push('/admin')
     } catch (error) {
-      //TODO: ERROR HANDLING
-      console.error("ERROR FETCHING AUTH USER")
+      dispatch({type: 'throwError', payload: { code: 'A001', message: 'Invalid credentials, you may need to register...', messages: error}})
     }
   }
-  console.info("Login local STATE:", props)
+  console.count("Login.jsx")
   return (
     <Paper className={classes.control}>
       <form onSubmit={handleSubmit} />
@@ -78,8 +80,6 @@ const Login = (props) => {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
-  setUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Login);

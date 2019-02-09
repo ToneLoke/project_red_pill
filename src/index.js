@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Provider } from "./store";
 import theme from './views/common/theme';
+import { Notification } from './views/common/components';
 import App from './Router';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
@@ -14,6 +15,7 @@ function Main() {
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
         <Provider>
+          <Notification />
           <App />
         </Provider>
       </MuiThemeProvider>
