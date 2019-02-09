@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send'
 import { authenticate } from '../../store/helpers'
+import { Field } from '../common/components';
 
 const styles = theme => ({
   textField: {
@@ -48,27 +48,18 @@ const Login = (props) => {
       <form onSubmit={handleSubmit} />
       <Grid container>
         <Grid item>
-          <TextField
-            id="outlined-email-input"
-            label="Email"
+          <Field
+            value={admin["email"]}
             className={classes.textField}
-            onChange={handleChange}
-            type="email"
             name="email"
-            fullWidth
-            autoComplete="email"
-            margin="normal"
-            variant="outlined" />
-          <TextField
-            id="outlined-full-width"
+            bubbleUp={handleChange}
+          />
+          <Field
             className={classes.textField}
-            onChange={handleChange}
-            label="Password"
-            type="password"
             name="password"
-            fullWidth
-            margin="normal"
-            variant="outlined" />
+            value={admin["password"]}
+            bubbleUp={handleChange}
+          />
           <Fab
             variant="extended"
             color="primary"

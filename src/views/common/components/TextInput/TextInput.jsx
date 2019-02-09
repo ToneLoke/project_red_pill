@@ -1,17 +1,32 @@
-import React, {memo} from 'react'
+import React from 'react'
+import TextField from '@material-ui/core/TextField';
 //NOTE: button is disabled unless needed in the future
-const TextInput = (props) => {
-  const { type } = props;
-  return(
-    <div className={`Input-wrapper ${type}`}>
-      <input {...props}></input>
-      {/*<button type="submit"><span>></span></button>*/}
-    </div>
+const email = (props) =>
+  (
+    <TextField
+      id="outlined-email-input"
+      label="Email"
+      type="email"
+      name="email"
+      fullWidth
+      autoComplete="email"
+      margin="normal"
+      variant="outlined"
+      {...props}
+    />
   )
-}
+const password = (props) =>
+  (
+    <TextField
+      id="outlined-email-input"
+      label="Password"
+      type="password"
+      name="password"
+      fullWidth
+      margin="normal"
+      variant="outlined"
+      {...props}
+    />
+  )
 
-const arePropsEqual = (prevProps, nextProps) => {
-  return prevProps.value === nextProps.value
-}
-
-export default memo(TextInput, arePropsEqual)
+  export default { email, password }
