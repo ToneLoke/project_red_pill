@@ -1,8 +1,10 @@
 
 import React from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import {ControlBar} from '../common/components'
 
 const styles = theme => ({
   root: {
@@ -11,20 +13,16 @@ const styles = theme => ({
   },
 });
 
-const Layout = ({classes, header, content, footer}) => {
+const Layout = (props) => {
+  const { classes, routes } = props;
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={24} alignItems="stretch" direction="column" >
+      <Grid container spacing={16} alignItems="stretch" direction="column" >
         <Grid item xs={12}>
-          { header() }
+          { routes.map((route, i) => <Route key={route.key} path={route.path} routes={route.routes}/>) }
         </Grid>
-        <Grid item xs={12}>
-          { content() }
-        </Grid>
-        <Grid item xs={12}>
-          { footer() }
-        </Grid>
+        <ControlBar {...props} />
       </Grid>
     </div>
   );

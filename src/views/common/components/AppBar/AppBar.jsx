@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import HomeIcon from '@material-ui/icons/Home';
 import Fab from '@material-ui/core/Fab';
-import MenuIcon from '@material-ui/icons/Menu';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import controls from '../../controls';
+
 
 const styles = theme => ({
   text: {
@@ -26,12 +23,20 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   appBar: {
+    position: 'fixed',
+    display: 'flex',
     top: 'auto',
-    bottom: 0
+    bottom: 45,
+    backgroundColor: 'transparent',
+    width: '100%'
   },
   toolbar: {
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+    position: 'relative',
+    width: '100%'
   },
   fabButton: {
     position: 'absolute',
@@ -39,35 +44,27 @@ const styles = theme => ({
     top: -30,
     left: 0,
     right: 0,
-    margin: '0 auto'
   }
 });
 
-const BottomAppBar = ({classes}) => {
+const BottomAppBar = ({ classes, match }) => {
+  const actions = Object.keys(controls).indexOf(match.path) >= 0 ? controls[match.url] : [];
+  console.log("===CONTROLS BAR===",actions, match)
   return (
-    <AppBar position="fixed" color="primary" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton color="inherit" aria-label="Open drawer">
-          <MenuIcon/>
-        </IconButton>
-        <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-          <AddIcon/>
+    <div position="fixed" className={classes.appBar}>
+      <div className={classes.toolbar}>
+        <Fab color="primary" arial-label="Home" className={classes.fabButton} component={Link} to="/">
+          <HomeIcon />
         </Fab>
-        <div>
-          <IconButton color="inherit">
-            <SearchIcon/>
-          </IconButton>
-          <IconButton color="inherit">
-            <MoreIcon/>
-          </IconButton>
-        </div>
-      </Toolbar>
-    </AppBar>
+        { !!actions.length && actions.map( (c,i) => <Fab key={c.url} component={ c.component || null} className={classes[c.class]} color="secondary" to={`${match.url}${c.url}`} ><c.icon/></Fab>) }
+      </div>
+    </div>
   );
 }
 
 BottomAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(BottomAppBar);

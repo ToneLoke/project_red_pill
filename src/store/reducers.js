@@ -14,6 +14,7 @@ const Actions = {
   ...errorActions
 };
 
+export const ACTION_CREATORS = Object.keys(Actions);
 // the reducer is called whenever a dispatch action is made.
 // the action.type is a string which maps to a function in Actions.
 // We apply the update to existing state, and return a new copy of state.

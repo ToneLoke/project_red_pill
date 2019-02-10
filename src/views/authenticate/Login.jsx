@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import SendIcon from '@material-ui/icons/Send';
 import { useStore } from '../../store';
 import { authenticate } from '../../store/helpers';
 import { Field } from '../common/components';
@@ -15,12 +12,10 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
-  margin: {
-    margin: theme.spacing.unit
-  },
-  extendedIcon: {
-    marginLeft: theme.spacing.unit
-  },
+  control: {
+    margin: '0 auto',
+    width: '80%'
+  }
 });
 
 const Login = ({classes, history}) => {
@@ -48,8 +43,6 @@ const Login = ({classes, history}) => {
   return (
     <Paper className={classes.control}>
       <form onSubmit={handleSubmit} />
-      <Grid container>
-        <Grid item>
           <Field
             value={admin["email"]}
             className={classes.textField}
@@ -62,18 +55,6 @@ const Login = ({classes, history}) => {
             value={admin["password"]}
             bubbleUp={handleChange}
           />
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="Add"
-            size="large"
-            onClick={handleSubmit}
-            className={classes.margin}>
-            Plug In
-            <SendIcon className={classes.extendedIcon} />
-          </Fab>
-        </Grid>
-      </Grid>
     </Paper>
   );
 }

@@ -1,2 +1,6 @@
-export { default as Login } from './login'
-export { default as Admin } from './admin'
+export { default as Authenticate } from './authenticate'
+export { default as Panel } from './panel'
+export { default as Layout } from './layout'
+export { default as Setup } from './setup'
+export { default as Preview } from './preview'
+export { default as Home } from './home'

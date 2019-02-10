@@ -1,19 +1,16 @@
-import React, {Component} from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Login, Admin} from "./views";
+import React, {Fragment} from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import ROUTES from './views/common/routes';
+console.log("ROUTES:", ROUTES)
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Login}/>
-          <Route path="/admin" component={Admin} />
-        </Switch>
-      </BrowserRouter>
+const RouteConfig = () => (
+  <Fragment>
+    <Router>
+    <div>
+      {ROUTES.map((route, i) => <Route key={route.key} path={route.path} render={props => <route.component {...props} routes={route.routes}/>} />)}
+    </div>
+    </Router>
+  </Fragment>
+);
 
-    );
-  }
-}
-
-export default App;
+export default RouteConfig;
