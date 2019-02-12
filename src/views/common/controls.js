@@ -12,36 +12,48 @@ import PlaylistPlay from "@material-ui/icons/PlaylistPlay";
 import RestoreIcon from "@material-ui/icons/Restore";
 import SettingsInput from "@material-ui/icons/SettingsInputHdmi";
 import ViewList from "@material-ui/icons/ViewList";
+import SendIcon from "@material-ui/icons/Send";
 
 export default {
   "/": [
     {
       component: Link,
+      type: "link",
       icon: SettingsInput,
-      url: "/authenticate?type=login"
+      url: "authenticate",
+      key: "authenticate/login",
+      query: "?type=login"
     },
     {
       component: Link,
-      icon: SettingsInput,
-      url: "/authenticate?type=signin"
+      type: "link",
+      icon: PlaylistAdd,
+      url: "authenticate",
+      key: "authenticate/register",
+      query: "?type=register"
     },
   ],
   "/authenticate": [
     {
       type: "submit",
+      component: "button",
+      icon: SendIcon,
       action: "AUTHENTICATE",
+      key: "auth-btn",
       url: "/api/auth"
     }
   ],
   "/games": [
       {
         component: Link,
+        type: "link",
         url: "/new",
         icon: AddIcon
       },
       {
         component: Link,
-        url: "/:new",
+        type: "link",
+        url: "/:id",
         action: "FETCH_GAME_INFO",
         icon:RestoreIcon
       }

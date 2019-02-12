@@ -8,18 +8,11 @@ export default [
     path: "/",
     key: "/",
     component: Layout,
+    home: Home,
     routes: [
-      {
-        path: "/",
-        key: "/home",
-        exact: true,
-        component: Home,
-        routes: []
-      },
       {
         path: "/authenticate",
         key: "/authenticate",
-        exact: false,
         component: Authenticate,
         routes: []
       },

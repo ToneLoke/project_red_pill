@@ -13,16 +13,16 @@ const styles = theme => ({
   },
 });
 
-const Layout = (props) => {
-  const { classes, routes } = props;
-
+const Layout = ({classes, routes, match, history}) => {
+  console.log("LAYOUT.jsx", match, history)
+  const renderRoutes = () => ( routes.map((route) => <Route {...route}/>))
   return (
     <div className={classes.root}>
       <Grid container spacing={16} alignItems="stretch" direction="column" >
         <Grid item xs={12}>
-          { routes.map((route, i) => <Route key={route.key} path={route.path} routes={route.routes}/>) }
+          { renderRoutes() }
         </Grid>
-        <ControlBar {...props} />
+        <ControlBar match={match} history={history} />
       </Grid>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import useReactRouter from 'use-react-router';
 import { withStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import Fab from '@material-ui/core/Fab';
@@ -33,30 +34,56 @@ const styles = theme => ({
   toolbar: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: 'transparent',
     position: 'relative',
     width: '100%'
   },
-  fabButton: {
-    position: 'absolute',
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-  }
 });
 
-const BottomAppBar = ({ classes, match }) => {
-  const actions = Object.keys(controls).indexOf(match.path) >= 0 ? controls[match.url] : [];
-  console.log("===CONTROLS BAR===",actions, match)
+const BottomAppBar = ({ classes, history }) => {
+  //======================= Find the controls to display based off the current url =======================
+  console.log("===CONTROLS BAR===", history)
+  const actions = controls[history.location.pathname] || null;
+  const makeControls = (c) => {
+    if(c.type === "link"){
+    return(
+      <div className={classes.btn}>
+        <Fab
+          key={c.key}
+          component={c.component}
+          className={classes["link"]}
+          color="primary"
+          to={`${history.location.pathname}${c.url}`} >
+          <c.icon />
+        </Fab>
+      </div>
+    )
+    }else{
+      return(
+        <div className={classes.btn}>
+        <Fab
+          key={c.key}
+          component={c.component}
+          className={classes["button"]}
+          color="primary"
+         >
+          <c.icon />
+        </Fab>
+      </div>
+      )
+    }
+  }
+
   return (
     <div position="fixed" className={classes.appBar}>
       <div className={classes.toolbar}>
-        <Fab color="primary" arial-label="Home" className={classes.fabButton} component={Link} to="/">
-          <HomeIcon />
-        </Fab>
-        { !!actions.length && actions.map( (c,i) => <Fab key={c.url} component={ c.component || null} className={classes[c.class]} color="secondary" to={`${match.url}${c.url}`} ><c.icon/></Fab>) }
+        <div className={classes.btn} >
+          <Fab color="primary" arial-label="Home" component={Link} to="/">
+            <HomeIcon />
+          </Fab>
+        </div>
+        { actions && actions.map(makeControls) }
       </div>
     </div>
   );

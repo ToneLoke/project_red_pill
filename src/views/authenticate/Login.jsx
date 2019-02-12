@@ -19,6 +19,7 @@ const styles = theme => ({
 });
 
 const Login = ({classes, history}) => {
+  console.log("LOGIN RENDER:")
   //======================= Connect to store using hooks =======================
   const { state: { user }, dispatch } = useStore();
   //======================= Local state, state = {} =======================
