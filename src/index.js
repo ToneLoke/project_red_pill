@@ -15,8 +15,9 @@ function Main() {
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
         <Provider>
-          <Notification />
-          <App />
+          <App>
+            <Notification />
+          </App>
         </Provider>
       </MuiThemeProvider>
     </Fragment>

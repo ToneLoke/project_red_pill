@@ -38,7 +38,7 @@ export default {
       type: "submit",
       component: "button",
       icon: SendIcon,
-      action: "AUTHENTICATE",
+      action: "USER_AUTHENTICATE",
       key: "auth-btn",
       url: "/api/auth"
     }

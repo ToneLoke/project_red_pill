@@ -1,61 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { useStore } from '../../store';
-import { authenticate } from '../../store/helpers';
 import { Field } from '../common/components';
 
 
 const styles = theme => ({
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    width: '90%',
   },
-  control: {
+  form: {
     margin: '0 auto',
-    width: '80%'
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
-const Login = ({classes, history}) => {
-  console.log("LOGIN RENDER:")
+const Login = ({ classes, history }) => {
   //======================= Connect to store using hooks =======================
-  const { state: { user }, dispatch } = useStore();
-  //======================= Local state, state = {} =======================
-  const [admin, setAdmin] = useState(user)
+  const { state: { user, loggedIn }, dispatch } = useStore();
+  console.log("LOGIN.jsx:", user, loggedIn)
+  useEffect(()=>{
+    console.log("USE EFFECT")
+    if(loggedIn){
+      history.push('/games')
+    }
+
+  }, [loggedIn])
   //======================= combine form data =======================
   const handleChange = (e) => {
-    //======================= new way to use this.setState =======================
-    setAdmin({ ...admin, [e.target.name]: e.target.value });
+    //======================= events to dispatch based on action in store =======================
+    dispatch({ type: 'USER_SET', payload: { ...user, [e.target.name]: e.target.value } });
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await authenticate(admin)
-      //======================= events to dispatch based on action in store =======================
-      dispatch({ type: 'setUser', payload: data });
-      history.push('/admin')
-    } catch (error) {
-      dispatch({type: 'throwError', payload: { code: 'A001', message: 'Invalid credentials, you may need to register...', messages: error}})
-    }
-  }
-  console.count("Login.jsx")
   return (
-    <Paper className={classes.control}>
-      <form onSubmit={handleSubmit} />
-          <Field
-            value={admin["email"]}
-            className={classes.textField}
-            name="email"
-            bubbleUp={handleChange}
-          />
-          <Field
-            className={classes.textField}
-            name="password"
-            value={admin["password"]}
-            bubbleUp={handleChange}
-          />
+    <Paper className={classes.form}>
+      <Field
+        value={user["email"]}
+        className={classes.textField}
+        name="email"
+        bubbleUp={handleChange}
+      />
+      <Field
+        name="password"
+        className={classes.textField}
+        value={user["password"]}
+        bubbleUp={handleChange}
+      />
     </Paper>
   );
 }

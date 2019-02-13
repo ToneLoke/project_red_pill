@@ -18,7 +18,7 @@ const email = (props) =>
 const password = (props) =>
   (
     <TextField
-      id="outlined-email-input"
+      id="outlined-password-input"
       label="Password"
       type="password"
       name="password"

@@ -11,6 +11,14 @@ const Field = ({ value, name, bubbleUp, className}) => {
     setState(e.target.value);
   }
 
+  const handleBlur = e => {
+    if(error){
+      console.log(`Error from field:`, e.target.name)
+    }else{
+      bubbleUp(e)
+    }
+  }
+
   useEffect(() => {
     const validError = validate({ [name]: state}, constraints)
     if (validError) {
@@ -18,7 +26,7 @@ const Field = ({ value, name, bubbleUp, className}) => {
     }
   }, [state])
 
-  const mergeProps = { onChange: handleChange, onBlur: bubbleUp, error: !!error , helperText: error, className }
+  const mergeProps = { onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, className }
 
   return (
       <Fragment>

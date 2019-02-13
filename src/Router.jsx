@@ -1,19 +1,17 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { createBrowserHistory } from 'history'
 import ROUTES from './views/common/routes';
-const history = createBrowserHistory();
-console.log("ROUTES:", ROUTES)
 
-const RouteConfig = () => (
+const RouteConfig = ({children}) => (
   <Fragment>
-    <Router history={history}>
+    <Router>
       <Switch>
         {ROUTES.map((route, i) => (<Route key={route.key} path={route.path} render={(props) => (
-          <Fragment>
+          <div style={{}}>
             <Route key="/home" path="/" exact component={route.home} />
             <route.component {...props} routes={route.routes} />
-          </Fragment>
+            {children}
+          </div>
         )} />
         ))}
       </Switch>

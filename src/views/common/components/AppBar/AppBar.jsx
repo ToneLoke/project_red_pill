@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
 import { withStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import Fab from '@material-ui/core/Fab';
+import { useStore } from '../../../../store';
 import controls from '../../controls';
 
 
@@ -42,15 +42,16 @@ const styles = theme => ({
 });
 
 const BottomAppBar = ({ classes, history }) => {
+  console.count("AppBar.jsx")
+  const { state: {user}, dispatch } = useStore();
   //======================= Find the controls to display based off the current url =======================
-  console.log("===CONTROLS BAR===", history)
   const actions = controls[history.location.pathname] || null;
   const makeControls = (c) => {
     if(c.type === "link"){
     return(
-      <div className={classes.btn}>
+      <div key={c.key} className={classes.btn}>
         <Fab
-          key={c.key}
+          key={`link-${c.key}`}
           component={c.component}
           className={classes["link"]}
           color="primary"
@@ -61,12 +62,13 @@ const BottomAppBar = ({ classes, history }) => {
     )
     }else{
       return(
-        <div className={classes.btn}>
+        <div key={c.key} className={classes.btn}>
         <Fab
-          key={c.key}
+          key={`btn-${c.key}`}
           component={c.component}
           className={classes["button"]}
           color="primary"
+          onClick={()=> dispatch({type: c.action, payload: user})}
          >
           <c.icon />
         </Fab>
@@ -91,7 +93,6 @@ const BottomAppBar = ({ classes, history }) => {
 
 BottomAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(BottomAppBar);

@@ -8,21 +8,19 @@ import {ControlBar} from '../common/components'
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    height: '100vh',
+    height: '100%',
+    width: '100%',
   },
 });
 
-const Layout = ({classes, routes, match, history}) => {
-  console.log("LAYOUT.jsx", match, history)
+const Layout = ({classes, routes, history}) => {
+  console.log("LAYOUT.jsx", history.location.pathname)
   const renderRoutes = () => ( routes.map((route) => <Route {...route}/>))
   return (
     <div className={classes.root}>
-      <Grid container spacing={16} alignItems="stretch" direction="column" >
-        <Grid item xs={12}>
+      <Grid container alignItems="stretch" direction="column" >
           { renderRoutes() }
-        </Grid>
-        <ControlBar match={match} history={history} />
+        <ControlBar history={history} />
       </Grid>
     </div>
   );

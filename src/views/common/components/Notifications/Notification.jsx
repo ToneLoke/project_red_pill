@@ -41,11 +41,11 @@ const styles = theme => ({
 
 const Notification = ({classes}) => {
   const { state, dispatch } = useStore();
-  const handleClose = () => dispatch({type: 'clearError'})
+  console.log("NOTIFICATION:", state.error);
+  const handleClose = () => dispatch({type: 'ERROR_CLEAR'})
   return (
     <Snackbar
       open={!!state.error}
-      onClose={handleClose}
       ContentProps={{
         'aria-describedby': 'snackbar-fab-message-id',
         className: classes.snackbarContent,

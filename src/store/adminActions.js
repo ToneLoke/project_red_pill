@@ -1,9 +1,29 @@
+import axios from 'axios'
 export const adminInitialState = {
   user: {email:null, password:null},
+  loggedIn: false
 };
+const AUTH_API = 'http://localhost:8000/admin';
 
-const setUser = (state, {payload: {user}}) => ({user});
+//======================= ACTION CONSTANTS =======================
+export const USER_AUTHENTICATE = 'USER_AUTHENTICATE'
+export const USER_SET = 'USER_SET'
 
-export const adminActions = {
-  setUser,
+export const setUser = ({payload}) => ({user: payload});
+
+export const authenticate = async (body) => {
+   console.log("AUTH API CALL", body)
+    return await axios.post(AUTH_API, body).then( ({data}) => data)
+    //TODO: set local storage for token
+}
+
+export const ADMIN_REDUCER = (state, action) => {
+  switch (action.type) {
+    case USER_SET:
+      return setUser(action);
+    case USER_AUTHENTICATE:
+      return {...action.payload};
+    default:
+      return state;
+  }
 }
