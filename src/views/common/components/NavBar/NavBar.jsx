@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import HomeIcon from '@material-ui/icons/Home';
 import Fab from '@material-ui/core/Fab';
-import { useStore } from '../../../../store';
 import controls from '../../controls';
 
 
@@ -29,7 +26,8 @@ const styles = theme => ({
     top: 'auto',
     bottom: 45,
     backgroundColor: 'transparent',
-    width: '100%'
+    width: '100%',
+    zIndex: 100
   },
   toolbar: {
     display: 'flex',
@@ -43,53 +41,28 @@ const styles = theme => ({
 
 const BottomAppBar = ({ classes, history }) => {
   console.count("AppBar.jsx")
-  const { state: {user}, dispatch } = useStore();
   //======================= Find the controls to display based off the current url =======================
-  const actions = controls[history.location.pathname] || null;
-  const makeControls = (c) => {
-    if(c.type === "link"){
-    return(
+  const actions = controls.nav[history.location.pathname] || null;
+  const makeNavLinks = (c) => {
+    return (
       <div key={c.key} className={classes.btn}>
-        <Fab
-          key={`link-${c.key}`}
-          component={c.component}
-          className={classes["link"]}
-          color="primary"
-          to={`${history.location.pathname}${c.url}`} >
+        <Fab {...c} to={c.to} className={classes["link"]} >
           <c.icon />
+          { c.text }
         </Fab>
       </div>
     )
-    }else{
-      return(
-        <div key={c.key} className={classes.btn}>
-        <Fab
-          key={`btn-${c.key}`}
-          component={c.component}
-          className={classes["button"]}
-          color="primary"
-          onClick={()=> dispatch({type: c.action, payload: user})}
-         >
-          <c.icon />
-        </Fab>
-      </div>
-      )
-    }
   }
 
   return (
     <div position="fixed" className={classes.appBar}>
       <div className={classes.toolbar}>
-        <div className={classes.btn} >
-          <Fab color="primary" arial-label="Home" component={Link} to="/">
-            <HomeIcon />
-          </Fab>
-        </div>
-        { actions && actions.map(makeControls) }
+        {actions && actions.map(makeNavLinks)}
       </div>
     </div>
   );
 }
+
 
 BottomAppBar.propTypes = {
   classes: PropTypes.object.isRequired,

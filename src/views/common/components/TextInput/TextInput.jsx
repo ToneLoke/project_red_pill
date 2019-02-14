@@ -29,4 +29,25 @@ const password = (props) =>
     />
   )
 
-  export default { email, password }
+const plain = (props) =>
+  (
+    <TextField
+      id="outlined-text-input"
+      type="text"
+      fullWidth
+      margin="normal"
+      variant="outlined"
+      {...props}
+    />
+  )
+
+  export default (key) => {
+    switch (key) {
+      case 'email':
+        return email
+      case 'password':
+        return password
+      default:
+        return plain
+    }
+  }

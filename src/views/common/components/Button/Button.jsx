@@ -1,6 +1,9 @@
 import React from 'react'
-export default ({children}) => (
+import Fab from '@material-ui/core/Fab';
+export default (props) => (
   <div className="btn">
-    { children }
+    <Fab {...props}>
+      { props.children }
+    </Fab>
   </div>
 )

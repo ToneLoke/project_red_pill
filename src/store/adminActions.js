@@ -1,5 +1,5 @@
 import axios from 'axios'
-export const adminInitialState = {
+export const adminInitial = {
   user: {email:null, password:null},
   loggedIn: false
 };

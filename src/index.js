@@ -5,7 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Provider } from "./store";
 import theme from './views/common/theme';
 import { Notification } from './views/common/components';
-import App from './Router';
+import App from './AppRouter';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
 

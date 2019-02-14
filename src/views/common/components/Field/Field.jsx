@@ -30,7 +30,7 @@ const Field = ({ value, name, bubbleUp, className}) => {
 
   return (
       <Fragment>
-          { inputs[name]({...mergeProps}) }
+          { inputs(name)({...mergeProps}) }
       </Fragment>
   )
 }

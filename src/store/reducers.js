@@ -1,9 +1,11 @@
 
-import { adminInitialState, ADMIN_REDUCER } from "./adminActions";
+import { adminInitial, ADMIN_REDUCER } from "./adminActions";
 import { initialError, ERROR_REDUCER } from "./errorActions";
+import { gameInitial, GAME_REDUCER } from "./gameActions";
 // we'll leave this empty for now
 export const initialState = {
-  ...adminInitialState,
+  ...adminInitial,
+  ...gameInitial,
   ...initialError
 }
 
@@ -11,6 +13,7 @@ export const initialState = {
 const Actions = {
   "ERROR": ERROR_REDUCER,
   "USER": ADMIN_REDUCER,
+  "GAME": GAME_REDUCER
 };
 
 export const ACTION_CREATORS = Object.keys(Actions);

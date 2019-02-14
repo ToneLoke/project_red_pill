@@ -44,20 +44,20 @@ const styles = theme => ({
 const sessions = [
   {
     id: 1,
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    primary: 'Vehicle Sales',
+    secondary: "1000 total points",
     person: '/static/images/avatar/5.jpg',
   },
   {
     id: 2,
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    primary: 'Vehicle Anatomony',
+    secondary: "2500 total points",
     person: '/static/images/avatar/5.jpg',
   },
   {
     id: 3,
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    primary: 'Dealership Policy',
+    secondary: "500 total points",
     person: '/static/images/avatar/5.jpg',
   },
 ];

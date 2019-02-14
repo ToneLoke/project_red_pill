@@ -1,6 +1,5 @@
 //======================= Components =======================
 import { Link } from "react-router-dom";
-import { Btn } from "./components";
 //======================= All Icons Needed =======================
 import AddIcon from "@material-ui/icons/Add";
 import BackIcon from "@material-ui/icons/ArrowBack";
@@ -15,69 +14,95 @@ import ViewList from "@material-ui/icons/ViewList";
 import SendIcon from "@material-ui/icons/Send";
 
 export default {
-  "/": [
-    {
-      component: Link,
-      type: "link",
-      icon: SettingsInput,
-      url: "authenticate",
-      key: "authenticate/login",
-      query: "?type=login"
-    },
-    {
-      component: Link,
-      type: "link",
-      icon: PlaylistAdd,
-      url: "authenticate",
-      key: "authenticate/register",
-      query: "?type=register"
-    },
-  ],
-  "/authenticate": [
-    {
-      type: "submit",
-      component: "button",
-      icon: SendIcon,
-      action: "USER_AUTHENTICATE",
-      key: "auth-btn",
-      url: "/api/auth"
-    }
-  ],
-  "/games": [
+  "nav": {
+    "/authenticate": [
       {
         component: Link,
-        type: "link",
-        url: "/new",
-        icon: AddIcon
+        variant: "extended",
+        icon: SettingsInput,
+        color: "primary",
+        key: "login-btn",
+        // text: "Login",
+        to: "/authenticate?type=login"
       },
       {
         component: Link,
-        type: "link",
-        url: "/:id",
-        action: "FETCH_GAME_INFO",
-        icon:RestoreIcon
-      }
-   ],
-  "/games/new": {
-    controls: [
-      {
-        component: Link,
-        step: "1",
-        url: "?step=2",
-        icon: NextIcon
+        variant: "extended",
+        icon: PlaylistAdd,
+        color: "primary",
+        key: "register-btn",
+        // text: "Register",
+        to: "/authenticate?type=register"
       },
-      {
-        component: Link,
-        step: "2",
-        url: "?step=1",
-        icon: BackIcon
-      },
-      {
-        component: Link,
-        step: "3",
-        url: "?step=2",
-        icon: BackIcon
-      }
     ]
+  },
+  "actions": {
+    "/authenticate?type=login": [
+      {
+        "styles": {
+          component: "button",
+          variant: "extended",
+          color: "secondary",
+        },
+        text: "login",
+        icon: SendIcon,
+        key: "auth-btn-login",
+        action: "USER_AUTHENTICATE",
+      }
+    ],
+    "/authenticate?type=register": [
+      {
+        "styles": {
+          component: "button",
+          variant: "extended",
+          color: "secondary",
+        },
+        key: "auth-btn-register",
+        icon: SendIcon,
+        text: "register",
+        action: "USER_REGISTER",
+      }
+    ],
   }
-}
+};
+
+
+
+//   "/games": [
+//       {
+//         component: Link,
+//         type: "link",
+//         url: "/new",
+//         icon: AddIcon
+//       },
+//       {
+//         component: Link,
+//         type: "link",
+//         url: "/:id",
+//         action: "FETCH_GAME_INFO",
+//         icon: RestoreIcon
+//       }
+//    ],
+//   "/games/new": {
+//     controls: [
+//       {
+//         component: Link,
+//         step: "1",
+//         url: "?step=2",
+//         icon: NextIcon
+//       },
+//       {
+//         component: Link,
+//         step: "2",
+//         url: "?step=1",
+//         icon: BackIcon
+//       },
+//       {
+//         component: Link,
+//         step: "3",
+//         url: "?step=2",
+//         icon: BackIcon
+//       }
+//     ]
+//   }
+// }
