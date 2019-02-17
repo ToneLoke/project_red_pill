@@ -20,12 +20,14 @@ export default [
   {
     path: "/games/new",
     key: "/games/new",
+    exact: true,
     component: Setup,
     routes: []
   },
   {
-    path: "/games/:id",
-    key: "/games/:id",
+    path: "/games/preview/:id",
+    key: "/games/preview/:id",
+    exact: true,
     component: Preview,
     routes: []
   }

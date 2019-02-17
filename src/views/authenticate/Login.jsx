@@ -23,6 +23,7 @@ const styles = theme => ({
     marginBottom: '18%',
     height: '50%',
     display: 'flex',
+    flexGrow: 1,
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-evenly',

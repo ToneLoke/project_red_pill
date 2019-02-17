@@ -11,7 +11,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     height: '100vh',
-    flexDirection: 'column-reverse',
+    flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: 'rgba(93,60,173,1)'
   },

@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
-import { Empty } from '../common/components';
+import { Empty, AdminBar } from '../common/components';
 import { useStore } from '../../store';
 import controls from '../common/controls';
 
@@ -12,12 +13,12 @@ import controls from '../common/controls';
 const styles = theme => ({
   container: {
     width: '100%',
-    height: '90vh',
     marginBottom: '18%',
+    flexGrow: 1,
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center'
   },
   btnWrapper: {
     width: '90%',
@@ -44,10 +45,18 @@ const Games = ({ classes, history }) => {
   }
   return (
     <Fragment>
-      {
-        games.length === 0 ?
-        (
-          <Paper className={classes.container}><div>You have no saved games. Please press '+' below.</div></Paper>
+    <AdminBar title="Previous Sessions" />
+    {
+      games.length === 0 ?
+      (
+        <Paper className={classes.container}>
+          <Typography variant="h6" color="inherit" >
+            You have no saved games.
+          </Typography>
+          <Typography variant="h6" color="inherit" >
+            Please press '+' below.
+          </Typography>
+        </Paper>
         )
         :(
           <Paper className={classes.container}>
