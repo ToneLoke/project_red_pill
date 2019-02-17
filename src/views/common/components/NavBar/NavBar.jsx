@@ -17,6 +17,9 @@ const styles = theme => ({
   list: {
     marginBottom: theme.spacing.unit * 2
   },
+  link: {
+    backgroundColor: 'rgba(103,58,183,1)'
+  },
   subHeader: {
     backgroundColor: theme.palette.background.paper
   },

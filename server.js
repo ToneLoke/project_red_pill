@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from './config';
-import apiRoutes from './api_service/routes/adminRoutes';
+import apiRoutes from './api_service/routes/';
 
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000

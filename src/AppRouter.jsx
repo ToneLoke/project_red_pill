@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import { useStore } from './store';
 import Layout from './views/layout';
 
-const RouteConfig = ({ children }) => {
+const RouteConfig = () => {
   const { state: { loggedIn } } = useStore()
   return (
     <Fragment>
@@ -13,7 +13,7 @@ const RouteConfig = ({ children }) => {
             loggedIn ? (
               <Redirect to="/games" />
             ) : (
-              <Redirect to="/authenticate" />
+              <Redirect to='/authenticate?type=register' />
             )
           )}/>
           <Layout />

@@ -41,16 +41,16 @@ const styles = theme => ({
 
 const Notification = ({classes}) => {
   const { state, dispatch } = useStore();
-  console.log("NOTIFICATION:", state.error);
-  const handleClose = () => dispatch({type: 'ERROR_CLEAR'})
+  console.log("NOTIFICATION:", state.alert);
+  const handleClose = () => dispatch({type: 'ALERT_CLEAR'})
   return (
     <Snackbar
-      open={!!state.error}
+      open={!!state.alert}
       ContentProps={{
         'aria-describedby': 'snackbar-fab-message-id',
         className: classes.snackbarContent,
       }}
-      message={<span id="snackbar-fab-message-id">{`${state.error && state.error.message}`}</span>}
+      message={<span id="snackbar-fab-message-id">{`${state.alert && state.alert.message}`}</span>}
       action={
         <Button color="inherit" size="small" onClick={handleClose}>
           Undo

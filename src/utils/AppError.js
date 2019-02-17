@@ -4,9 +4,7 @@ import {forEach, isEmpty} from 'underscore';
  */
 class AppError extends Error {
 	/**
-	 * @param {String} message The error message
-	 * @param {String} code The status code of the error
-	 * @param {Object} messages The optional error messages
+	 * @param {Object} info The optional error messages
 	 */
 	constructor({message, code, messages = null}) {
 		super(message);

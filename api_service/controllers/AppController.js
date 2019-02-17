@@ -17,37 +17,46 @@ class AppController {
 				this.create = this
 						.create
 						.bind(this);
+				this.findOne = this
+						.findOne
+						.bind(this);
+				this.findAll = this
+						.findAll
+						.bind(this);
 		}
-		/**
-	 * @param {Object} req The request object
-	 * @param {Object} res The response object
-	 * @param {function} next The callback to the next program handler
-	 * @return {Object} res The response object
-	 */
-		async create(req, res, next) {
+
+		async create(req, res) {
 				try {
 						let obj = req.body;
 						let object = new this._model(obj);
 						const savedObject = await object.save();
-						return res
-								.status(200)
-								.json(savedObject);
+						return savedObject;
 				} catch (e) {
-						return next(e)
+						res.status(400).send({message: "Cannot Register", code:400, error: e})
 				}
 		}
 
 		async findOne(req) {
 				try {
-						let email = req.body.email;
-						let admin = await this
+						const email = req.body.email;
+						console.log("findOne", email)
+						const admin = await this
 								._model
 								.findOne({email})
-						if(!admin) throw new Error("no admin found");
 						return admin;
 				} catch (e) {
-						return new ErrorTracker("Cannot find:", "A001", e)
+						throw new Error("No User found")
 				}
+		}
+
+		async findAll(adminId) {
+			try {
+				const games = await this._model.find({adminId})
+				return games;
+			} catch (e) {
+				return new ErrorTracker("Error in findAll:", "A002", e)
+			}
+
 		}
 }
 

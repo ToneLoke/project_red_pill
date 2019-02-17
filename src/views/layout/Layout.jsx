@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { NavBar } from '../common/components';
+import { NavBar, Notification } from '../common/components';
 import ROUTES from '../common/routes';
 
 const styles = theme => ({
@@ -13,6 +13,7 @@ const styles = theme => ({
     height: '100vh',
     flexDirection: 'column-reverse',
     alignItems: 'center',
+    backgroundColor: 'rgba(93,60,173,1)'
   },
 });
 
@@ -22,6 +23,7 @@ const Layout = ({classes}) => {
       <Grid container alignItems="stretch" direction="column" className={classes.root} >
         { renderRoutes() }
         <Route key="/control-bar" path="/" component={NavBar} />
+        <Notification />
       </Grid>
   );
 }

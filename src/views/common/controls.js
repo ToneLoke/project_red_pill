@@ -18,7 +18,6 @@ export default {
     "/authenticate": [
       {
         component: Link,
-        variant: "extended",
         icon: SettingsInput,
         color: "primary",
         key: "login-btn",
@@ -27,12 +26,21 @@ export default {
       },
       {
         component: Link,
-        variant: "extended",
         icon: PlaylistAdd,
         color: "primary",
         key: "register-btn",
         // text: "Register",
         to: "/authenticate?type=register"
+      },
+    ],
+    "/games": [
+      {
+        component: Link,
+        icon: AddIcon,
+        color: "primary",
+        key: "new-game-btn",
+        // text: "Login",
+        to: "/games/new"
       },
     ]
   },
@@ -42,7 +50,6 @@ export default {
         "styles": {
           component: "button",
           variant: "extended",
-          color: "secondary",
         },
         text: "login",
         icon: SendIcon,
@@ -61,6 +68,19 @@ export default {
         icon: SendIcon,
         text: "register",
         action: "USER_REGISTER",
+      }
+    ],
+    "/games": [
+      {
+        "styles": {
+          component: "button",
+          variant: "extended",
+          color: "secondary",
+        },
+        key: "btn-fetch-game",
+        icon: RestoreIcon,
+        text: "Load",
+        action: "GAME_FETCH",
       }
     ],
   }

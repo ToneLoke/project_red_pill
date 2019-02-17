@@ -2,7 +2,7 @@
   "name": "panel",
   "version": "1.0.0",
   "description": "",
-  "main": "GameSelect.jsx",
+  "main": "Panel.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

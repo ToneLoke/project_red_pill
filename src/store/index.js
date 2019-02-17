@@ -1,6 +1,6 @@
 import React, { useCallback, createContext, useReducer, useContext } from "react";
 import reducers, { initialState } from "./reducers";
-import { authenticate } from "./adminActions";
+import { authenticate, register } from "./adminActions";
 // import { createLogger } from 'redux-logger'
 
 // const logger = createLogger({
@@ -42,28 +42,41 @@ const Store = createContext();
 
 //   return { state, dispatch };
 // };
-
+const setToken = (token) => window.localStorage.setItem('token', token)
 const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
   const customDispatch = useCallback(async (action) => {
     switch (action.type) {
-      case "USER_AUTHENTICATE": {
-        console.log("AUTH SWITCH", state)
+      case "USER_AUTHENTICATE":
         try{
-          const profileData = await authenticate(action.payload)
+          const { data } = await authenticate(action.payload)
+          setToken(data.token)
           dispatcher({
-            type: action.type,
-            payload: { user: profileData, loggedIn: true }
+            type: 'ALERT_SUCCESS',
+            payload: { alert: { message: data.message }, loggedIn: true }
           });
         }catch(e){
           dispatcher({
-            type: "ERROR_THROWN",
-            payload: {message:"cannot login", code: "L001"}
+            type: "ALERT_ERROR",
+            payload: { alert: {message:"invalid credentials", messages: e} }
           })
         }
         break;
-      }
+      case "USER_REGISTER":
+        try{
+          const {data} = await register(action.payload)
+          dispatcher({
+            type: "ALERT_SUCCESS",
+            payload: { alert: {message: data.message}, loggedIn: true }
+          });
+        }catch(e){
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message:"cannot register", messages: e} }
+          })
+        }
+        break;
       default:
         // Not a special case, dispatch the action
        dispatcher(action);

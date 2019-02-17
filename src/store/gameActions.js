@@ -4,6 +4,7 @@ export const gameInitial = {
     title: '',
     questions: [],
   },
+  games: [],
 };
 const GAME_API = 'http://localhost:8000/games';
 
@@ -13,9 +14,12 @@ export const GAME_SET = 'GAME_SET';
 export const setGame = ({payload}) => ({game: payload});
 
 export const createGame = async (body) => {
-   console.log("Post Game API CALL", body)
-    return await axios.post(GAME_API, body).then( ({data}) => data)
-    //TODO: set local storage for token
+    // console.log("Post Game API CALL", body)
+  return await axios.post(GAME_API, body).then( ({data}) => data)
+}
+
+export const fetchGames = async () => {
+  return await axios.get(GAME_API, {headers: { "Authorization": localStorage.getItem('__Token') }})
 }
 
 export const GAME_REDUCER = (state, action) => {

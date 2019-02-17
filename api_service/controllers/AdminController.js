@@ -1,44 +1,60 @@
 import AppController from './AppController';
 import jwt from 'jsonwebtoken';
-import { secret } from '../../config';
-/**
- * The App controller class where other controller inherits or
- * overrides pre defined and existing properties
- */
+import config from '../../config';
+
+
 class AdminController extends AppController {
-  /**
-	 * @param {Model} model The default model object
-	 * for the controller. Will be required to create
-	 * an instance of the controller
-	 */
+
   // eslint-disable-next-line no-useless-constructor
   constructor(model) {
     super(model);
+
+    this.login = this
+        .login
+        .bind(this);
+    this.register = this
+        .register
+        .bind(this);
   }
-  /**
-	 * @param {Object} req The request object
-	 * @param {Object} res The response object
-	 * @param {function} next The callback to the next program handler
-	 * @return {Object} res The response object
-	 */
-  async signIn(req, res, next) {
+
+  makeToken(admin){
+    return jwt.sign({
+      __V: admin._id,
+    }, config.secret)
+  }
+
+  async register(req, res, next) {
+    console.log("REGISTER", req.body)
     try {
+      const admin = await this.create(req, res)
+      console.log(admin)
+      const token = this.makeToken(admin);
+      console.log("token",token)
+      res
+       .status(200)
+       .json({token, message: `thanks for registering ${admin.email}`})
+    } catch (e) {
+      console.error(e);
+      res.status(401).send({message: "Cannot Register", status: 401, error: e});
+    }
+  }
+
+  async login(req, res, next) {
+    try {
+      const { email , password } = req.body;
+      if(!email || !password) throw new Error("missing credentials")
       const admin = await this.findOne(req)
       if (admin.authenticate(req.body.password)) {
-        const {email, games, questions} = admin;
-        const token = jwt.sign({
-          email,
-          games,
-          questions
-        }, secret, {expiresInMinutes: 52000})
+        const token = this.makeToken(admin);
         res
           .status(200)
-          .json({token, message: `Welcome home ${email}`})
+          .json({token, message: `Welcome home ${admin.email}`})
       } else {
         throw new Error("Invalid credentials")
       }
     } catch (e) {
-      next(e)
+      req.error = {message: "cannot login user", status: 500, errors: e}
+      res.status(500).json({message: e, status: 500 })
     }
   }
 }
