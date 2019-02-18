@@ -37,15 +37,15 @@ const Games = ({ classes, history }) => {
     return (
       <div key={a.key} className={classes.wrapper}>
         <Fab {...a.styles} onClick={()=> dispatch({type: 'GAME_NEW'})}>
-          <a.icon />
-          {a.text}
+        {!!a.text && a.text}
+        { a.icon && <a.icon /> }
         </Fab>
       </div>
     )
   }
   return (
     <Fragment>
-    <AdminBar title="Previous Sessions" />
+    <AdminBar title="Sessions" />
     {
       games.length === 0 ?
       (

@@ -18,7 +18,8 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2
   },
   link: {
-    backgroundColor: 'rgba(103,58,183,1)'
+    backgroundColor: 'rgba(103,58,183,1)',
+    marginRight: '28px'
   },
   subHeader: {
     backgroundColor: theme.palette.background.paper
@@ -35,7 +36,7 @@ const styles = theme => ({
   toolbar: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     backgroundColor: 'transparent',
     position: 'relative',
     width: '100%'

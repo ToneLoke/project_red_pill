@@ -8,8 +8,11 @@ import NextIcon from "@material-ui/icons/ArrowForward";
 import PlaylistAdd from "@material-ui/icons/PlaylistAdd";
 import PlaylistAddCheck from "@material-ui/icons/PlaylistAddCheck";
 import PlaylistPlay from "@material-ui/icons/PlaylistPlay";
+import AccountIcon from "@material-ui/icons/Group";
+import AccountAddIcon from "@material-ui/icons/GroupAdd";
+// import PlaylistPlay from "@material-ui/icons/PlaylistPlay";
 import RestoreIcon from "@material-ui/icons/Restore";
-import SettingsInput from "@material-ui/icons/SettingsInputHdmi";
+import Settings from "@material-ui/icons/Settings";
 import ViewList from "@material-ui/icons/ViewList";
 import SendIcon from "@material-ui/icons/Send";
 
@@ -18,7 +21,7 @@ export default {
     "/authenticate": [
       {
         component: Link,
-        icon: SettingsInput,
+        icon: AccountIcon,
         color: "primary",
         key: "login-btn",
         // text: "Login",
@@ -26,7 +29,7 @@ export default {
       },
       {
         component: Link,
-        icon: PlaylistAdd,
+        icon: AccountAddIcon,
         color: "primary",
         key: "register-btn",
         // text: "Register",
@@ -42,6 +45,22 @@ export default {
         // text: "Login",
         to: "/games/new"
       },
+    ],
+    "/games/new": [
+      {
+        component: Link,
+        icon: Settings,
+        color: "primary",
+        key: "settings-btn",
+        to: "/games/new?type=s"
+      },
+      {
+        component: Link,
+        icon: ViewList,
+        color: "primary",
+        key: "questions-btn",
+        to: "/games/new?type=q"
+      },
     ]
   },
   "actions": {
@@ -52,7 +71,6 @@ export default {
           variant: "extended",
         },
         text: "login",
-        icon: SendIcon,
         key: "auth-btn-login",
         action: "USER_AUTHENTICATE",
       }
@@ -65,7 +83,6 @@ export default {
           color: "secondary",
         },
         key: "auth-btn-register",
-        icon: SendIcon,
         text: "register",
         action: "USER_REGISTER",
       }
@@ -83,46 +100,17 @@ export default {
         action: "GAME_FETCH",
       }
     ],
+    "/games/new": [
+      {
+        "styles": {
+          component: "button",
+          variant: "extended",
+          color: "secondary",
+        },
+        key: "btn-save-game",
+        text: "Save",
+        action: "GAME_SAVE",
+      }
+    ],
   }
 };
-
-
-
-//   "/games": [
-//       {
-//         component: Link,
-//         type: "link",
-//         url: "/new",
-//         icon: AddIcon
-//       },
-//       {
-//         component: Link,
-//         type: "link",
-//         url: "/:id",
-//         action: "FETCH_GAME_INFO",
-//         icon: RestoreIcon
-//       }
-//    ],
-//   "/games/new": {
-//     controls: [
-//       {
-//         component: Link,
-//         step: "1",
-//         url: "?step=2",
-//         icon: NextIcon
-//       },
-//       {
-//         component: Link,
-//         step: "2",
-//         url: "?step=1",
-//         icon: BackIcon
-//       },
-//       {
-//         component: Link,
-//         step: "3",
-//         url: "?step=2",
-//         icon: BackIcon
-//       }
-//     ]
-//   }
-// }

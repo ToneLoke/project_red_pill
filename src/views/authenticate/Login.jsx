@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
-import { Field } from '../common/components';
+import { Field, AdminBar } from '../common/components';
 import controls from '../common/controls';
 
 
@@ -38,11 +38,11 @@ const styles = theme => ({
 
 const Login = ({ classes, history }) => {
   //======================= Connect to store using hooks =======================
-  const { state: {user, loggedIn}, dispatch } = useStore();
+  const { state: { user, loggedIn }, dispatch } = useStore();
   console.count("LOGIN.jsx:")
   console.log(history.location);
 
-  if(loggedIn){
+  if (loggedIn) {
     history.push('/games')
   }
   const path = history.location.pathname + history.location.search
@@ -54,35 +54,35 @@ const Login = ({ classes, history }) => {
   const renderActions = (a) => {
     return (
       <div key={a.key} className={classes.btnWrapper}>
-        <Fab {...a.styles} onClick={()=> dispatch({type: a.action, payload: user })} className={classes.btn}>
-          {a.text}
-          <a.icon />
+        <Fab {...a.styles} onClick={() => dispatch({ type: a.action, payload: user })} className={classes.btn}>
+          {!!a.text && a.text}
+          { a.icon && <a.icon /> }
         </Fab>
       </div>
     )
   }
   return (
-    <Paper className={classes.form}>
-      <Field
-        value={user.email}
-        className={classes.textField}
-        name="email"
-        bubbleUp={handleChange}
-      />
-      <Field
-        name="password"
-        className={classes.textField}
-        value={user.password}
-        bubbleUp={handleChange}
-      />
-      { history.location.search.indexOf('register') > -1 &&
-        (<Field
-        name="password"
-        className={classes.textField}
-      />)
-      }
-      {controls.actions[path] && controls.actions[path].map(renderActions)}
-    </Paper>
+      <Paper className={classes.form}>
+        <Field
+          value={user.email}
+          className={classes.textField}
+          name="email"
+          bubbleUp={handleChange}
+        />
+        <Field
+          name="password"
+          className={classes.textField}
+          value={user.password}
+          bubbleUp={handleChange}
+        />
+        {history.location.search.indexOf('register') > -1 &&
+          (<Field
+            name="password"
+            className={classes.textField}
+          />)
+        }
+        {controls.actions[path] && controls.actions[path].map(renderActions)}
+      </Paper>
   );
 }
 
