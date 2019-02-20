@@ -19,6 +19,11 @@ const GameSchema = new mongoose.Schema({
   totalPoints: {
     type: Number
   },
+  status: {
+    type: String,
+    enum: ['live', 'closed', 'draft'],
+    default: 'draft'
+  }
 
 }, {
 	timestamps: true,

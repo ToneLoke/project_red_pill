@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
-import { Empty, AdminBar } from '../common/components';
+import { AdminBar } from '../common/components';
 import { useStore } from '../../store';
 import controls from '../common/controls';
+import { ListItemSecondaryAction, Checkbox, Paper, List, ListItem, ListItemText } from '@material-ui/core';
 
 // import Avatar from '@material-ui/core/Avatar';
 
@@ -31,9 +31,17 @@ const styles = theme => ({
 const Games = ({ classes, history }) => {
   const { state: { games }, dispatch } = useStore();
   const path = history.location.pathname + history.location.search
-  console.log("/GAMES:", path)
+  console.count("Panel.jsx")
+
+  useEffect(()=>{
+    console.log("DID MOUNT", games)
+    if(!games){
+      dispatch({type: "GAME_FETCH_ALL"})
+    }
+  });
 
   const renderActions = (a) => {
+    //TODO: make actions dynamic
     return (
       <div key={a.key} className={classes.wrapper}>
         <Fab {...a.styles} onClick={()=> dispatch({type: 'GAME_NEW'})}>
@@ -43,10 +51,30 @@ const Games = ({ classes, history }) => {
       </div>
     )
   }
+
+  const renderGames = () => {
+    return(
+      <List>
+        {games.map( g => {
+          return(
+            <ListItem key={g._id} button>
+              <ListItemText primary={`${g.title}`} secondary={`${g.status}`} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  onChange={()=>{}}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          )
+        })}
+      </List>
+    )
+  }
   return (
     <Fragment>
     <AdminBar title="Sessions" />
     {
+      !games ? "Loading.." :
       games.length === 0 ?
       (
         <Paper className={classes.container}>
@@ -60,7 +88,7 @@ const Games = ({ classes, history }) => {
         )
         :(
           <Paper className={classes.container}>
-              YOU HAVE NO CREATED GAMES
+             {renderGames()}
           {controls.actions[path] && controls.actions[path].map(renderActions)}
           </Paper>
         )

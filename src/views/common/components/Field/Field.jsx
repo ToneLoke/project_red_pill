@@ -1,9 +1,10 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import validate from 'validate.js'
 import { constraints } from '../../../../utils/validations'
-import inputs from '../TextInput';
+import Input from '../Input';
 
-const Field = ({ value, name, bubbleUp, className}) => {
+const Field = (props) => {
+  const { value, name, bubbleUp } = props;
   const [state, setState] = useState(value);
   const [error, setError] = useState(null);
 
@@ -26,11 +27,11 @@ const Field = ({ value, name, bubbleUp, className}) => {
     }
   }, [state])
 
-  const mergeProps = { onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, className }
+  const mergeProps = { ...props, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, }
 
   return (
       <Fragment>
-          { inputs(name)({...mergeProps}) }
+          <Input {...mergeProps} />
       </Fragment>
   )
 }

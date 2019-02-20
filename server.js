@@ -5,7 +5,9 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from './config';
-import apiRoutes from './api_service/routes/';
+import gameRoutes from './api_service/routes/gameRoutes';
+import adminRoutes from './api_service/routes/adminRoutes';
+import questionRoutes from './api_service/routes/questionRoutes';
 
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000
@@ -26,7 +28,15 @@ app.use(bodyParser.json())
 app.use(cors())
 // =======================================
 // Initialize routes to use
-app.use(apiRoutes)
+app.use(adminRoutes)
+app.use('/games',gameRoutes)
+app.use('/questions',questionRoutes)
+app.use(function (req, res) {
+  //======================= ERROR IN ROUTE =======================
+  console.log("SERVER ERROR:")
+  console.error(req.error)
+  res.status(req.error.status).json(req.error)
+})
 // =======================================
 // SET THE PORT TO RUN
 app.listen(port, function () {

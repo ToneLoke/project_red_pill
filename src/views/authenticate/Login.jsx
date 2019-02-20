@@ -44,6 +44,7 @@ const Login = ({ classes, history }) => {
 
   if (loggedIn) {
     history.push('/games')
+    dispatch({ type: 'GAME_FETCH_ALL'})
   }
   const path = history.location.pathname + history.location.search
   //======================= combine form data =======================
@@ -67,10 +68,14 @@ const Login = ({ classes, history }) => {
           value={user.email}
           className={classes.textField}
           name="email"
+          label="Email"
+          type="email"
           bubbleUp={handleChange}
         />
         <Field
           name="password"
+          label="Password"
+          type="password"
           className={classes.textField}
           value={user.password}
           bubbleUp={handleChange}

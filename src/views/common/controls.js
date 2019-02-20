@@ -52,14 +52,14 @@ export default {
         icon: Settings,
         color: "primary",
         key: "settings-btn",
-        to: "/games/new?type=s"
+        to: "/games/new?type=settings"
       },
       {
         component: Link,
         icon: ViewList,
         color: "primary",
         key: "questions-btn",
-        to: "/games/new?type=q"
+        to: "/games/new?type=questions"
       },
     ]
   },

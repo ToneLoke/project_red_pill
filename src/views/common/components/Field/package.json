@@ -1,11 +1,7 @@
 {
-  "name": "field_wrapper",
+  "name": "text_field",
   "version": "1.0.0",
-  "description": "",
   "main": "Field.jsx",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "BALLERZ",
+  "author": "toneloke",
   "license": "ISC"
 }

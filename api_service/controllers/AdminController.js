@@ -24,37 +24,36 @@ class AdminController extends AppController {
   }
 
   async register(req, res, next) {
-    console.log("REGISTER", req.body)
     try {
-      const admin = await this.create(req, res)
-      console.log(admin)
+      const { email , password } = req.body;
+      if(!email || !password) throw Error("missing credentials")
+      const admin = await this.create({email, password})
       const token = this.makeToken(admin);
-      console.log("token",token)
       res
        .status(200)
        .json({token, message: `thanks for registering ${admin.email}`})
     } catch (e) {
-      console.error(e);
-      res.status(401).send({message: "Cannot Register", status: 401, error: e});
+      req.error = {message: "cannot register user", status: 500, errors: e}
+      next()
     }
   }
 
   async login(req, res, next) {
     try {
       const { email , password } = req.body;
-      if(!email || !password) throw new Error("missing credentials")
-      const admin = await this.findOne(req)
+      if(!email || !password) throw Error("missing credentials")
+      const admin = await this.findOne({email})
       if (admin.authenticate(req.body.password)) {
         const token = this.makeToken(admin);
         res
           .status(200)
           .json({token, message: `Welcome home ${admin.email}`})
       } else {
-        throw new Error("Invalid credentials")
+        throw Error("invalid credentials")
       }
     } catch (e) {
       req.error = {message: "cannot login user", status: 500, errors: e}
-      res.status(500).json({message: e, status: 500 })
+      next()
     }
   }
 }

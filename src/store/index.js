@@ -1,6 +1,7 @@
 import React, { useCallback, createContext, useReducer, useContext } from "react";
 import reducers, { initialState } from "./reducers";
 import { authenticate, register } from "./adminActions";
+import { fetchGames, createOrUpdateGame } from "./gameActions";
 // import { createLogger } from 'redux-logger'
 
 // const logger = createLogger({
@@ -66,6 +67,7 @@ const Provider = (props) => {
       case "USER_REGISTER":
         try{
           const {data} = await register(action.payload)
+          setToken(data.token)
           dispatcher({
             type: "ALERT_SUCCESS",
             payload: { alert: {message: data.message}, loggedIn: true }
@@ -74,6 +76,34 @@ const Provider = (props) => {
           dispatcher({
             type: "ALERT_ERROR",
             payload: { alert: {message:"cannot register", messages: e} }
+          })
+        }
+        break;
+      case "GAME_FETCH_ALL":
+        try{
+          const {data } = await fetchGames()
+          dispatcher({
+            type: action.type,
+            payload: data
+          });
+        }catch(e){
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message:"cannot retrieve admin games", messages: e} }
+          })
+        }
+        break;
+      case "GAME_CREATE_UPDATE":
+        try{
+          const { data } = await createOrUpdateGame(action.payload)
+          dispatcher({
+            type: action.type,
+            payload: { game: data, alert: { message: "updated game successfully!"} }
+          });
+        }catch(e){
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message:"cannot update game", messages: e} }
           })
         }
         break;
