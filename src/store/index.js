@@ -3,11 +3,9 @@ import reducers, { initialState } from "./reducers";
 import { authenticate, register } from "./adminActions";
 import { fetchGames, createOrUpdateGame } from "./gameActions";
 // import { createLogger } from 'redux-logger'
-
 // const logger = createLogger({
 //   diff: true
 // });
-
 // const customMiddleware = store => next => action => {
 //   console.log("Action Triggered");
 //   console.log("=====================")
@@ -19,7 +17,6 @@ import { fetchGames, createOrUpdateGame } from "./gameActions";
 //   next(action);
 // };
 //======================= Create Global Store Context =======================
-const Store = createContext();
 //=======================  =======================
 // const compose = (...funcs) => x =>
 //   funcs.reduceRight((composed, f) => f(composed), x);
@@ -27,7 +24,6 @@ const Store = createContext();
 // const createStore = (reducer, initial, middlewares) => {
 //   //======================= useReducer hook creates state management =======================
 //   const [state, dispatch] = useReducer(reducer, initial);
-
 //   //======================= verify we are using middleware and construct new dispatch method =======================
 //   if (typeof middlewares !== "undefined") {
 //     const middlewareAPI = {
@@ -40,10 +36,11 @@ const Store = createContext();
 //     const enhancedDispatch = compose(...chain)(dispatch);
 //     return { state, dispatch: enhancedDispatch };
 //   }
-
 //   return { state, dispatch };
 // };
+const Store = createContext();
 const setToken = (token) => window.localStorage.setItem('token', token)
+//TODO: FIGURE OUT SOME TYPE OF MIDDLEWARE from the above commented code.
 const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
@@ -108,7 +105,7 @@ const Provider = (props) => {
         }
         break;
       default:
-        // Not a special case, dispatch the action
+        // Not a special case(API CALL), dispatch the action
        dispatcher(action);
     }
   }, []);
@@ -116,7 +113,7 @@ const Provider = (props) => {
   return <Store.Provider value={store}>{children}</Store.Provider>;
 };
 
-
+//this is used for components to access the store; think redux connect but hooks version
 const useStore = () => {
   const { state, dispatch } = useContext(Store);
   return { state, dispatch };
