@@ -2,6 +2,7 @@ import React, { useCallback, createContext, useReducer, useContext } from "react
 import reducers, { initialState } from "./reducers";
 import { authenticate, register } from "./adminActions";
 import { fetchGames, createOrUpdateGame } from "./gameActions";
+import { fetchQuestions } from "./questionActions";
 // import { createLogger } from 'redux-logger'
 // const logger = createLogger({
 //   diff: true
@@ -78,11 +79,25 @@ const Provider = (props) => {
         break;
       case "GAME_FETCH_ALL":
         try{
-          const {data } = await fetchGames()
+          const { data } = await fetchGames()
           dispatcher({
             type: action.type,
             payload: data
           });
+        }catch(e){
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message:"cannot retrieve admin games", messages: e} }
+          })
+        }
+        break;
+      case "QUESTION_FETCH_ALL":
+        try{
+          const { data } = await fetchQuestions()
+          dispatcher({
+            type: action.type,
+            payload: data
+          })
         }catch(e){
           dispatcher({
             type: "ALERT_ERROR",

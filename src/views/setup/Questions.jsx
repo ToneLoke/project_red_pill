@@ -31,7 +31,7 @@ const Questions = ({ classes, history }) => {
   useEffect(()=>{
     console.log("DID MOUNT", questions)
     if(!questions){
-      console.log("no questions")
+      dispatch({type: "QUESTION_FETCH_ALL"})
     }
   });
 
