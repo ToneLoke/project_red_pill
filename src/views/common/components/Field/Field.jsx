@@ -9,6 +9,7 @@ const Field = (props) => {
   const [error, setError] = useState(null);
 
   const handleChange = e => {
+    console.log("handle change in child:", e.target.value, e.target.name)
     setState(e.target.value);
   }
 
@@ -27,7 +28,7 @@ const Field = (props) => {
     }
   }, [state])
 
-  const mergeProps = { ...props, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, }
+  const mergeProps = { ...props, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, value: state }
 
   return (
       <Fragment>

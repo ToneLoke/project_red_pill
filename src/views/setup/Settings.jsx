@@ -54,6 +54,7 @@ const styles = {
 const Settings = ({ classes }) => {
   const { state: { game }, dispatch } = useStore();
   const handleChange = (e) => {
+    console.log("handlechange in settings", e)
     dispatch({type: "GAME_CREATE_UPDATE", payload: { ...game, [e.target.name]: e.target.value } })
   }
   return (
