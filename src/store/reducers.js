@@ -2,10 +2,12 @@
 import { adminInitial, ADMIN_REDUCER } from "./adminActions";
 import { ALERT_REDUCER } from "./alertActions";
 import { gameInitial, GAME_REDUCER } from "./gameActions";
+import { questionInitial, QUESTION_REDUCER } from "./questionActions";
 // we'll leave this empty for now
 export const initialState = {
   ...adminInitial,
   ...gameInitial,
+  ...questionInitial,
   alert: null
 }
 
@@ -13,6 +15,7 @@ export const initialState = {
 const Actions = {
   "ALERT": ALERT_REDUCER,
   "USER": ADMIN_REDUCER,
+  "QUESTION": QUESTION_REDUCER,
   "GAME": GAME_REDUCER
 };
 
