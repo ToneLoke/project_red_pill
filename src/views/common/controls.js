@@ -17,7 +17,7 @@ import ViewList from "@material-ui/icons/ViewList";
 import SendIcon from "@material-ui/icons/Send";
 
 export default {
-  "nav": {
+  nav: {
     "/authenticate": [
       {
         component: Link,
@@ -34,7 +34,7 @@ export default {
         key: "register-btn",
         // text: "Register",
         to: "/authenticate?type=register"
-      },
+      }
     ],
     "/games": [
       {
@@ -44,7 +44,7 @@ export default {
         key: "new-game-btn",
         // text: "Login",
         to: "/games/new"
-      },
+      }
     ],
     "/games/new": [
       {
@@ -60,57 +60,56 @@ export default {
         color: "primary",
         key: "questions-btn",
         to: "/games/new?type=questions"
-      },
+      }
     ]
   },
-  "actions": {
+  actions: {
     "/authenticate?type=login": [
       {
-        "styles": {
+        styles: {
           component: "button",
-          variant: "extended",
+          variant: "extended"
         },
         text: "login",
         key: "auth-btn-login",
-        action: "USER_AUTHENTICATE",
+        action: "USER_AUTHENTICATE"
       }
     ],
     "/authenticate?type=register": [
       {
-        "styles": {
+        styles: {
           component: "button",
-          variant: "extended",
-          color: "secondary",
+          variant: "extended"
         },
         key: "auth-btn-register",
         text: "register",
-        action: "USER_REGISTER",
+        action: "USER_REGISTER"
       }
     ],
     "/games": [
       {
-        "styles": {
+        styles: {
           component: "button",
           variant: "extended",
-          color: "secondary",
+          color: "primary"
         },
         key: "btn-fetch-game",
         icon: RestoreIcon,
         text: "Load",
-        action: "GAME_FETCH",
+        action: "GAME_FETCH"
       }
     ],
     "/games/new": [
       {
-        "styles": {
+        styles: {
           component: "button",
           variant: "extended",
-          color: "secondary",
+          color: "secondary"
         },
         key: "btn-save-game",
         text: "Save",
-        action: "GAME_SAVE",
+        action: "GAME_SAVE"
       }
-    ],
+    ]
   }
 };
