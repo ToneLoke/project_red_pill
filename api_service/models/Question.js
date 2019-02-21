@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const QuestionSchema = new mongoose.Schema({
   question: {
-    type: Array,
+    type: String,
     required: true
   },
   type: {
