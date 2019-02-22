@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const styles = {
   root: {
     // flexGrow: 1,
-    backgroundColor: 'rgba(93,60,173,1)',
-    width: '100%'
+    backgroundColor: "rgba(93,60,173,1)",
+    width: "100%"
   },
   grow: {
     // flexGrow: 1,
@@ -20,6 +20,10 @@ const styles = {
     // marginLeft: -12,
     // marginRight: 20,
   },
+  toolbar: {
+    height: 64,
+    background: `url("/images/header-pattern.png") repeat top left`
+  }
 };
 
 function ButtonAppBar(props) {
@@ -27,9 +31,13 @@ function ButtonAppBar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-           { props.icon && <props.icon /> }
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+          >
+            {props.icon && <props.icon />}
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
@@ -41,7 +49,7 @@ function ButtonAppBar(props) {
 }
 
 ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ButtonAppBar);
