@@ -4,5 +4,6 @@ export { default as Field } from './Field';
 export { default as Notification } from './Notifications';
 export { default as NavBar } from './NavBar';
 export { default as AdminBar } from './AdminBar';
+export { default as ActionsBar } from './ActionsBar';
 export { default as Input } from './Input';
 export { default as Empty } from './Empty';

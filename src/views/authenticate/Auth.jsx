@@ -1,55 +1,22 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Fab from "@material-ui/core/Fab";
 import { useStore } from "../../store";
-import { Field, AdminBar } from "../common/components";
+import { Field, ActionBar } from "../common/components";
 import controls from "../common/controls";
+import styles from './Auth.styles';
 
-const styles = theme => ({
-  header: {
-    height: "50px",
-    width: "100%",
-    backgroundColor: theme.palette.primary.main,
-    color: "white"
-  },
-  textField: {
-    width: "90%",
-    marginBottom: 24
-  },
-  form: {
-    width: "100%",
-    marginBottom: 60,
-    height: "50%",
-    display: "flex",
-    flexGrow: 1,
-    alignItems: "center",
-    flexDirection: "column",
-    borderRadius: 0,
-    "& .hero-section": {
-      height: 320,
-      width: "100%",
-      backgroundColor: "#512DA8",
-      marginBottom: 30
-    }
-  },
-  btnWrapper: {
-    width: "90%"
-  },
-  btn: {
-    width: "100%"
-  }
-});
 
-const Login = ({ classes, history }) => {
+
+const Auth = ({ classes, history }) => {
   //======================= Connect to store using hooks =======================
   const {
     state: { user, loggedIn },
     dispatch
   } = useStore();
+
   console.count("LOGIN.jsx:");
-  console.log(history.location);
 
   if (loggedIn) {
     history.push("/games");
@@ -64,20 +31,9 @@ const Login = ({ classes, history }) => {
       payload: { ...user, [e.target.name]: e.target.value }
     });
   };
-  const renderActions = a => {
-    return (
-      <div key={a.key} className={classes.btnWrapper}>
-        <Fab
-          {...a.styles}
-          onClick={() => dispatch({ type: a.action, payload: user })}
-          className={classes.btn}
-        >
-          {!!a.text && a.text}
-          {a.icon && <a.icon />}
-        </Fab>
-      </div>
-    );
-  };
+
+  const handleDispatch = type => dispatch( { type, payload: })
+
   return (
     <Paper className={classes.form}>
       <div className="hero-section" />
@@ -100,13 +56,13 @@ const Login = ({ classes, history }) => {
       {history.location.search.indexOf("register") > -1 && (
         <Field name="password" className={classes.textField} />
       )}
-      {controls.actions[path] && controls.actions[path].map(renderActions)}
+      <ActionBar actions={controls[path] || null} dbHandler={handleDispatch}/>
     </Paper>
   );
 };
 
-Login.propTypes = {
+Auth.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Auth);

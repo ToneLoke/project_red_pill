@@ -7,6 +7,7 @@ import { NavBar, Notification } from "../common/components";
 import ROUTES from "../common/routes";
 
 const styles = theme => ({
+  //NOTE: LAYOUT STYLES
   root: {
     width: "100%",
     height: "100vh",

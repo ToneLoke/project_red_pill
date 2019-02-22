@@ -1,4 +1,4 @@
-export { default as Authenticate } from './authenticate'
+export { default as Authenticate } from './authenticate/Auth'
 export { default as Panel } from './panel'
 export { default as Layout } from './layout'
 export { default as Setup } from './setup'
