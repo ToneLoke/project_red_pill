@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useStore } from "../../store";
-import { Field, ActionBar } from "../common/components";
-import controls from "../common/controls";
+import { Field } from "../common/components";
 import styles from './Auth.styles';
 
 
@@ -22,7 +21,6 @@ const Auth = ({ classes, history }) => {
     history.push("/games");
     dispatch({ type: "GAME_FETCH_ALL" });
   }
-  const path = history.location.pathname + history.location.search;
   //======================= combine form data =======================
   const handleChange = e => {
     //======================= events to dispatch based on action in store =======================
@@ -32,7 +30,6 @@ const Auth = ({ classes, history }) => {
     });
   };
 
-  const handleDispatch = type => dispatch( { type, payload: })
 
   return (
     <Paper className={classes.form}>
@@ -53,10 +50,10 @@ const Auth = ({ classes, history }) => {
         value={user.password}
         bubbleUp={handleChange}
       />
+      {/* check query and display pw confirm */}
       {history.location.search.indexOf("register") > -1 && (
         <Field name="password" className={classes.textField} />
       )}
-      <ActionBar actions={controls[path] || null} dbHandler={handleDispatch}/>
     </Paper>
   );
 };

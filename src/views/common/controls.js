@@ -24,7 +24,7 @@ export default {
         icon: AccountIcon,
         color: "primary",
         key: "login-btn",
-        // text: "Login",
+        text: "login",
         to: "/authenticate?type=login"
       },
       {
@@ -32,7 +32,7 @@ export default {
         icon: AccountAddIcon,
         color: "primary",
         key: "register-btn",
-        // text: "Register",
+        text: "register",
         to: "/authenticate?type=register"
       }
     ],
@@ -42,7 +42,7 @@ export default {
         icon: AddIcon,
         color: "primary",
         key: "new-game-btn",
-        // text: "Login",
+        text: "new game",
         to: "/games/new"
       }
     ],
@@ -51,6 +51,7 @@ export default {
         component: Link,
         icon: Settings,
         color: "primary",
+        text: "settings",
         key: "settings-btn",
         to: "/games/new?type=settings"
       },
@@ -58,6 +59,7 @@ export default {
         component: Link,
         icon: ViewList,
         color: "primary",
+        text: "questions",
         key: "questions-btn",
         to: "/games/new?type=questions"
       }
@@ -68,9 +70,9 @@ export default {
       {
         styles: {
           component: "button",
-          variant: "extended"
         },
-        text: "login",
+        text: "sign in",
+        icon: SendIcon,
         key: "auth-btn-login",
         action: "USER_AUTHENTICATE"
       }
@@ -79,10 +81,10 @@ export default {
       {
         styles: {
           component: "button",
-          variant: "extended"
         },
         key: "auth-btn-register",
-        text: "register",
+        text: "sign up",
+        icon: SendIcon,
         action: "USER_REGISTER"
       }
     ],
@@ -90,7 +92,6 @@ export default {
       {
         styles: {
           component: "button",
-          variant: "extended",
           color: "primary"
         },
         key: "btn-fetch-game",
@@ -103,7 +104,6 @@ export default {
       {
         styles: {
           component: "button",
-          variant: "extended",
           color: "secondary"
         },
         key: "btn-save-game",

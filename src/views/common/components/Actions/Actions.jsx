@@ -1,32 +1,32 @@
 import React from 'react'
 import Fab from "@material-ui/core/Fab";
 import { withStyles } from "@material-ui/core/styles";
-import styles from './Actions.style'
+import styles from './Actions.styles'
 
 
-const CreateFab = withStyles(styles)( props => {
+const CreateFab = props => {
   const { classes, action: a, dpHandler } = props
   return (
-    <div key={a.key} className={classes.btnWrapper}>
+    <div className={classes.btnWrapper}>
       <Fab
         {...a.styles}
         onClick={dpHandler}
-        className={classes.btn}
+        className={classes.action}
       >
-      {a.icon && <a.icon />}
+        {a.icon && <a.icon />}
       </Fab>
       <span className={classes.btnText}>
-      {!!a.text && a.text}
+        {!!a.text && a.text}
       </span>
     </div>
   )
-})
+}
 
 
 const Actions = (props) => {
-  const { actions } = props
-  return(
-    <div className="actions-container">
+  const { actions, classes } = props
+  return (
+    <div className={classes.container}>
       {actions.map((a) => <CreateFab action={a} {...props} />)}
     </div>
   )

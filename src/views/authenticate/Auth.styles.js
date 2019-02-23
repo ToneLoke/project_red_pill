@@ -7,7 +7,7 @@ const authStyles = theme => ({
   },
   textField: {
     width: "90%",
-    marginBottom: 24
+    marginBottom: 40
   },
   form: {
     width: "100%",
@@ -22,6 +22,7 @@ const authStyles = theme => ({
       height: 320,
       width: "100%",
       backgroundColor: "#512DA8",
+      background: `url("/images/header-pattern.png") repeat top left`,
       marginBottom: 30
     }
   },
