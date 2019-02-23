@@ -22,7 +22,8 @@ const styles = {
   },
   toolbar: {
     height: 64,
-    background: `url("/images/header-pattern.png") repeat top left`
+    background: `url("/images/header-pattern.png") repeat top left`,
+    padding: 0
   }
 };
 
