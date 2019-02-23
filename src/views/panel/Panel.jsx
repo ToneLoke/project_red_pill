@@ -42,7 +42,6 @@ const Games = ({ classes, history }) => {
     state: { games },
     dispatch
   } = useStore();
-  const path = history.location.pathname + history.location.search;
   console.count("Panel.jsx");
 
   useEffect(() => {
@@ -51,18 +50,6 @@ const Games = ({ classes, history }) => {
       dispatch({ type: "GAME_FETCH_ALL" });
     }
   });
-
-  const renderActions = a => {
-    //TODO: make actions dynamic
-    return (
-      <div key={a.key} className={classes.wrapper}>
-        <Fab {...a.styles} onClick={() => dispatch({ type: "GAME_NEW" })}>
-          {!!a.text && a.text}
-          {a.icon && <a.icon />}
-        </Fab>
-      </div>
-    );
-  };
 
   const renderGames = listItemClass => {
     return (
@@ -97,7 +84,6 @@ const Games = ({ classes, history }) => {
       ) : (
         <Paper className={classes.container}>
           {renderGames(classes.listItem)}
-          {controls.actions[path] && controls.actions[path].map(renderActions)}
         </Paper>
       )}
     </Fragment>

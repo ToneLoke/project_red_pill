@@ -22,7 +22,6 @@ export default {
       {
         component: Link,
         icon: AccountIcon,
-        color: "primary",
         key: "login-btn",
         text: "login",
         to: "/authenticate?type=login"
@@ -30,7 +29,6 @@ export default {
       {
         component: Link,
         icon: AccountAddIcon,
-        color: "primary",
         key: "register-btn",
         text: "register",
         to: "/authenticate?type=register"
@@ -70,6 +68,7 @@ export default {
       {
         styles: {
           component: "button",
+          color: "secondary",
         },
         text: "sign in",
         icon: SendIcon,
@@ -81,6 +80,7 @@ export default {
       {
         styles: {
           component: "button",
+          color: "secondary"
         },
         key: "auth-btn-register",
         text: "sign up",
@@ -97,7 +97,7 @@ export default {
         key: "btn-fetch-game",
         icon: RestoreIcon,
         text: "Load",
-        actionType: "GAME_FETCH"
+        actionT: "GAME_FETCH"
       }
     ],
     "/games/new": [
@@ -108,7 +108,7 @@ export default {
         },
         key: "btn-save-game",
         text: "Save",
-        actionType: "GAME_SAVE"
+        action: "GAME_SAVE"
       }
     ]
   }

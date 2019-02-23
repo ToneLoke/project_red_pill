@@ -7,7 +7,7 @@ const NavLink = props => {
   const { classes, link: l } = props;
   return (
     <div className={classes.btnWrapper}>
-      <Fab {...l} to={l.to} className={classes.link}>
+      <Fab {...l} color={ l.isActive ? "secondary" : "primary"} to={l.to} className={classes.link}>
         <l.icon />
       </Fab>
       <span className={classes.btnText}>

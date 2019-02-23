@@ -9,7 +9,6 @@ const Field = ({ bubbleUp, ...rest }) => {
   const [error, setError] = useState(null);
 
   const handleChange = e => {
-    console.log("handle change in child:", e.target.value, e.target.name)
     setState(e.target.value);
   }
 

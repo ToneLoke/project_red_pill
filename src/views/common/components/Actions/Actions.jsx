@@ -11,6 +11,7 @@ const CreateFab = props => {
     <div className={classes.btnWrapper}>
       <Fab
         {...a.styles}
+        disabled={a.disabled}
         onClick={handleClick}
         className={classes.action}
       >
