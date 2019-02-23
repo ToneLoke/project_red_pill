@@ -40,7 +40,7 @@ export default {
         icon: AddIcon,
         color: "primary",
         key: "new-game-btn",
-        text: "new game",
+        text: "new",
         to: "/games/new"
       }
     ],
@@ -96,8 +96,8 @@ export default {
         },
         key: "btn-fetch-game",
         icon: RestoreIcon,
-        text: "Load",
-        actionT: "GAME_FETCH"
+        text: "load",
+        actionType: "GAME_FETCH"
       }
     ],
     "/games/new": [
@@ -107,8 +107,8 @@ export default {
           color: "secondary"
         },
         key: "btn-save-game",
-        text: "Save",
-        action: "GAME_SAVE"
+        text: "save",
+        actionType: "GAME_SAVE"
       }
     ]
   }

@@ -1,6 +1,6 @@
 import React from 'react'
-import Fab from "@material-ui/core/Fab";
 import { withStyles } from "@material-ui/core/styles";
+import { Typography, Fab } from '@material-ui/core';
 import styles from './Actions.styles'
 
 
@@ -17,9 +17,9 @@ const CreateFab = props => {
       >
         {a.icon && <a.icon />}
       </Fab>
-      <span className={classes.btnText}>
+      <Typography variant="caption" color="secondary" className={classes.btnText}>
         {!!a.text && a.text}
-      </span>
+      </Typography>
     </div>
   )
 }

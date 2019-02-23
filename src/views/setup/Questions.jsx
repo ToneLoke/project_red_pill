@@ -60,10 +60,10 @@ const Questions = ({ classes, history }) => {
       questions.length === 0 ?
       (
         <Paper className={classes.container}>
-          <Typography variant="h6" color="inherit" >
+          <Typography variant="body2" color="inherit" >
             You have no saved questions.
           </Typography>
-          <Typography variant="h6" color="inherit" >
+          <Typography variant="body2" color="inherit" >
             Please press '+' below.
           </Typography>
         </Paper>

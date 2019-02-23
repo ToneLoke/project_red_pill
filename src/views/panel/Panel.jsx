@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from "react";
 // import PropTypes from 'prop-types';
+import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Fab from "@material-ui/core/Fab";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { AdminBar } from "../common/components";
 import { useStore } from "../../store";
-import controls from "../common/controls";
 import {
   ListItemSecondaryAction,
   Checkbox,
@@ -24,6 +24,10 @@ const styles = theme => ({
     flexGrow: 1,
     display: "flex",
     flexDirection: "column"
+  },
+  progress: {
+    margin: 12,
+    flexGrow: 1,
   },
   btnWrapper: {
     width: "90%"
@@ -69,23 +73,20 @@ const Games = ({ classes, history }) => {
   };
   return (
     <Fragment>
-      <AdminBar title="Sessions" />
+      <AdminBar title="Sessions" icon={MenuIcon} handleClick={()=>{}}/>
       {!games ? (
-        "Loading.."
+        <div><CircularProgress className={classes.progress} color="primary" /></div>
       ) : games.length === 0 ? (
         <Paper className={classes.container}>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="body2" color="inherit">
             You have no saved games.
           </Typography>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="body2" color="inherit">
             Please press '+' below.
           </Typography>
         </Paper>
-      ) : (
-        <Paper className={classes.container}>
-          {renderGames(classes.listItem)}
-        </Paper>
-      )}
+      ) : <Fragment> {renderGames(classes.listItem)}</Fragment>
+      }
     </Fragment>
   );
 };

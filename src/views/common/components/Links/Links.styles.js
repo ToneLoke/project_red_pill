@@ -4,7 +4,9 @@ export default {
     justifyContent: "space-around",
   },
   btnWrapper: {
-
+  },
+  btnText: {
+    // textTransform: "uppercase"
   },
   link: {
     display: 'flex',
