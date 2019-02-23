@@ -74,7 +74,7 @@ export default {
         text: "sign in",
         icon: SendIcon,
         key: "auth-btn-login",
-        action: "USER_AUTHENTICATE"
+        actionType: "USER_AUTHENTICATE"
       }
     ],
     "/authenticate?type=register": [
@@ -85,7 +85,7 @@ export default {
         key: "auth-btn-register",
         text: "sign up",
         icon: SendIcon,
-        action: "USER_REGISTER"
+        actionType: "USER_REGISTER"
       }
     ],
     "/games": [
@@ -97,7 +97,7 @@ export default {
         key: "btn-fetch-game",
         icon: RestoreIcon,
         text: "Load",
-        action: "GAME_FETCH"
+        actionType: "GAME_FETCH"
       }
     ],
     "/games/new": [
@@ -108,7 +108,7 @@ export default {
         },
         key: "btn-save-game",
         text: "Save",
-        action: "GAME_SAVE"
+        actionType: "GAME_SAVE"
       }
     ]
   }

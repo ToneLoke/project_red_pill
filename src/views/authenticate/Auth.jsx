@@ -35,7 +35,7 @@ const Auth = ({ classes, history }) => {
     <Paper className={classes.form}>
       <div className="hero-section" />
       <Field
-        value={user.email}
+        value={user.email || ""}
         className={classes.textField}
         name="email"
         label="Email"
@@ -47,15 +47,12 @@ const Auth = ({ classes, history }) => {
         label="Password"
         type="password"
         className={classes.textField}
-        value={user.password}
+        value={user.password || ""}
         bubbleUp={handleChange}
       />
-      {/* check query and display pw confirm */}
-      {history.location.search.indexOf("register") > -1 && (
-        <Field name="password" className={classes.textField} />
-      )}
     </Paper>
   );
+  //TODO add password confirmation for register
 };
 
 Auth.propTypes = {

@@ -6,11 +6,12 @@ import styles from './Actions.styles'
 
 const CreateFab = props => {
   const { classes, action: a, dpHandler } = props
+  const handleClick = () => dpHandler(a.actionType)
   return (
     <div className={classes.btnWrapper}>
       <Fab
         {...a.styles}
-        onClick={dpHandler}
+        onClick={handleClick}
         className={classes.action}
       >
         {a.icon && <a.icon />}
@@ -27,7 +28,7 @@ const Actions = (props) => {
   const { actions, classes } = props
   return (
     <div className={classes.container}>
-      {actions.map((a) => <CreateFab action={a} {...props} />)}
+      {actions.map((a) => <CreateFab key={a.key} action={a} {...props} />)}
     </div>
   )
 }
