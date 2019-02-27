@@ -37,7 +37,7 @@ export const ADMIN_REDUCER = (action, state) => {
       return setUser(action);
     case USER_AUTHENTICATE:
       if(state){
-        setToken(action.payload)
+        setToken(action.payload.token)
         return { alert: { message: action.payload.message }, loggedIn: true };
       }
       return authenticate
