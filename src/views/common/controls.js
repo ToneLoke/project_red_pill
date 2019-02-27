@@ -72,6 +72,7 @@ export default {
           color: "secondary",
         },
         text: "sign in",
+        isReq: true,
         icon: SendIcon,
         key: "auth-btn-login",
         actionType: "USER_AUTHENTICATE"
@@ -85,6 +86,7 @@ export default {
         },
         key: "auth-btn-register",
         text: "sign up",
+        isReq: true,
         icon: CheckCircle,
         actionType: "USER_REGISTER"
       }
@@ -144,6 +146,7 @@ export default {
         },
         key: "btn-publish-game",
         text: "publish",
+        isReq: true,
         icon: PresentToAll,
         actionType: "GAME_UPDATE"
       }

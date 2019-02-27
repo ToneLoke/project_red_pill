@@ -16,7 +16,7 @@ export const ALERT_CLEAR  = 'ALERT_CLEAR';
   return { alert: null}
 }
 
-export const ALERT_REDUCER = (state, action) => {
+export const ALERT_REDUCER = (action, state) => {
   switch (action.type) {
     case ALERT_ERROR:
       return throwError(action);

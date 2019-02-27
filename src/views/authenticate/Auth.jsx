@@ -19,7 +19,7 @@ const Auth = ({ classes, history }) => {
 
   if (loggedIn) {
     history.push("/games?type=draft");
-    dispatch({ type: "GAME_FETCH_ALL" });
+    dispatch({ type: "GAME_FETCH_ALL" }, true);
   }
   //======================= combine form data =======================
   const handleChange = e => {

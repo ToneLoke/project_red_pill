@@ -71,7 +71,7 @@ const Games = ({ classes, history }) => {
   useEffect(() => {
     console.log("DID MOUNT", games);
     if (!games) {
-      dispatch({ type: "GAME_FETCH_ALL" });
+      dispatch({ type: "GAME_FETCH_ALL" }, true);
     }
   });
 

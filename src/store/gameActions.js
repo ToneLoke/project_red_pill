@@ -31,16 +31,18 @@ export const fetchGames = async () => {
   return await axios.get(GAME_API, { headers: { "x-access-token": token()}})
 }
 
-export const GAME_REDUCER = (state, action) => {
+export const GAME_REDUCER = (action, state) => {
   switch (action.type) {
     case GAME_SET:
       return setGame(action);
     case GAME_CLEAR:
       return { game: {...gameInitial}};
     case GAME_FETCH_ALL:
-      return { games: action.payload };
+      if(state) return { games: action.payload };
+      return fetchGames
     case GAME_CREATE_UPDATE:
-      return { ...action.payload}
+      if(state) return { game: action.payload }
+      return createOrUpdateGame
     default:
       return state;
   }

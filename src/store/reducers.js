@@ -12,29 +12,29 @@ export const initialState = {
 }
 
 // this will act as a map of actions that will trigger state mutations
-const Actions = {
+const Combined = {
   "ALERT": ALERT_REDUCER,
   "USER": ADMIN_REDUCER,
   "QUESTION": QUESTION_REDUCER,
   "GAME": GAME_REDUCER
 };
 
-export const ACTION_CREATORS = Object.keys(Actions);
+
 // the reducer is called whenever a dispatch action is made.
 // the action.type is a string which maps to a function in Actions.
 // We apply the update to existing state, and return a new copy of state.
 const reducers =  (state, action) => {
-    const PORTION = action.type.split('_')[0]
-    console.log("======ACTION:", action.type)
-    const act = Actions[PORTION];
-    let update;
-    if(act){
-      update = act(state, action);
-    }else{
-      console.error("NO ACTION FOUND")
-    }
-    console.log('STORE REDUCER:', update)
-    return { ...state, ...update };
+  console.log('=====================ACTION TRIGGERED=============')
+  console.log( action )
+  console.log('=======================================================')
+  const PORTION = action.type.split('_')[0]
+  const reducer = Combined[PORTION];
+  let update = reducer(action, state);
+  console.log('=====================STORE REDUCER UPDATED=============')
+  console.log(state, update)
+  console.log('=======================================================')
+  if(state) return { ...state, ...update };
+  return reducer(action)
 };
 
 export default reducers;

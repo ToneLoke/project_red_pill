@@ -26,9 +26,9 @@ const BottomAppBar = ({ classes, history }) => {
     }
   };
 
-  const handleDispatch = type => {
+  const handleDispatch = (type, isReq) => {
     const reducer = type.split('_')[0].toLowerCase()
-    dispatch( { type, payload: state[reducer] })
+    dispatch( { type, payload: state[reducer] }, isReq)
   }
   return (
     <div position="fixed" className={classes.appBar}>

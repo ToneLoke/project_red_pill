@@ -6,7 +6,7 @@ import styles from './Actions.styles'
 
 const CreateFab = props => {
   const { classes, action: a, dpHandler } = props
-  const handleClick = () => dpHandler(a.actionType)
+  const handleClick = () => dpHandler(a.actionType, a.isReq)
   return (
     <div className={classes.btnWrapper}>
       <Fab
