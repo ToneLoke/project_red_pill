@@ -23,7 +23,7 @@ const Links = (props) => {
   const { classes, links } = props
   return (
     <div className={classes.container}>
-      {links.map(link => <NavLink key={link.key} link={link} classes={classes} />)}
+      { links && links.map(link => <NavLink key={link.key} link={link} classes={classes} />)}
     </div>
   )
 }

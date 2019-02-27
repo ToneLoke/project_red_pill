@@ -14,10 +14,17 @@ const BottomAppBar = ({ classes, history }) => {
   const isEmpty = obj => Object.values(obj).some(x => (x === null || x === ''));
   //======================= Find the controls to display based off the current url =======================
   let links = controls.nav[history.location.pathname] || null;
-  links = links.map( l => l.to === fullPath ? {...l, isActive: true} : { ...l, isActive: false})
+  //NOTE: add extra field to high
+  if(links) links = links.map( l => l.to === fullPath ? {...l, isActive: true} : { ...l, isActive: false})
   let actions = controls.actions[fullPath] || null;
   //NOTE: add an extra disabled field if any part of the given state is blank (hence don't fire actions)
-  actions = actions.map( a => isEmpty(state[a.actionType.split('_')[0].toLowerCase()]) ? {...a, disabled: true} : { ...a, disabled: false})
+  if(actions) {
+    if(actions.length > 1) {
+      actions = isEmpty(state[actions[0].actionType.split('_')[0].toLowerCase()]) ? [actions[0]] : [actions[1]]
+    }else{
+      actions = actions.map( a => isEmpty(state[a.actionType.split('_')[0].toLowerCase()]) ? {...a, disabled: true} : { ...a, disabled: false})
+    }
+  };
 
   const handleDispatch = type => {
     const reducer = type.split('_')[0].toLowerCase()

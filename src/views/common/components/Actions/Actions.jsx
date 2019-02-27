@@ -29,7 +29,7 @@ const Actions = (props) => {
   const { actions, classes } = props
   return (
     <div className={classes.container}>
-      {actions.map((a) => <CreateFab key={a.key} action={a} {...props} />)}
+      {actions && actions.map((a) => <CreateFab key={a.key} action={a} {...props} />)}
     </div>
   )
 }

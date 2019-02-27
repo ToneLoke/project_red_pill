@@ -2,16 +2,12 @@
 import { Link } from "react-router-dom";
 //======================= All Icons Needed =======================
 import AddIcon from "@material-ui/icons/Add";
-import BackIcon from "@material-ui/icons/ArrowBack";
-import FilterList from "@material-ui/icons/FilterList";
-import NextIcon from "@material-ui/icons/ArrowForward";
-import PlaylistAdd from "@material-ui/icons/PlaylistAdd";
 import PresentToAll from "@material-ui/icons/PresentToAll";
-import PlaylistPlay from "@material-ui/icons/PlaylistPlay";
+import UpdateIcon from "@material-ui/icons/Update";
+import EditIcon from "@material-ui/icons/Edit";
+import PublishedIcon from "@material-ui/icons/Book";
 import AccountIcon from "@material-ui/icons/Person";
 import AccountAddIcon from "@material-ui/icons/PersonAdd";
-// import PlaylistPlay from "@material-ui/icons/PlaylistPlay";
-import RestoreIcon from "@material-ui/icons/Restore";
 import Settings from "@material-ui/icons/Settings";
 import ViewList from "@material-ui/icons/ViewList";
 import SendIcon from "@material-ui/icons/Send";
@@ -38,26 +34,33 @@ export default {
     "/games": [
       {
         component: Link,
-        icon: AddIcon,
-        key: "new-game-btn",
-        text: "new",
-        to: "/games/new?type=settings"
+        icon: EditIcon,
+        key: "draft-games-btn",
+        text: "drafts",
+        to: "/games?type=draft"
+      },
+      {
+        component: Link,
+        icon: PublishedIcon,
+        key: "publised-games-btn",
+        text: "published",
+        to: "/games?type=published"
       }
     ],
-    "/games/new": [
+    "/games/draft": [
       {
         component: Link,
         icon: Settings,
         text: "settings",
         key: "settings-btn",
-        to: "/games/new?type=settings"
+        to: "/games/draft?type=settings"
       },
       {
         component: Link,
         icon: ViewList,
         text: "questions",
         key: "questions-btn",
-        to: "/games/new?type=questions"
+        to: "/games/draft?type=questions"
       }
     ]
   },
@@ -86,19 +89,54 @@ export default {
         actionType: "USER_REGISTER"
       }
     ],
-    "/games": [
+    "/games?type=draft": [
       {
         styles: {
-          component: "button",
-          color: "primary"
+          component: Link,
+          to: "/games/draft?type=settings",
+          color: "secondary"
         },
-        key: "btn-fetch-game",
-        icon: RestoreIcon,
-        text: "load",
-        actionType: "GAME_FETCH"
-      }
+        icon: AddIcon,
+        text: "new",
+        key: "game-btn-new",
+        actionType: "GAME"
+      },
+      {
+        styles: {
+          component: Link,
+          to: "/games/draft?type=settings",
+          color: "secondary",
+        },
+        icon: UpdateIcon,
+        key: "game-btn-upate",
+        text: "update",
+        actionType: "GAME"
+      },
     ],
-    "/games/new?type=settings": [
+    "/games?type=published": [
+      {
+        styles: {
+          component: Link,
+          to: "/games/draft?type=settings",
+          color: "secondary",
+        },
+        icon: AddIcon,
+        text: "new",
+        key: "game-btn-new",
+        actionType: "GAME"
+      },
+      {
+        styles: {
+          component: Link,
+          to: "/games/draft?type=settings"
+        },
+        icon: UpdateIcon,
+        key: "game-btn-upate",
+        text: "update",
+        actionType: "GAME"
+      },
+    ],
+    "/games/draft?type=settings": [
       {
         styles: {
           component: "button",
@@ -109,6 +147,30 @@ export default {
         icon: PresentToAll,
         actionType: "GAME_UPDATE"
       }
+    ],
+    "/games/draft?type=questions": [
+      {
+        styles: {
+          component: Link,
+          color: "secondary",
+          to: "/questions"
+        },
+        key: "btn-publish-game",
+        text: "publish",
+        icon: AddIcon,
+        actionType: "GAME_UPDATE"
+      },
+      {
+        styles: {
+          component: Link,
+          color: "secondary",
+          to: "/questions"
+        },
+        key: "btn-publish-game",
+        text: "publish",
+        icon: AddIcon,
+        actionType: "GAME_UPDATE"
+      },
     ]
   }
 };

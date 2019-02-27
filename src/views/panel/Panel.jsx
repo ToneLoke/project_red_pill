@@ -3,12 +3,13 @@ import React, { Fragment, useEffect } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import moment from 'moment';
+import AlbumIcon from "@material-ui/icons/FiberManualRecord";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { AdminBar } from "../common/components";
 import { useStore } from "../../store";
 import {
   ListItemSecondaryAction,
-  Checkbox,
   Paper,
   List,
   ListItem,
@@ -29,6 +30,15 @@ const styles = theme => ({
     margin: 12,
     flexGrow: 1,
   },
+  live: {
+    color: 'green',
+  },
+  draft: {
+    color: 'orange'
+  },
+  done: {
+    color: 'gray'
+  },
   btnWrapper: {
     width: "90%"
   },
@@ -41,9 +51,19 @@ const styles = theme => ({
   }
 });
 
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
 const Games = ({ classes, history }) => {
   const {
-    state: { games },
+    state: { games, game },
     dispatch
   } = useStore();
   console.count("Panel.jsx");
@@ -55,15 +75,24 @@ const Games = ({ classes, history }) => {
     }
   });
 
+  const handleClick = (selGame) => {
+    if( game && (selGame._id === game._id)){
+      dispatch({type: 'GAME_CLEAR', payload: null})
+    }else{
+      dispatch({ type: 'GAME_SET', payload: selGame})
+    }
+  }
+
   const renderGames = listItemClass => {
     return (
       <List>
-        {games.map(g => {
+        {games.filter( e => e.status === getParameterByName("type")).map(g => {
           return (
-            <ListItem key={g._id} button className={listItemClass}>
-              <ListItemText primary={`${g.title}`} secondary={`${g.status}`} />
+            <ListItem key={g._id} button className={listItemClass} onClick={() => handleClick(g)} selected={ game && g._id === game._id}>
+              <ListItemText primary={`${g.title}`} secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}` }/>
               <ListItemSecondaryAction>
-                <Checkbox onChange={() => {}} />
+                <AlbumIcon fontSize="small" className={classes[g.status]}/>
+                <Typography variant="overline">{g.status === "live" && "live"}</Typography>
               </ListItemSecondaryAction>
             </ListItem>
           );
@@ -71,6 +100,7 @@ const Games = ({ classes, history }) => {
       </List>
     );
   };
+  //TODO: fix empty state for filtered games as well
   return (
     <Fragment>
       <AdminBar title="Sessions" icon={MenuIcon} handleClick={()=>{}}/>

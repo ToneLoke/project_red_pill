@@ -21,7 +21,7 @@ const GameSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['live', 'closed', 'draft'],
+    enum: ['publised', 'done', 'draft'],
     default: 'draft'
   }
 

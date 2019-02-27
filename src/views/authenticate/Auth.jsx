@@ -18,7 +18,7 @@ const Auth = ({ classes, history }) => {
   console.count("LOGIN.jsx:");
 
   if (loggedIn) {
-    history.push("/games");
+    history.push("/games?type=draft");
     dispatch({ type: "GAME_FETCH_ALL" });
   }
   //======================= combine form data =======================
