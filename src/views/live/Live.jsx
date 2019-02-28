@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useStore } from '../../store'
 
-const Live = () => {
+const Live = ({classes, history}) => {
+  //TODO: socket logic
   return(
     <div>
       LIVE SCREENS

@@ -1,9 +1,11 @@
 import AppController from './AppController';
+import configSocket from '../serverSocket';
 class GameController extends AppController {
 
   // eslint-disable-next-line no-useless-constructor
-  constructor(model) {
+  constructor(model, io) {
     super(model);
+    this._io = io;
     this.all = this
     .all
     .bind(this);
@@ -13,6 +15,11 @@ class GameController extends AppController {
     this.update = this
       .update
       .bind(this);
+  }
+
+  createStream(gameId){
+    let gameIO = this._io.of(`/${gameId}`)
+    configSocket(gameIO)
   }
 
   async all(req, res, next) {
@@ -42,7 +49,10 @@ class GameController extends AppController {
       const gameId = req.params.id;
       if(!gameId) throw Error("need a valid game id");
       //TODO: make sure only creator can update and no updates can happen after status is live;
-      const game = await this._model.findOneAndUpdate({_id: gameId},{...req.body});
+      const game = await this._model.findOneAndUpdate({_id: gameId},{...req.body}, {new: true});
+      if(game.status === 'live'){
+        this.createStream(game._id);
+      }
       res.status(200).json(game);
     }catch(e){
       req.error = {message: "cannot update game", status: 500, errors: e};
