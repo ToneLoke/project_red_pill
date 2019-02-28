@@ -1,11 +1,16 @@
 import io from 'socket.io-client';
 
 
-const configureSocket = gameId => dispatch => {
-  const socket = io(`http://localhost:3000/${gameId}`);
-  socket.on('connect', () => {
-    console.log('Welcome to a live game!!');
+const configureSocket = ({id, user}) => dispatch => {
+  console.log("CLIENT SOCKET", user)
+  const socket = io.connect(`http://localhost:8000/${id}?user=${user.email}`);
+  socket.on('connect', data => {
+    console.log('Welcome to a live game!!', data);
+    dispatch({ type:"ALERT_SUCCESS", payload: { alert: { message: "successfully connected to game"}}})
   });
+  socket.on('connect_error', error => {
+    dispatch({ type: "ALERT_ERROR", payload: { alert: {message: error}}})
+  })
 
   // socket.on('UPDATED_QUESTION', payload => {
   //   dispatch({ type: 'QUESTION_SET', payload });

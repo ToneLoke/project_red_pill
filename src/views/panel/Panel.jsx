@@ -80,6 +80,7 @@ const Games = ({ classes, history }) => {
       dispatch({type: 'GAME_CLEAR', payload: null})
     }else{
       dispatch({ type: 'GAME_SET', payload: selGame})
+      if(selGame.status === 'live') history.push(`/live/${selGame._id}`)
     }
   }
 

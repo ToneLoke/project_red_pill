@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useStore } from '../../store'
+import clientSocket from './clientSocket'
 
-const Live = ({classes, history}) => {
+const Live = ({classes, match}) => {
+  const { state: { user }, dispatch } = useStore()
+  console.log(match.params.id)
+  useEffect(()=>{
+    if(user.email){
+      clientSocket({ id: match.params.id, user })(dispatch)
+    }
+  },[])
   //TODO: socket logic
   return(
     <div>
-      LIVE SCREENS
+      { !user.email ? "SHOW LOGIN MODAL" : `Hello, ${user.email}`}
     </div>
   )
 }

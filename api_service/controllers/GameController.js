@@ -15,11 +15,23 @@ class GameController extends AppController {
     this.update = this
       .update
       .bind(this);
+    this.setLiveGames = this.setLiveGames.bind(this);
+    this.createStream = this.createStream.bind(this)
   }
 
-  createStream(gameId){
-    let gameIO = this._io.of(`/${gameId}`)
+  createStream(game){
+    let gameIO = this._io.of(`/${game._id}`)
     configSocket(gameIO)
+  }
+
+  async setLiveGames(){
+    try {
+      const liveGames = await this._model.find({status: 'live'})
+      liveGames.forEach(this.createStream)
+    } catch (error) {
+      console.log("==========Error setting live games================")
+      console.error(error)
+    }
   }
 
   async all(req, res, next) {
@@ -51,6 +63,7 @@ class GameController extends AppController {
       //TODO: make sure only creator can update and no updates can happen after status is live;
       const game = await this._model.findOneAndUpdate({_id: gameId},{...req.body}, {new: true});
       if(game.status === 'live'){
+        console.log("CREATING STREAM")
         this.createStream(game._id);
       }
       res.status(200).json(game);

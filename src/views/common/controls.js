@@ -44,7 +44,7 @@ export default {
         icon: PublishedIcon,
         key: "publised-games-btn",
         text: "published",
-        to: "/games?type=published"
+        to: "/games?type=live"
       }
     ],
     "/games/draft": [
@@ -115,7 +115,7 @@ export default {
         actionType: "GAME"
       },
     ],
-    "/games?type=published": [
+    "/games?type=live": [
       {
         styles: {
           component: Link,
@@ -148,7 +148,8 @@ export default {
         text: "publish",
         isReq: true,
         icon: PresentToAll,
-        actionType: "GAME_UPDATE"
+        data: { status: 'live' },
+        actionType: "GAME_CREATE_UPDATE"
       }
     ],
     "/games/draft?type=questions": [

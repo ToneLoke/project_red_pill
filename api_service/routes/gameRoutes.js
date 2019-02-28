@@ -11,6 +11,7 @@ export default function (io) {
 	const router = Router();
 
 	const gameCtrl = new GameController(GameModel, io);
+	gameCtrl.setLiveGames();
 	//MIDDLEWARE TOKEN CHECK
 	router.use(function (req, res, next) {
 		// LOOK FOR TOKEN IN 3 LOCATIONS BODY OBJECT PARAMETER KEY OR HEADER OBJECT

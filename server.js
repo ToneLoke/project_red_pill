@@ -14,6 +14,11 @@ const port = process.env.PORT || 8000
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+
+const testIO = io.of('/test')
+testIO.on('connection', socket => {
+  console.log("CONNECTED PERSON")
+})
 // =======================================
 // CONNECT TO LOCAL MONGO DB OR MONGOLABS
 mongoose.connect(mongodb_url, function (err) {
@@ -42,6 +47,6 @@ app.use(function (req, res) {
 })
 // =======================================
 // SET THE PORT TO RUN
-app.listen(port, function () {
+server.listen(port, function () {
   console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...')
 })
