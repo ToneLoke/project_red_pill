@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useStore } from '../../store'
 import clientSocket from './clientSocket'
 
-const Live = ({classes, match}) => {
+const Live = ({classes, match, history}) => {
   const { state: { user }, dispatch } = useStore()
   console.log(match.params.id)
   useEffect(()=>{

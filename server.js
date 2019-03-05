@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from './config';
 import gameRoutes from './api_service/routes/gameRoutes';
-import adminRoutes from './api_service/routes/adminRoutes';
+import adminRoutes from './api_service/routes/userRoutes';
 import questionRoutes from './api_service/routes/questionRoutes';
 
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
@@ -35,7 +35,7 @@ app.use(bodyParser.json())
 app.use(cors())
 // =======================================
 // Initialize routes to use
-app.use(adminRoutes)
+app.use('/', adminRoutes)
 //======================= pass the io server to game routes to create sockets =======================
 app.use('/games', gameRoutes(io))
 app.use('/questions',questionRoutes)

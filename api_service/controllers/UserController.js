@@ -17,21 +17,22 @@ class AdminController extends AppController {
         .bind(this);
   }
 
-  makeToken(admin){
+  makeToken(user){
     return jwt.sign({
-      __V: admin._id,
+      __V: user._id,
+      __U: user.username
     }, config.secret)
   }
 
   async register(req, res, next) {
     try {
-      const { email , password } = req.body;
-      if(!email || !password) throw Error("missing credentials")
-      const admin = await this.create({email, password})
-      const token = this.makeToken(admin);
+      const { username , password } = req.body;
+      if(!username || !password) throw Error("missing credentials")
+      const user = await this.create({username, password})
+      const token = this.makeToken(user);
       res
        .status(200)
-       .json({token, message: `thanks for registering ${admin.email}`})
+       .json({token, message: `thanks for registering ${user.username}`})
     } catch (e) {
       req.error = {message: "cannot register user", status: 500, errors: e}
       next()
@@ -40,14 +41,14 @@ class AdminController extends AppController {
 
   async login(req, res, next) {
     try {
-      const { email , password } = req.body;
-      if(!email || !password) throw Error("missing credentials")
-      const admin = await this.findOne({email})
-      if (admin.authenticate(req.body.password)) {
-        const token = this.makeToken(admin);
+      const { username , password } = req.body;
+      if(!username || !password) throw Error("missing credentials")
+      const user = await this.findOne({username})
+      if (user.authenticate(req.body.password)) {
+        const token = this.makeToken(user);
         res
           .status(200)
-          .json({token, message: `Welcome home ${admin.email}`})
+          .json({token, message: `Welcome home ${user.username}`})
       } else {
         throw Error("invalid credentials")
       }
@@ -55,6 +56,10 @@ class AdminController extends AppController {
       req.error = {message: "cannot login user", status: 500, errors: e}
       next()
     }
+  }
+
+  async me(req, res, next){
+    return res.status(200).json({user: req.decoded})
   }
 }
 export default AdminController;

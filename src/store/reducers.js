@@ -1,11 +1,11 @@
 
-import { adminInitial, ADMIN_REDUCER } from "./adminActions";
+import { userInitial, USER_REDUCER } from "./userActions";
 import { ALERT_REDUCER } from "./alertActions";
 import { gameInitial, GAME_REDUCER } from "./gameActions";
 import { questionInitial, QUESTION_REDUCER } from "./questionActions";
 // we'll leave this empty for now
 export const initialState = {
-  ...adminInitial,
+  ...userInitial,
   ...gameInitial,
   ...questionInitial,
   alert: null
@@ -14,7 +14,7 @@ export const initialState = {
 // this will act as a map of actions that will trigger state mutations
 const Combined = {
   "ALERT": ALERT_REDUCER,
-  "USER": ADMIN_REDUCER,
+  "USER": USER_REDUCER,
   "QUESTION": QUESTION_REDUCER,
   "GAME": GAME_REDUCER
 };

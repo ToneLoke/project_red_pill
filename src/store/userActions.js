@@ -1,15 +1,7 @@
 import axios from 'axios'
-// axios.interceptors.response.use((response) => {
-//   console.log("intercepter good", response)
-//   return response;
-// }, function (error) {
-//   // Do something with response error
-//       console.log('unauthorized, logging out ...', error);
-//       return Promise.reject(error.response);
-// });
-export const adminInitial = {
-  user: {email:null, password:null},
-  loggedIn: false
+
+export const userInitial = {
+  user: null
 };
 
 const AUTH_API = 'http://localhost:8000/login';
@@ -31,20 +23,20 @@ export const register = async (body) => {
  return await axios.post(REGISTER_API, body)
 }
 
-export const ADMIN_REDUCER = (action, state) => {
+export const USER_REDUCER = (action, state) => {
   switch (action.type) {
     case USER_SET:
       return setUser(action);
     case USER_AUTHENTICATE:
       if(state){
         setToken(action.payload.token)
-        return { alert: { message: action.payload.message }, loggedIn: true };
+        return { alert: { message: action.payload.message } };
       }
       return authenticate
     case USER_REGISTER:
       if(state){
         setToken(action.payload.token)
-        return { alert: { message: action.payload.message }, loggedIn: true };
+        return { alert: { message: action.payload.message } };
       }
       return register
     default:

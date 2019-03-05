@@ -1,10 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { ControlsBar, Notification } from "../common/components";
 import ROUTES from "../common/routes";
+import { useStore } from '../../store';
 
 const styles = theme => ({
   //NOTE: LAYOUT STYLES
@@ -15,16 +16,36 @@ const styles = theme => ({
   }
 });
 
-const Layout = ({ classes }) => {
-  const renderRoutes = () => ROUTES.map(route => <Route {...route} />);
-  return (
-    <Grid
+  const Layout = ({ classes }) => {
+    const isLoggedIn = localStorage.getItem('token')
+    console.log(isLoggedIn)
+    //TODO RENDER AUTHENTICATE ON ROUTES FOR ADMIN AND USER
+    const { state: { user }, dispatch } = useStore();
+
+
+
+    return (
+      <Grid
       container
       alignItems="stretch"
       direction="column"
       className={classes.root}
-    >
-      {renderRoutes()}
+      >
+      {
+      ROUTES.map( ({component: Component, ...rest}, i) =>
+        i !== 0 ? //NOTE: apply authorization to all routes
+        <Route {...rest} render={(props) => (
+           user
+            ? <Component {...props} />
+            : <Redirect to='/authenticate?type=login' />
+        )} /> :
+        <Route {...rest} render={(props) => (
+          !isLoggedIn
+            ? <Component {...props} />
+            : <Redirect to='/games?type=draft' />
+        )} />
+      )
+      }
       <Route key="/control-bar" path="/" component={ControlsBar} />
       <Notification />
     </Grid>
