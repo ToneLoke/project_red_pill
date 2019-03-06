@@ -1,14 +1,10 @@
-import axios from 'axios'
+import axios from './axiosConfig';
+
 export const gameInitial = {
-  game: {
-    title: '',
-    questions: [],
-  },
+  game: null,
   games: null,
 };
-const GAME_API = 'http://localhost:8000/games';
-
-const token = () => (localStorage.getItem('token'))
+const GAME_API = '/games';
 
 //======================= ACTION CONSTANTS =======================
 export const GAME_SET = 'GAME_SET';
@@ -21,14 +17,14 @@ export const setGame = ({payload}) => ({game: payload});
 export const createOrUpdateGame = async (body) => {
     const { _id } = body;
     if(_id){
-      return await axios.put(GAME_API + `/${_id}`, {...body, token: token()} )
+      return await axios.put(GAME_API + `/${_id}`, {...body} )
     }else{
-      return await axios.post(GAME_API, {...body, token: token() } )
+      return await axios.post(GAME_API, {...body} )
     }
 }
 
 export const fetchGames = async () => {
-  return await axios.get(GAME_API, { headers: { "x-access-token": token()}})
+  return await axios.get(GAME_API)
 }
 
 export const GAME_REDUCER = (action, state) => {

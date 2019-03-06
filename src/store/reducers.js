@@ -19,21 +19,22 @@ const Combined = {
   "GAME": GAME_REDUCER
 };
 
-
 // the reducer is called whenever a dispatch action is made.
 // the action.type is a string which maps to a function in Actions.
 // We apply the update to existing state, and return a new copy of state.
 const reducers =  (state, action) => {
-  console.log('=====================ACTION TRIGGERED=============')
-  console.log( action )
-  console.log('=======================================================')
   const PORTION = action.type.split('_')[0]
   const reducer = Combined[PORTION];
   let update = reducer(action, state);
-  console.log('=====================STORE REDUCER UPDATED=============')
-  console.log(state, update)
+  console.log('=====================ACTION TRIGGERED=============')
+  console.log( action )
   console.log('=======================================================')
-  if(state) return { ...state, ...update };
+  if(state) {
+    console.log('=====================STORE REDUCER UPDATED=============')
+    console.log(state, update)
+    console.log('=======================================================')
+    return { ...state, ...update };
+  }
   return reducer(action)
 };
 

@@ -1,18 +1,25 @@
-class AppController {
-	constructor(model) {
-		this._model = model;
-		this.liveGames = this.liveGames.bind(this);
+import AppController from './AppController';
+
+class LiveController extends AppController {
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(model,io, id) {
+		super(model);
+		this.gameId = id
+		this.io = io;
+		this.connected = this.connected.bind(this);
 	}
 
-	async liveGames(findObj) {
+	async connected(socket){
 		try {
-			const document = await this._model.findOne(findObj);
-			return document;
-		} catch (e) {
-			throw Error(e);
+			const game = await this.findOne({_id: this.gameId})
+			 this.io.emit('new player', socket.user.username)
+			socket.emit('connected', game)
+		} catch (error) {
+			console.log("ERROR")
 		}
 	}
 
-}
 
-export default AppController;;
+}
+export default LiveController;

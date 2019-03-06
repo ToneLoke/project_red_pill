@@ -4,16 +4,17 @@ import clientSocket from './clientSocket'
 
 const Live = ({classes, match, history}) => {
   const { state: { user }, dispatch } = useStore()
-  console.log(match.params.id)
   useEffect(()=>{
-    if(user.email){
+    if(user){
       clientSocket({ id: match.params.id, user })(dispatch)
+    }else{
+      dispatch({type: 'USER_INFO'}, true)
     }
-  },[])
+  },[user])
   //TODO: socket logic
   return(
     <div>
-      { !user.email ? "SHOW LOGIN MODAL" : `Hello, ${user.email}`}
+      { !user ? "SHOW LOGIN MODAL" : `Hello, ${user.__U}`}
     </div>
   )
 }

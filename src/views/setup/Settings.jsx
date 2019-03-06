@@ -28,7 +28,6 @@ const CATEGORIES = [
 const styles = {
   container: {
     width: "100%",
-    marginBottom: "18%",
     flexGrow: 1,
     display: "flex",
     alignItems: "center",
@@ -58,11 +57,10 @@ const Settings = ({ classes }) => {
     dispatch
   } = useStore();
   const handleChange = e => {
-    console.log("handlechange in settings", e);
     dispatch({
       type: "GAME_CREATE_UPDATE",
-      payload: { ...game, [e.target.name]: e.target.value }
-    });
+      payload: { [e.target.name]: e.target.value }
+    }, true);
   };
   return (
     <Paper className={classes.container}>
@@ -73,7 +71,7 @@ const Settings = ({ classes }) => {
             label="Title"
             name="title"
             bubbleUp={handleChange}
-            value={game.title}
+            value={game ? game.title : ''}
           />
         </ListItem>
         <ListItem className={classes.textField}>
@@ -83,7 +81,7 @@ const Settings = ({ classes }) => {
             label="Category"
             name="category"
             items={CATEGORIES}
-            value={game.category}
+            value={game ? game.category : ''}
             bubbleUp={handleChange}
           />
         </ListItem>
@@ -96,7 +94,7 @@ const Settings = ({ classes }) => {
             <Switch
               name="status"
               onChange={handleChange}
-              checked={game.autoStart}
+              checked={game ? game.autoStart : false}
             />
           </ListItemSecondaryAction>
         </ListItem>

@@ -30,12 +30,12 @@ class AdminController extends AppController {
       if(!username || !password) throw Error("missing credentials")
       const user = await this.create({username, password})
       const token = this.makeToken(user);
-      res
+      return res
        .status(200)
        .json({token, message: `thanks for registering ${user.username}`})
     } catch (e) {
       req.error = {message: "cannot register user", status: 500, errors: e}
-      next()
+      return next()
     }
   }
 
@@ -59,7 +59,7 @@ class AdminController extends AppController {
   }
 
   async me(req, res, next){
-    return res.status(200).json({user: req.decoded})
+    return res.status(200).json(req.decoded)
   }
 }
 export default AdminController;

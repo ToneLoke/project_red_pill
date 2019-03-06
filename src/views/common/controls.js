@@ -157,23 +157,12 @@ export default {
         styles: {
           component: Link,
           color: "secondary",
-          to: "/questions"
+          to: "/questions/new"
         },
-        key: "btn-publish-game",
-        text: "publish",
+        key: "btn-new-question",
+        text: "new",
         icon: AddIcon,
-        actionType: "GAME_UPDATE"
-      },
-      {
-        styles: {
-          component: Link,
-          color: "secondary",
-          to: "/questions"
-        },
-        key: "btn-publish-game",
-        text: "publish",
-        icon: AddIcon,
-        actionType: "GAME_UPDATE"
+        actionType: "QUESTION"
       },
     ]
   }

@@ -18,7 +18,6 @@ const styles = theme => ({
 
   const Layout = ({ classes }) => {
     const isLoggedIn = localStorage.getItem('token')
-    console.log(isLoggedIn)
     //TODO RENDER AUTHENTICATE ON ROUTES FOR ADMIN AND USER
     const { state: { user }, dispatch } = useStore();
 
@@ -35,7 +34,7 @@ const styles = theme => ({
       ROUTES.map( ({component: Component, ...rest}, i) =>
         i !== 0 ? //NOTE: apply authorization to all routes
         <Route {...rest} render={(props) => (
-           user
+           user || isLoggedIn
             ? <Component {...props} />
             : <Redirect to='/authenticate?type=login' />
         )} /> :

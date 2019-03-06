@@ -18,6 +18,7 @@ const Provider = (props) => {
       }catch(e){
         console.log("==================REQUEST ERROR=============================")
         console.log(e.response)
+        if(e.response.status === 401 ) localStorage.removeItem("token")
         dispatcher({
           type: "ALERT_ERROR",
           payload: { alert: {message: e.response.data.message }}

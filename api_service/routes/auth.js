@@ -5,24 +5,24 @@ const secret = config.secret;
 
 const token_auth = (req, res, next) => {
   // LOOK FOR TOKEN IN 3 LOCATIONS BODY OBJECT PARAMETER KEY OR HEADER OBJECT
-  //TODO: research better method for this...
-  let token = req.body.token || req.param('token') || req.headers['x-access-token']
+  const authorization = req.headers.authorization
+  let token = authorization ? authorization.split(' ')[1] : false;
   // IF A TOKEN EXISTS SEND THE DECODED INFORMATION
-  console.log("ERROR ON TOKEN", token)
+  if(req.error) return next()
   if (token) {
     jwt.verify(
       token,
       secret,
       (err, tokenData) => {
-        if(err) res.status(401).json({ message: 'invalid credentials', success: false })
+        if(err) return res.status(401).json({ message: 'invalid credentials', success: false })
         else {
         req.decoded = tokenData
-        next()
+        return next()
         }
       }
     )
   } else {
-    res.status(401).json({ message: 'please login', success: false })
+    return res.status(401).json({ message: 'please login', success: false })
   }
 }
  export default token_auth;

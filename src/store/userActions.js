@@ -1,22 +1,27 @@
-import axios from 'axios'
-
+import axios from './axiosConfig'
 export const userInitial = {
   user: null
 };
 
-const AUTH_API = 'http://localhost:8000/login';
-const REGISTER_API = 'http://localhost:8000/register';
+const AUTH_API = '/login';
+const REGISTER_API = '/register';
+const ME_API = '/me';
 
 //======================= ACTION CONSTANTS =======================
 export const USER_AUTHENTICATE = 'USER_AUTHENTICATE'
 export const USER_REGISTER = 'USER_REGISTER'
 export const USER_SET = 'USER_SET'
+export const USER_INFO = 'USER_INFO'
 
 export const setUser = ({payload}) => ({user: payload});
 export const setToken = token => localStorage.setItem("token", token)
 
 export const authenticate = async (body) => {
   return await axios.post(AUTH_API, body)
+}
+
+const fetchUser = async () => {
+  return await axios.get(ME_API)
 }
 
 export const register = async (body) => {
@@ -39,7 +44,12 @@ export const USER_REDUCER = (action, state) => {
         return { alert: { message: action.payload.message } };
       }
       return register
+    case USER_INFO:
+      if(state){
+        return setUser(action)
+      }
+      return fetchUser
     default:
-      return {...state, ...action.payload};
+      return state
   }
 }

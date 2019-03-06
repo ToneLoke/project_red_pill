@@ -3,6 +3,7 @@ import express from 'express'
 import logger from 'morgan'
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import fs from 'fs';
 import cors from 'cors';
 import config from './config';
 import gameRoutes from './api_service/routes/gameRoutes';
@@ -45,8 +46,7 @@ app.use(function (req, res) {
   console.error(req.error)
   res.status(req.error.status).json(req.error)
 })
-// =======================================
-// SET THE PORT TO RUN
 server.listen(port, function () {
   console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...')
+  fs.writeFile(__dirname + '/start.log', 'started', err => console.log("START LOGGED SAVED"));
 })

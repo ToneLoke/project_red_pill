@@ -41,7 +41,6 @@ const styles = theme => ({
 
 const Notification = ({classes}) => {
   const { state, dispatch } = useStore();
-  console.log("NOTIFICATION:", state.alert);
   const handleClose = () => dispatch({type: 'ALERT_CLEAR'})
   return (
     <Snackbar

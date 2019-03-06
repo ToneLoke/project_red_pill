@@ -21,12 +21,14 @@ class GameController extends AppController {
 
   createStream(game){
     let gameIO = this._io.of(`/${game._id}`)
-    configSocket(gameIO)
+    console.log("game socket")
+    configSocket(gameIO, game._id)
   }
 
   async setLiveGames(){
     try {
       const liveGames = await this._model.find({status: 'live'})
+      console.log("FOUND LIVE GAMES", liveGames.length)
       liveGames.forEach(this.createStream)
     } catch (error) {
       console.log("==========Error setting live games================")
