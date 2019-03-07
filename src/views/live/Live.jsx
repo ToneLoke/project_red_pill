@@ -14,7 +14,7 @@ const Live = ({classes, match, history}) => {
   //TODO: socket logic
   return(
     <div>
-      { !user ? "SHOW LOGIN MODAL" : `Hello, ${user.__U}`}
+      { !user ? "Joining game..." : `Hello, ${user.__U}`}
     </div>
   )
 }

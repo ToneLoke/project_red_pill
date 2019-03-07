@@ -35,13 +35,13 @@ export const USER_REDUCER = (action, state) => {
     case USER_AUTHENTICATE:
       if(state){
         setToken(action.payload.token)
-        return { alert: { message: action.payload.message } };
+        return { alert: { message: action.payload.message }, user: action.payload.user };
       }
       return authenticate
     case USER_REGISTER:
       if(state){
         setToken(action.payload.token)
-        return { alert: { message: action.payload.message } };
+        return { alert: { message: action.payload.message }, user: action.payload.user };
       }
       return register
     case USER_INFO:

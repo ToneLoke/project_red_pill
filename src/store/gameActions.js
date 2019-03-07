@@ -37,7 +37,13 @@ export const GAME_REDUCER = (action, state) => {
       if(state) return { games: action.payload };
       return fetchGames
     case GAME_CREATE_UPDATE:
-      if(state) return { game: { ...state.game, ...action.payload } }
+      if(state) {
+        const user = state.user
+        if(!state.game._id){
+          user.games = user.games ? [...user.games, action.payload.game._id ] : [action.payload.game._id]
+        }
+        return { game: { ...state.game, ...action.payload }, user: {...user} }
+      }
       return createOrUpdateGame
     default:
       return state;

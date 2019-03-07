@@ -17,10 +17,11 @@ class AdminController extends AppController {
         .bind(this);
   }
 
-  makeToken(user){
+  makeToken({_id, username, games}){
     return jwt.sign({
-      __V: user._id,
-      __U: user.username
+      _id,
+      username,
+      games
     }, config.secret)
   }
 
@@ -32,7 +33,7 @@ class AdminController extends AppController {
       const token = this.makeToken(user);
       return res
        .status(200)
-       .json({token, message: `thanks for registering ${user.username}`})
+       .json({user,token, message: `thanks for registering ${user.username}`})
     } catch (e) {
       req.error = {message: "cannot register user", status: 500, errors: e}
       return next()
@@ -48,7 +49,7 @@ class AdminController extends AppController {
         const token = this.makeToken(user);
         res
           .status(200)
-          .json({token, message: `Welcome home ${user.username}`})
+          .json({user,token, message: `Welcome home ${user.username}`})
       } else {
         throw Error("invalid credentials")
       }

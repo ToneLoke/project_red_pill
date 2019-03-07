@@ -24,7 +24,6 @@ const GameSchema = new mongoose.Schema({
     enum: ['live', 'done', 'draft'],
     default: 'draft'
   }
-
 }, {
 	timestamps: true,
 });

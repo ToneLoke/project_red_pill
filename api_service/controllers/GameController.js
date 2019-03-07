@@ -1,5 +1,6 @@
 import AppController from './AppController';
 import configSocket from '../serverSocket';
+import User from '../models/User';
 class GameController extends AppController {
 
   // eslint-disable-next-line no-useless-constructor
@@ -21,14 +22,13 @@ class GameController extends AppController {
 
   createStream(game){
     let gameIO = this._io.of(`/${game._id}`)
-    console.log("game socket")
     configSocket(gameIO, game._id)
   }
 
   async setLiveGames(){
     try {
       const liveGames = await this._model.find({status: 'live'})
-      console.log("FOUND LIVE GAMES", liveGames.length)
+      console.log("=============================FOUND LIVE GAMES", liveGames.length)
       liveGames.forEach(this.createStream)
     } catch (error) {
       console.log("==========Error setting live games================")
@@ -38,7 +38,7 @@ class GameController extends AppController {
 
   async all(req, res, next) {
     try {
-      const adminId = req.decoded.__V;
+      const adminId = req.decoded._id;
       const games = await this.findAll(adminId)
       res.status(200).json(games)
     } catch (e) {
@@ -46,26 +46,32 @@ class GameController extends AppController {
       next()
     }
   }
+
   async makeGame(req, res, next) {
     try {
-      const adminId = req.decoded.__V;
+      const adminId = req.decoded._id;
       const newGame = { ...req.body, adminId }
       const game = await this.create(newGame);
+      const admin = await User.findOne({_id: adminId})
+      if(admin.games) admin.games.push(game._id)
+      else admin.games = [game._id]
+      await admin.save();
       res.status(200).json(game)
     } catch (e) {
       req.error = {message: "error creating a game for admin", status: 500, errors: e}
       next()
     }
   }
+
   async update(req, res, next) {
     try{
-      // const adminId = req.decoded.__V;
+      // const adminId = req.decoded._id;
       const gameId = req.params.id;
       if(!gameId) throw Error("need a valid game id");
       //TODO: make sure only creator can update and no updates can happen after status is live;
       const game = await this._model.findOneAndUpdate({_id: gameId},{...req.body}, {new: true});
       if(game.status === 'live'){
-        console.log("CREATING STREAM")
+       console.log("CREATING STREAM")
         this.createStream(game._id);
       }
       res.status(200).json(game);
