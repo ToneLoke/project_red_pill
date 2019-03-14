@@ -14,7 +14,7 @@ export const USER_SET = 'USER_SET'
 export const USER_INFO = 'USER_INFO'
 
 export const setUser = ({payload}) => ({user: payload});
-export const setToken = token => localStorage.setItem("token", token)
+export const setToken = token => sessionStorage.setItem("token", token)
 
 export const authenticate = async (body) => {
   return await axios.post(AUTH_API, body)

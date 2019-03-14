@@ -21,7 +21,6 @@ import {
 const styles = theme => ({
   container: {
     width: "100%",
-    marginBottom: "18%",
     flexGrow: 1,
     display: "flex",
     flexDirection: "column"

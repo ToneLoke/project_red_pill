@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -17,11 +17,14 @@ const styles = theme => ({
 });
 
   const Layout = ({ classes }) => {
-    const isLoggedIn = localStorage.getItem('token')
+    const isLoggedIn = sessionStorage.getItem('token')
     //TODO RENDER AUTHENTICATE ON ROUTES FOR ADMIN AND USER
     const { state: { user }, dispatch } = useStore();
-
-
+    useEffect(()=>{
+      if(!user){
+        dispatch({type: 'USER_INFO'}, true)
+      }
+    },[user])
 
     return (
       <Grid

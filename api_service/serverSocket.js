@@ -15,9 +15,8 @@ export default function setupGameSocket(gameIO, id){
       return next(new Error('no user in socket'))
     }
   })
+
   gameIO.on('connection', socket => {
-    console.log("===========SOMEONE CONNECTED================")
-    console.log(socket.user.username)
     liveCtrl.connected(socket);
     //add player to game roster
     //get game data
