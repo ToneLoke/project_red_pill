@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from './axiosConfig'
+
 export const questionInitial = {
   question: {
     answers: [],
@@ -7,9 +8,7 @@ export const questionInitial = {
   },
   questions: null,
 };
-const QUESTION_API = 'http://localhost:8000/questions';
-
-const token = () => (localStorage.getItem('token'))
+const QUESTION_API = '/questions';
 
 //======================= ACTION CONSTANTS =======================
 export const QUESTION_SET = 'QUESTION_SET';
@@ -21,24 +20,26 @@ export const setQuestion = ({payload}) => ({question: payload});
 export const createOrUpdateQuestion = async (body) => {
     const { _id } = body;
     if(_id){
-      return await axios.put(QUESTION_API + `/${_id}`, {...body, token: token()} )
+      return await axios.put(QUESTION_API + `/${_id}`, {...body} )
     }else{
-      return await axios.post(QUESTION_API, {...body, token: token() } )
+      return await axios.post(QUESTION_API, {...body} )
     }
 }
 
 export const fetchQuestions = async () => {
-  return await axios.get(QUESTION_API, { headers: { "x-access-token": token()}})
+  return await axios.get(QUESTION_API)
 }
 
-export const QUESTION_REDUCER = (state, action) => {
+export const QUESTION_REDUCER = (action, state) => {
   switch (action.type) {
     case QUESTION_SET:
       return setQuestion(action);
     case QUESTION_FETCH_ALL:
-      return { questions: action.payload };
+      if(state) return { questions: action.payload };
+      return fetchQuestions
     case QUESTION_CREATE_UPDATE:
-      return { ...action.payload}
+      if(state) setQuestion(action);
+      return createOrUpdateQuestion;
     default:
       return state;
   }

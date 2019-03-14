@@ -3,13 +3,12 @@ import validate from 'validate.js'
 import { constraints } from '../../../../utils/validations'
 import Input from '../Input';
 
-const Field = (props) => {
-  const { value, name, bubbleUp } = props;
+const Field = ({ bubbleUp, ...rest }) => {
+  const { value, name } = rest;
   const [state, setState] = useState(value);
   const [error, setError] = useState(null);
 
   const handleChange = e => {
-    console.log("handle change in child:", e.target.value, e.target.name)
     setState(e.target.value);
   }
 
@@ -28,7 +27,9 @@ const Field = (props) => {
     }
   }, [state])
 
-  const mergeProps = { ...props, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, value: state }
+
+
+  const mergeProps = {  ...rest, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, value: state }
 
   return (
       <Fragment>

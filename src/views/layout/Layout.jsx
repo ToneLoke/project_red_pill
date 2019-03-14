@@ -1,12 +1,14 @@
-import React from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { NavBar, Notification } from "../common/components";
+import { ControlsBar, Notification } from "../common/components";
 import ROUTES from "../common/routes";
+import { useStore } from '../../store';
 
 const styles = theme => ({
+  //NOTE: LAYOUT STYLES
   root: {
     width: "100%",
     height: "100vh",
@@ -14,17 +16,39 @@ const styles = theme => ({
   }
 });
 
-const Layout = ({ classes }) => {
-  const renderRoutes = () => ROUTES.map(route => <Route {...route} />);
-  return (
-    <Grid
+  const Layout = ({ classes }) => {
+    const isLoggedIn = sessionStorage.getItem('token')
+    //TODO RENDER AUTHENTICATE ON ROUTES FOR ADMIN AND USER
+    const { state: { user }, dispatch } = useStore();
+    useEffect(()=>{
+      if(!user){
+        dispatch({type: 'USER_INFO'}, true)
+      }
+    },[user])
+
+    return (
+      <Grid
       container
       alignItems="stretch"
       direction="column"
       className={classes.root}
-    >
-      {renderRoutes()}
-      <Route key="/control-bar" path="/" component={NavBar} />
+      >
+      {
+      ROUTES.map( ({component: Component, ...rest}, i) =>
+        i !== 0 ? //NOTE: apply authorization to all routes
+        <Route {...rest} render={(props) => (
+          isLoggedIn
+            ? <Component {...props} />
+            : <Redirect to='/authenticate?type=login' />
+        )} /> :
+        <Route {...rest} render={(props) => (
+          !isLoggedIn
+            ? <Component {...props} />
+            : <Redirect to='/games?type=draft' />
+        )} />
+      )
+      }
+      <Route key="/control-bar" path="/" component={ControlsBar} />
       <Notification />
     </Grid>
   );

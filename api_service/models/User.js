@@ -1,14 +1,18 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-/**
- * Admin Schema
- */
-const AdminSchema = new mongoose.Schema({
-	email: {
+
+const UserSchema = new mongoose.Schema({
+	username: {
 		type: String,
 		required: true,
 		unique: true
 	},
+	games: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Game'
+  }],
+	firstName: String,
+	lastName: String,
 	password: {
 		type: String,
 		required: true,
@@ -17,18 +21,15 @@ const AdminSchema = new mongoose.Schema({
 	timestamps: true,
 });
 
-AdminSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) return next()
   this.password = bcrypt.hashSync(this.password, 8)
   next()
 })
 // authenticate a user password
-AdminSchema.methods.authenticate = function (password) {
+UserSchema.methods.authenticate = function (password) {
   var user = this
   return bcrypt.compareSync(password, user.password)
 }
 
-/**
- * @typedef AdminSchema
- */
-export default mongoose.model('Admin', AdminSchema);
+export default mongoose.model('User', UserSchema);

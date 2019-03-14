@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import BackIcon from "@material-ui/icons/ArrowBack";
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
 import controls from '../common/controls';
@@ -27,7 +28,15 @@ const Setup = ({ classes, history }) => {
   const { state: {game}, dispatch } = useStore();
 
   const path = history.location.pathname
-  const page = history.location.search.split('=')[1] || "Settings"
+  let page = history.location.search.split('=')[1] || "settings"
+  useEffect(()=>{
+    if(page === 'questions' && !game){
+      history.push('/games?type=draft')
+    }
+    if(game && game.status === 'live'){
+      history.push('/games?type=live')
+    }
+  })
   const renderActions = (a) => {
     return (
       <div key={a.key} className={classes.btnWrapper}>
@@ -40,7 +49,7 @@ const Setup = ({ classes, history }) => {
   }
   return (
     <Fragment>
-      <AdminBar title={`${game.title || 'New Session'} - ${page}`} icon="prev" action="goBack" />
+      <AdminBar title={`${ game ? game.title : 'New Session'} - ${page}`} icon={BackIcon} handleClick={()=> history.goBack()}/>
       { page === 'questions' ? <Questions /> :<Settings />  }
       { controls.actions[path] && controls.actions[path].map(renderActions) }
     </Fragment>

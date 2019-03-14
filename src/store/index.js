@@ -1,127 +1,38 @@
 import React, { useCallback, createContext, useReducer, useContext } from "react";
 import reducers, { initialState } from "./reducers";
-import { authenticate, register } from "./adminActions";
-import { fetchGames, createOrUpdateGame } from "./gameActions";
-import { fetchQuestions } from "./questionActions";
-// import { createLogger } from 'redux-logger'
-// const logger = createLogger({
-//   diff: true
-// });
-// const customMiddleware = store => next => action => {
-//   console.log("Action Triggered");
-//   console.log("=====================")
-//   console.log("ACTION", action)
-//   console.log("=====================")
-//   console.log("STORE", store)
-//   console.log("=====================")
-//   console.log("Next", next)
-//   next(action);
-// };
-//======================= Create Global Store Context =======================
-//=======================  =======================
-// const compose = (...funcs) => x =>
-//   funcs.reduceRight((composed, f) => f(composed), x);
-// //======================= Method called to create the store object with reducers and middlewares =======================
-// const createStore = (reducer, initial, middlewares) => {
-//   //======================= useReducer hook creates state management =======================
-//   const [state, dispatch] = useReducer(reducer, initial);
-//   //======================= verify we are using middleware and construct new dispatch method =======================
-//   if (typeof middlewares !== "undefined") {
-//     const middlewareAPI = {
-//       getState: () => state,
-//       dispatch: action => dispatch(action)
-//     };
-//     //======================= create a chain of functions for each middleware applied =======================
-//     const chain = middlewares.map(middleware => middleware(middlewareAPI));
-//     //======================= ????? =======================
-//     const enhancedDispatch = compose(...chain)(dispatch);
-//     return { state, dispatch: enhancedDispatch };
-//   }
-//   return { state, dispatch };
-// };
+
+
+
+//TODO: change api calls to reducer
+
 const Store = createContext();
-const setToken = (token) => window.localStorage.setItem('token', token)
 //TODO: FIGURE OUT SOME TYPE OF MIDDLEWARE from the above commented code.
 const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
-  const customDispatch = useCallback(async (action) => {
-    switch (action.type) {
-      case "USER_AUTHENTICATE":
-        try{
-          const { data } = await authenticate(action.payload)
-          setToken(data.token)
-          dispatcher({
-            type: 'ALERT_SUCCESS',
-            payload: { alert: { message: data.message }, loggedIn: true }
-          });
-        }catch(e){
-          dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message:"invalid credentials", messages: e} }
-          })
-        }
-        break;
-      case "USER_REGISTER":
-        try{
-          const {data} = await register(action.payload)
-          setToken(data.token)
-          dispatcher({
-            type: "ALERT_SUCCESS",
-            payload: { alert: {message: data.message}, loggedIn: true }
-          });
-        }catch(e){
+  const customDispatch = useCallback(async (action, isReq = false) => {
+    if(isReq){
+      try{
+        const {data} = await reducers(null,action)(action.payload)
+        dispatcher({ type: action.type, payload: data});
+      }catch(e){
+        console.log("==================REQUEST ERROR=============================")
+        console.log(e)
+        if(e.response && e.response.status && e.response.data === 401 )
+        {
+          localStorage.removeItem("token")
           dispatcher({
             type: "ALERT_ERROR",
-            payload: { alert: {message:"cannot register", messages: e} }
+            payload: { alert: {message: e.response.data.message }}
           })
+        }else{
+          //dispatch error?
         }
-        break;
-      case "GAME_FETCH_ALL":
-        try{
-          const { data } = await fetchGames()
-          dispatcher({
-            type: action.type,
-            payload: data
-          });
-        }catch(e){
-          dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message:"cannot retrieve admin games", messages: e} }
-          })
-        }
-        break;
-      case "QUESTION_FETCH_ALL":
-        try{
-          const { data } = await fetchQuestions()
-          dispatcher({
-            type: action.type,
-            payload: data
-          })
-        }catch(e){
-          dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message:"cannot retrieve admin games", messages: e} }
-          })
-        }
-        break;
-      case "GAME_CREATE_UPDATE":
-        try{
-          const { data } = await createOrUpdateGame(action.payload)
-          dispatcher({
-            type: action.type,
-            payload: { game: data, alert: { message: "updated game successfully!"} }
-          });
-        }catch(e){
-          dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message:"cannot update game", messages: e} }
-          })
-        }
-        break;
-      default:
-        // Not a special case(API CALL), dispatch the action
-       dispatcher(action);
+      }
+    }else{
+      // Not a special case(API CALL), dispatch the action
+      console.log("NORMAL ACTION UPDATE")
+     dispatcher(action);
     }
   }, []);
   const store = { state, dispatch: customDispatch }

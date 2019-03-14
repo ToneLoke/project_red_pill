@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+
 
 const styles = {
   root: {
@@ -22,11 +22,12 @@ const styles = {
   },
   toolbar: {
     height: 64,
-    background: `url("/images/header-pattern.png") repeat top left`
+    background: `url("/images/header-pattern.png") repeat top left`,
+    padding: 0
   }
 };
 
-function ButtonAppBar(props) {
+function TopBar(props) {
   const { classes, title } = props;
   return (
     <div className={classes.root}>
@@ -36,10 +37,11 @@ function ButtonAppBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
+            onClick={props.handleClick}
           >
             {props.icon && <props.icon />}
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography variant="headline" color="inherit" className={classes.grow}>
             {title}
           </Typography>
         </Toolbar>
@@ -48,8 +50,8 @@ function ButtonAppBar(props) {
   );
 }
 
-ButtonAppBar.propTypes = {
+TopBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withStyles(styles)(TopBar);

@@ -41,11 +41,13 @@ const styles = theme => ({
 
 const Notification = ({classes}) => {
   const { state, dispatch } = useStore();
-  console.log("NOTIFICATION:", state.alert);
   const handleClose = () => dispatch({type: 'ALERT_CLEAR'})
   return (
+    state.alert &&
     <Snackbar
       open={!!state.alert}
+      autoHideDuration={5000}
+      onClose={handleClose}
       ContentProps={{
         'aria-describedby': 'snackbar-fab-message-id',
         className: classes.snackbarContent,
@@ -53,7 +55,7 @@ const Notification = ({classes}) => {
       message={<span id="snackbar-fab-message-id">{`${state.alert && state.alert.message}`}</span>}
       action={
         <Button color="inherit" size="small" onClick={handleClose}>
-          Undo
+          dismiss
       </Button>
       }
       className={classes.snackbar}
