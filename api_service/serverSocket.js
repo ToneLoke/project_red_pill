@@ -19,6 +19,9 @@ export default function setupGameSocket(gameIO, id){
   gameIO.on('connection', socket => {
     liveCtrl.connected(socket);
     //add player to game roster
-    //get game data
+  })
+  gameIO.on('disconnect', socket => {
+    console.log(".....disconnecting user --", socket.user.username)
+    socket.disconnect(true)
   })
 }

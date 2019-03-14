@@ -57,7 +57,14 @@ const Settings = ({ classes }) => {
     dispatch
   } = useStore();
   const handleChange = e => {
-    if(game[e.target.name] !== e.target.value ){
+    //TODO: Refactor this...
+    if( !game ){
+      dispatch({
+        type: 'GAME_CREATE_UPDATE',
+        payload: { [e.target.name]: e.target.value }
+      }, true)
+    }
+    else if( game[e.target.name] !== e.target.value ){
       dispatch({
         type: "GAME_CREATE_UPDATE",
         payload: { ...game, [e.target.name]: e.target.value }
@@ -78,6 +85,7 @@ const Settings = ({ classes }) => {
         </ListItem>
         <ListItem className={classes.textField}>
           <Field
+            disabled={true}
             className={classes.full}
             select
             label="Category"
@@ -94,6 +102,7 @@ const Settings = ({ classes }) => {
           />
           <ListItemSecondaryAction>
             <Switch
+              disabled={true}
               name="status"
               onChange={handleChange}
               checked={game ? game.autoStart : false}

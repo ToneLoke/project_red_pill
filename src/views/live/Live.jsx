@@ -6,17 +6,27 @@ import PlayerScreens from './player'
 
 const Live = ({classes, match, history}) => {
   const { state: { user, game }, dispatch } = useStore()
+  // const [actions, setActions] = useState([])
+  // const [isAdmin, setAdmin] = useState(false)
   useEffect(()=>{
-    if(user){
-      console.log("connecting to socket")
+    console.log("LIVE EFFECT")
+    if(user && !game){
+      console.log("attempt socket connection")
       clientSocket({ id: match.params.id, user })(dispatch)
     }
-  },[user])
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      if(game && game.socket) {
+        console.log("socket disconnect")
+        game.socket.emit("disconnect")
+      }
+    };
+  },[user, game])
   //TODO: socket logic
   return(
     <div>
       { !user || !game ? "Joining game..." :
-        user.games && user.games.indexOf(match.params.id) > -1 ?
+        user._id === game.adminId._id ?
         <AdminScreens /> :
         <PlayerScreens />
       }

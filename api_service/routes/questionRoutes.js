@@ -9,5 +9,7 @@ const questionCtrl = new QuestionController(QuestionModel);
 router.use(authenticate);
 router.route('/')
 		.get(questionCtrl.all)
+router.route('/gen')
+		.get(questionCtrl.createQuestions)
 
 export default router;

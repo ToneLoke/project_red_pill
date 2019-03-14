@@ -49,7 +49,7 @@ export const GAME_REDUCER = (action, state) => {
       if(state) {
         const user = state.user
         if(!state.game || !state.game._id){
-          user.games = user.games ? [...user.games, action.payload._id ] : [action.payload._id]
+          user.games = user.games ? [...user.games, action.payload] : [action.payload]
         }
         return { game: { ...state.game, ...action.payload }, games: updateStoreGames(state.games, action.payload), user: {...user} }
       }

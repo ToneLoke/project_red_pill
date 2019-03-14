@@ -12,6 +12,9 @@ class AdminController extends AppController {
     this.login = this
         .login
         .bind(this);
+    this.me = this
+        .me
+        .bind(this);
     this.register = this
         .register
         .bind(this);
@@ -44,7 +47,7 @@ class AdminController extends AppController {
     try {
       const { username , password } = req.body;
       if(!username || !password) throw Error("missing credentials")
-      const user = await this.findOne({username})
+      const user = await this._model.findOne({username}).populate('games')
       if (user.authenticate(req.body.password)) {
         const token = this.makeToken(user);
         res
@@ -60,7 +63,13 @@ class AdminController extends AppController {
   }
 
   async me(req, res, next){
-    return res.status(200).json(req.decoded)
+    try {
+      const user = await this._model.findOne({username: req.decoded.username}).populate('games')
+      res.status(200).json(user)
+    } catch (e) {
+      req.error = {message: "cannot login user", status: 500, errors: e}
+      next()
+    }
   }
 }
 export default AdminController;

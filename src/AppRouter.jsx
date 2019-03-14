@@ -1,17 +1,16 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { useStore } from './store';
 import Layout from './views/layout';
 
 const RouteConfig = () => {
-  const { state: { loggedIn } } = useStore()
+  const loggedIn = sessionStorage.getItem('token');
   return (
     <Fragment>
       <Router>
         <Switch>
           <Route exact path="/" render={() => (
             loggedIn ? (
-              <Redirect to="/games" />
+              <Redirect to="/games?type=draft" />
             ) : (
               <Redirect to='/authenticate?type=register' />
             )

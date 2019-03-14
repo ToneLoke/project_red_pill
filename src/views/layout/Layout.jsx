@@ -37,7 +37,7 @@ const styles = theme => ({
       ROUTES.map( ({component: Component, ...rest}, i) =>
         i !== 0 ? //NOTE: apply authorization to all routes
         <Route {...rest} render={(props) => (
-           user || isLoggedIn
+          isLoggedIn
             ? <Component {...props} />
             : <Redirect to='/authenticate?type=login' />
         )} /> :

@@ -38,8 +38,7 @@ class GameController extends AppController {
 
   async all(req, res, next) {
     try {
-      const adminId = req.decoded._id;
-      const games = await this.findAll(adminId)
+      const games = await this._model.find({status: 'live'}).where('adminId').ne(req.decoded._id).populate('adminId')
       res.status(200).json(games)
     } catch (e) {
       req.error = {message: "error finding games for admin", status: 500, errors: e}

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // import PropTypes from 'prop-types';
 import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
@@ -54,7 +54,7 @@ function getParameterByName(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -62,60 +62,62 @@ function getParameterByName(name, url) {
 
 const Games = ({ classes, history }) => {
   const {
-    state: { games, game },
+    state: { games: allGames, game, user },
     dispatch
   } = useStore();
-  console.count("Panel.jsx");
+
+  const [selGames, setSelGames] = useState()
 
   useEffect(() => {
-    console.log("DID MOUNT", games);
-    if (!games) {
+    if (!allGames && user) {
       dispatch({ type: "GAME_FETCH_ALL" }, true);
+    }
+    if(user && allGames){
+      if( getParameterByName("type") === 'live' ) {
+        setSelGames(allGames)
+      }else{
+        setSelGames(user.games)
+      }
     }
   });
 
   const handleClick = (selGame) => {
-    if( game && (selGame._id === game._id)){
-      dispatch({type: 'GAME_CLEAR', payload: null})
-    }else{
-      dispatch({ type: 'GAME_SET', payload: selGame})
-      if(selGame.status === 'live') history.push(`/live/${selGame._id}`)
+    if (game && (selGame._id === game._id)) {
+      dispatch({ type: 'GAME_CLEAR', payload: null })
+    } else {
+      dispatch({ type: 'GAME_SET', payload: selGame })
+      if (selGame.status === 'live') history.push(`/live/${selGame._id}`)
     }
   }
 
-  const renderGames = listItemClass => {
-    return (
-      <List>
-        {games.filter( e => e.status === getParameterByName("type")).map(g => {
-          return (
-            <ListItem key={g._id} button className={listItemClass} onClick={() => handleClick(g)} selected={ game && g._id === game._id}>
-              <ListItemText primary={`${g.title}`} secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}` }/>
-              <ListItemSecondaryAction>
-                <AlbumIcon fontSize="small" className={classes[g.status]}/>
-                <Typography variant="overline">{g.status === "live" && "live"}</Typography>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-      </List>
-    );
-  };
   //TODO: fix empty state for filtered games as well
   return (
     <Fragment>
-      <AdminBar title="Sessions" icon={MenuIcon} handleClick={()=>{}}/>
-      {!games ? (
+      <AdminBar title="Sessions" icon={MenuIcon} handleClick={() => { }} />
+      {!selGames ? (
         <div><CircularProgress className={classes.progress} color="primary" /></div>
-      ) : games.length === 0 ? (
+      ) : selGames.length === 0 ? (
         <Paper className={classes.container}>
           <Typography variant="body2" color="inherit">
-            You have no saved games.
+            There are no games found.
           </Typography>
           <Typography variant="body2" color="inherit">
-            Please press '+' below.
+            Create one by pressing '+' below.
           </Typography>
         </Paper>
-      ) : <Fragment>{renderGames(classes.listItem)}</Fragment>
+      ) : <List>
+            {selGames.map(g => {
+              return (
+                <ListItem key={g._id} button className={classes.listItemClass} onClick={() => handleClick(g)} selected={game && g._id === game._id}>
+                  <ListItemText primary={`${g.title}`} secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}`} />
+                  <ListItemSecondaryAction>
+                    <AlbumIcon fontSize="small" className={classes[g.status]} />
+                    <Typography variant="overline">{g.status === "live" && "live"}</Typography>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+          </List>
       }
     </Fragment>
   );

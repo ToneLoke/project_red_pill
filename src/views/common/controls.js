@@ -127,16 +127,6 @@ export default {
         key: "game-btn-new",
         actionType: "GAME"
       },
-      {
-        styles: {
-          component: Link,
-          to: "/games/draft?type=settings"
-        },
-        icon: UpdateIcon,
-        key: "game-btn-upate",
-        text: "update",
-        actionType: "GAME"
-      },
     ],
     "/games/draft?type=settings": [
       {

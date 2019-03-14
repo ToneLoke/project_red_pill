@@ -12,11 +12,11 @@ class LiveController extends AppController {
 
 	async connected(socket){
 		try {
-			const game = await this.findOne({_id: this.gameId}).populate('adminId')
+			const game = await this._model.findOne({_id: this.gameId}).populate('adminId')
 			 this.io.emit('new player', socket.user.username)
 			socket.emit('connected', game)
 		} catch (error) {
-			console.log("ERROR")
+			console.log("ERROR", error)
 		}
 	}
 
