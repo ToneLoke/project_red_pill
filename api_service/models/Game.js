@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
 
 const GameSchema = new mongoose.Schema({
-	adminId: {
-		type: String,
+  adminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
     index: true
-	},
-	players: {
-		type: Array,
   },
+  players: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   title: {
     type: String,
     required: true
@@ -25,7 +27,8 @@ const GameSchema = new mongoose.Schema({
     default: 'draft'
   }
 }, {
-	timestamps: true,
-});
+    timestamps: true,
+  });
+//add pre save method to calc totalPoints
 
 export default mongoose.model('Game', GameSchema);

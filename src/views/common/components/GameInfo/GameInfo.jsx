@@ -9,7 +9,8 @@ import {
 import { withStyles } from "@material-ui/core/styles"
 import styles from './GameInfo.styles'
 
-const PlayerList = (players, selPlayer) => {
+
+const PlayerList = ({players, selPlayer}) => {
   return (
     <List>
       {players.map( p => {
@@ -29,13 +30,13 @@ const PlayerList = (players, selPlayer) => {
 const GameInfo = ({game, classes}) => (
   <div className={classes.container}>
     <div className={classes.title}>
-      <div>Game Title</div><div>Admin Name</div>
+      <div>{game.title}</div><div>{game.adminId.username}</div>
     </div>
     <div className={classes.status}>
       <div>00:00</div><div># 2/10</div>
     </div>
     <div className={classes.heading}>
-      <div>Players: 2</div><div>Total Score: 50</div>
+      <div>Players: {game.players.length}</div><div>Total: {game.totalPoints}</div>
     </div>
     <PlayerList players={game.players} selPlayer={null} />
   </div>

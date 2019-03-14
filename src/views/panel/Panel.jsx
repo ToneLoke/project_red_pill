@@ -115,7 +115,7 @@ const Games = ({ classes, history }) => {
             Please press '+' below.
           </Typography>
         </Paper>
-      ) : <Fragment> {renderGames(classes.listItem)}</Fragment>
+      ) : <Fragment>{renderGames(classes.listItem)}</Fragment>
       }
     </Fragment>
   );

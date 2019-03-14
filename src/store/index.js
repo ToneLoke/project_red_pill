@@ -17,15 +17,21 @@ const Provider = (props) => {
         dispatcher({ type: action.type, payload: data});
       }catch(e){
         console.log("==================REQUEST ERROR=============================")
-        console.log(e.response)
-        if(e.response.status === 401 ) localStorage.removeItem("token")
-        dispatcher({
-          type: "ALERT_ERROR",
-          payload: { alert: {message: e.response.data.message }}
-        })
+        console.log(e)
+        if(e.response && e.response.status && e.response.data === 401 )
+        {
+          localStorage.removeItem("token")
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message: e.response.data.message }}
+          })
+        }else{
+          //dispatch error?
+        }
       }
     }else{
       // Not a special case(API CALL), dispatch the action
+      console.log("NORMAL ACTION UPDATE")
      dispatcher(action);
     }
   }, []);

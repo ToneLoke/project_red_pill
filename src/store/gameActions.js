@@ -27,6 +27,15 @@ export const fetchGames = async () => {
   return await axios.get(GAME_API)
 }
 
+export const updateStoreGames = (games, game) => {
+  if(!games) {
+    return [game]
+  }else{
+    console.log("game", game)
+    return games.map( g => g._id === game._id ? game : g)
+  }
+}
+
 export const GAME_REDUCER = (action, state) => {
   switch (action.type) {
     case GAME_SET:
@@ -40,9 +49,9 @@ export const GAME_REDUCER = (action, state) => {
       if(state) {
         const user = state.user
         if(!state.game || !state.game._id){
-          user.games = user.games ? [...user.games, action.payload.game._id ] : [action.payload.game._id]
+          user.games = user.games ? [...user.games, action.payload._id ] : [action.payload._id]
         }
-        return { game: { ...state.game, ...action.payload }, user: {...user} }
+        return { game: { ...state.game, ...action.payload }, games: updateStoreGames(state.games, action.payload), user: {...user} }
       }
       return createOrUpdateGame
     default:

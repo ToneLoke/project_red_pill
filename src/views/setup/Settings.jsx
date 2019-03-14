@@ -57,10 +57,12 @@ const Settings = ({ classes }) => {
     dispatch
   } = useStore();
   const handleChange = e => {
-    dispatch({
-      type: "GAME_CREATE_UPDATE",
-      payload: { [e.target.name]: e.target.value }
-    }, true);
+    if(game[e.target.name] !== e.target.value ){
+      dispatch({
+        type: "GAME_CREATE_UPDATE",
+        payload: { ...game, [e.target.name]: e.target.value }
+      }, true);
+    }
   };
   return (
     <Paper className={classes.container}>

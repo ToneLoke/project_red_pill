@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useStore } from '../../../store'
 import { GameInfo } from '../../common/components'
 
@@ -13,7 +13,10 @@ const PlayerScreens = ({classes}) => {
   // },[user])
   //TODO: socket logic
   return(
-    <GameInfo />
+    <Fragment>
+      <div>Player Screens</div>
+      <GameInfo game={game} />
+    </Fragment>
   )
 }
 

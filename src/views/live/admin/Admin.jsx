@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useStore } from '../../../store'
+import { GameInfo } from '../../common/components'
 
 const AdminScreens = ({classes}) => {
-  const { state: { user }, dispatch } = useStore()
+  const { state: { user, game }, dispatch } = useStore()
   // useEffect(()=>{
   //   if(user){
   //     clientSocket({ id: match.params.id, user })(dispatch)
@@ -14,6 +15,7 @@ const AdminScreens = ({classes}) => {
   return(
     <div>
       Admin Screens
+      <GameInfo game={game} />
     </div>
   )
 }

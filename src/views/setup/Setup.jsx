@@ -33,6 +33,9 @@ const Setup = ({ classes, history }) => {
     if(page === 'questions' && !game){
       history.push('/games?type=draft')
     }
+    if(game && game.status === 'live'){
+      history.push('/games?type=live')
+    }
   })
   const renderActions = (a) => {
     return (

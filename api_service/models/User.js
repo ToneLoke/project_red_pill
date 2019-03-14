@@ -7,7 +7,10 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	games: [String],
+	games: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Game'
+  }],
 	firstName: String,
 	lastName: String,
 	password: {
