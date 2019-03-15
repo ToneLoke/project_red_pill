@@ -11,10 +11,6 @@ const BottomAppBar = ({ classes, history }) => {
   const fullPath = history.location.pathname + history.location.search
   //NOTE: helper to check if any field in the given state is empty
   const isEmpty = state =>  !state || Object.values(state).some(x => (x === null || x === ''));
-  //======================= Find the controls to display based off the current url =======================
-  let links = controls.nav[history.location.pathname] || null;
-  //NOTE: add extra field to to detect if current route (change btn color)
-  if(links) links = links.map( l => l.to === fullPath ? {...l, isActive: true} : { ...l, isActive: false})
   let actions = controls.actions[fullPath] || null;
   if(actions) {
     if(actions.length > 1) {
@@ -35,7 +31,6 @@ const BottomAppBar = ({ classes, history }) => {
     <div position="fixed" className={classes.appBar}>
       <div className={classes.toolbar}>
         <div className={classes.left} >
-        <Links links={links} />
         </div>
         <div className={classes.right}>
         <Actions actions={actions} dpHandler={handleDispatch} />

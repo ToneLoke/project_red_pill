@@ -91,21 +91,21 @@ const Settings = ({ classes }) => {
             label="Category"
             name="category"
             items={CATEGORIES}
-            value={game ? game.category : ''}
+            value={game ? game.category : 'general knowledge'}
             bubbleUp={handleChange}
           />
         </ListItem>
         <ListItem className={classes.textField}>
           <ListItemText
-            primary="Auto Start"
-            secondary="select a start size once enabled..."
+            primary="Invite Only"
+            secondary="enable only for private sessions..."
           />
           <ListItemSecondaryAction>
             <Switch
               disabled={true}
-              name="status"
+              name="private"
               onChange={handleChange}
-              checked={game ? game.autoStart : false}
+              checked={game ? game.private : false}
             />
           </ListItemSecondaryAction>
         </ListItem>

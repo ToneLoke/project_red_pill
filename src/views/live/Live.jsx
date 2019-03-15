@@ -6,8 +6,7 @@ import PlayerScreens from './player'
 
 const Live = ({classes, match, history}) => {
   const { state: { user, game }, dispatch } = useStore()
-  // const [actions, setActions] = useState([])
-  // const [isAdmin, setAdmin] = useState(false)
+
   useEffect(()=>{
     console.log("LIVE EFFECT")
     if(user && !game){

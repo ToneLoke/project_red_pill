@@ -2,6 +2,6 @@
   "name": "admin_bar",
   "version": "1.0.0",
   "description": "",
-  "main": "AdminBar.jsx",
+  "main": "NavBar.jsx",
   "author": "toneloke"
 }

@@ -7,6 +7,7 @@ import theme from './views/common/theme';
 import App from './AppRouter';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
+import './index.css';
 
 function Main() {
   return (

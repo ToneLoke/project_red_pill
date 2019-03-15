@@ -1,19 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
 // import PropTypes from 'prop-types';
+import { groupBy } from "lodash";
 import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import moment from 'moment';
 import AlbumIcon from "@material-ui/icons/FiberManualRecord";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { AdminBar } from "../common/components";
+import { NavBar } from "../common/components";
 import { useStore } from "../../store";
 import {
   ListItemSecondaryAction,
   Paper,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  ListSubheader
 } from "@material-ui/core";
 
 // import Avatar from '@material-ui/core/Avatar';
@@ -31,12 +33,15 @@ const styles = theme => ({
   },
   live: {
     color: 'green',
+    marginRight: theme.spacing.unit * 2,
   },
   draft: {
-    color: 'orange'
+    color: 'orange',
+    marginRight: theme.spacing.unit * 2,
   },
   done: {
-    color: 'gray'
+    color: 'gray',
+    marginRight: theme.spacing.unit * 2,
   },
   btnWrapper: {
     width: "90%"
@@ -47,7 +52,21 @@ const styles = theme => ({
   listItem: {
     borderBottom: "1px solid #dddddd",
     paddingBottom: 20
-  }
+  },
+  root: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    overflow: 'overlay',
+    maxHeight: 'calc(100vh - 50px)',
+  },
+  listSection: {
+    backgroundColor: 'inherit',
+  },
+  ul: {
+    backgroundColor: 'inherit',
+    padding: 0,
+  },
 });
 
 function getParameterByName(name, url) {
@@ -65,7 +84,8 @@ const Games = ({ classes, history }) => {
     state: { games: allGames, game, user },
     dispatch
   } = useStore();
-
+  const fullPath =  history.location.pathname + history.location.search
+  const path = history.location.pathname
   const [selGames, setSelGames] = useState()
 
   useEffect(() => {
@@ -74,9 +94,11 @@ const Games = ({ classes, history }) => {
     }
     if(user && allGames){
       if( getParameterByName("type") === 'live' ) {
-        setSelGames(allGames)
+        let grouped = groupBy(allGames, 'adminId.username')
+        setSelGames(grouped)
       }else{
-        setSelGames(user.games)
+        let grouped = groupBy(user.games, 'status')
+        setSelGames(grouped)
       }
     }
   });
@@ -93,7 +115,7 @@ const Games = ({ classes, history }) => {
   //TODO: fix empty state for filtered games as well
   return (
     <Fragment>
-      <AdminBar title="Sessions" icon={MenuIcon} handleClick={() => { }} />
+      <NavBar title="Sessions" icon={MenuIcon} path={path} fullPath={fullPath}/>
       {!selGames ? (
         <div><CircularProgress className={classes.progress} color="primary" /></div>
       ) : selGames.length === 0 ? (
@@ -105,18 +127,24 @@ const Games = ({ classes, history }) => {
             Create one by pressing '+' below.
           </Typography>
         </Paper>
-      ) : <List>
-            {selGames.map(g => {
-              return (
-                <ListItem key={g._id} button className={classes.listItemClass} onClick={() => handleClick(g)} selected={game && g._id === game._id}>
-                  <ListItemText primary={`${g.title}`} secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}`} />
-                  <ListItemSecondaryAction>
-                    <AlbumIcon fontSize="small" className={classes[g.status]} />
-                    <Typography variant="overline">{g.status === "live" && "live"}</Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
+      ) : <List className={classes.root} subheader={<li />}>
+          {Object.keys(selGames).map( name => (
+            <li key={`section-${name}`} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListSubheader> {name.toUpperCase()} </ListSubheader>
+                {selGames[name].map(g => {
+                  return (
+                    <ListItem key={g._id} button className={classes.listItemClass} onClick={() => handleClick(g)} selected={game && g._id === game._id}>
+                      <ListItemText primary={`${g.title}`} secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}`} />
+                      <ListItemSecondaryAction>
+                        <AlbumIcon fontSize="small" className={classes[g.status]} />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  );
+                })}
+              </ul>
+            </li>
+          ))}
           </List>
       }
     </Fragment>

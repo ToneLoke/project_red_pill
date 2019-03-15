@@ -26,7 +26,6 @@ const styles = theme => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-start",
     backgroundColor: "transparent",
     position: "relative",
     width: "100%",

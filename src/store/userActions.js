@@ -12,6 +12,7 @@ export const USER_AUTHENTICATE = 'USER_AUTHENTICATE'
 export const USER_REGISTER = 'USER_REGISTER'
 export const USER_SET = 'USER_SET'
 export const USER_INFO = 'USER_INFO'
+export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const setUser = ({payload}) => ({user: payload});
 export const setToken = token => sessionStorage.setItem("token", token)
@@ -32,6 +33,9 @@ export const USER_REDUCER = (action, state) => {
   switch (action.type) {
     case USER_SET:
       return setUser(action);
+    case USER_LOGOUT:
+      sessionStorage.removeItem('token')
+      return userInitial;
     case USER_AUTHENTICATE:
       if(state){
         setToken(action.payload.token)

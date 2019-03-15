@@ -1,4 +1,4 @@
-import {forEach, isEmpty} from 'underscore';
+import { each, isEmpty} from 'lodash';
 /**
  * The App Error class
  */
@@ -50,7 +50,7 @@ class AppError extends Error {
 		if (!isEmpty(error)) {
 			for (let prop in error) {
 				if (error.hasOwnProperty(prop)) {
-					forEach(error[prop], (errorMessage) => {
+					each(error[prop], (errorMessage) => {
 						errorsArray.push(errorMessage);
 					});
 				}

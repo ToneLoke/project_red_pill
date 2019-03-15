@@ -5,7 +5,7 @@ import BackIcon from "@material-ui/icons/ArrowBack";
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
 import controls from '../common/controls';
-import { AdminBar } from '../common/components';
+import { NavBar } from '../common/components';
 import Settings from './Settings';
 import Questions from './Questions';
 
@@ -28,6 +28,7 @@ const Setup = ({ classes, history }) => {
   const { state: {game}, dispatch } = useStore();
 
   const path = history.location.pathname
+  const fullPath =  history.location.pathname + history.location.search
   let page = history.location.search.split('=')[1] || "settings"
   useEffect(()=>{
     if(page === 'questions' && !game){
@@ -49,7 +50,7 @@ const Setup = ({ classes, history }) => {
   }
   return (
     <Fragment>
-      <AdminBar title={`${ game ? game.title : 'New Session'} - ${page}`} icon={BackIcon} handleClick={()=> history.goBack()}/>
+      <NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>
       { page === 'questions' ? <Questions /> :<Settings />  }
       { controls.actions[path] && controls.actions[path].map(renderActions) }
     </Fragment>

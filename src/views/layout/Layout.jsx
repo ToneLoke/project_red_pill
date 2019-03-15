@@ -11,8 +11,9 @@ const styles = theme => ({
   //NOTE: LAYOUT STYLES
   root: {
     width: "100%",
-    height: "100vh",
-    flexDirection: "column"
+    height: "100%",
+    flexDirection: "column",
+    overflow: "hidden"
   }
 });
 

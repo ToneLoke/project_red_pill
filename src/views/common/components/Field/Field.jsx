@@ -7,6 +7,7 @@ const Field = ({ bubbleUp, ...rest }) => {
   const { value, name } = rest;
   const [state, setState] = useState(value);
   const [error, setError] = useState(null);
+  const [touched, setTouched] = useState(false);
 
   const handleChange = e => {
     setState(e.target.value);
@@ -20,16 +21,18 @@ const Field = ({ bubbleUp, ...rest }) => {
     }
   }
 
+  const handleFocus = () => {
+    if(!touched) setTouched(true)
+  }
+
   useEffect(() => {
     const validError = validate({ [name]: state}, constraints)
-    if (validError) {
+    if (validError && touched) {
       setError(validError[name]);
     }
-  }, [state])
+  }, [state, touched])
 
-
-
-  const mergeProps = {  ...rest, onChange: handleChange, onBlur: handleBlur, error: !!error , helperText: error, value: state }
+  const mergeProps = {  ...rest, onChange: handleChange, onFocus: handleFocus, onBlur: handleBlur, error: !!error , helperText: error, value: state }
 
   return (
       <Fragment>

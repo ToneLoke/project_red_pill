@@ -1,30 +1,24 @@
-import React from 'react'
-import { Typography, Fab } from '@material-ui/core';
+import React, { Fragment } from 'react'
+import { MenuItem } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import styles from './Links.styles'
 
 const NavLink = props => {
-  const { classes, link: l } = props;
+  const { classes, link: l, closeMenu} = props;
   return (
-    <div className={classes.btnWrapper}>
-      <Fab color={ l.isActive ? "primary" : "secondary"} to={l.to} className={classes.link} {...l}>
-        <l.icon />
-      </Fab>
-      <Typography variant="caption" color="secondary" className={classes.btnText}>
-        {!!l.text && l.text}
-      </Typography>
-    </div>
-
+      <MenuItem selected={l.selected} onClick={closeMenu} to={l.to} className={classes.link} {...l}>
+        { l.text && l.text }
+      </MenuItem>
   );
 };
 
 
 const Links = (props) => {
-  const { classes, links } = props
+  const { classes, links, closeMenu  } = props
   return (
-    <div className={classes.container}>
-      { links && links.map(link => <NavLink key={link.key} link={link} classes={classes} />)}
-    </div>
+    <Fragment>
+      { links && links.map(link => <NavLink key={link.key} closeMenu={closeMenu} link={link} classes={classes} />)}
+    </Fragment>
   )
 }
 
