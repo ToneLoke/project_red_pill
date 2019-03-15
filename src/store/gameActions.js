@@ -39,7 +39,13 @@ export const updateStoreGames = (games, game) => {
 export const GAME_REDUCER = (action, state) => {
   switch (action.type) {
     case GAME_SET:
-      return setGame(action);
+      let stateUpdate = setGame(action);
+
+      if(state.user._id === action.payload._id){
+        return { ...stateUpdate, user: { ...state.user, isAdmin: true}}
+      }else{
+        return { ...stateUpdate, user: { ...state.user, isAdmin: false}};
+      }
     case GAME_CLEAR:
       return { game: {...gameInitial}};
     case GAME_FETCH_ALL:
@@ -51,7 +57,7 @@ export const GAME_REDUCER = (action, state) => {
         if(!state.game || !state.game._id){
           user.games = user.games ? [...user.games, action.payload] : [action.payload]
         }
-        return { game: { ...state.game, ...action.payload }, games: updateStoreGames(state.games, action.payload), user: {...user} }
+        return { game: { ...state.game, ...action.payload }, games: updateStoreGames(state.games, action.payload), user: {...user, games: updateStoreGames(user.games, action.payload)} }
       }
       return createOrUpdateGame
     default:

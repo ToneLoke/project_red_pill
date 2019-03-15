@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //======================= All Icons Needed =======================
 import AddIcon from "@material-ui/icons/Add";
 import PresentToAll from "@material-ui/icons/PresentToAll";
-import UpdateIcon from "@material-ui/icons/Update";
+import PlayIcon from "@material-ui/icons/PlayArrow";
 import EditIcon from "@material-ui/icons/Edit";
 import PublishedIcon from "@material-ui/icons/Book";
 import AccountIcon from "@material-ui/icons/Person";
@@ -12,6 +12,8 @@ import Settings from "@material-ui/icons/Settings";
 import ViewList from "@material-ui/icons/ViewList";
 import SendIcon from "@material-ui/icons/Send";
 import CheckCircle from "@material-ui/icons/Check";
+import ReadyIcon from "@material-ui/icons/HowToReg";
+import HandIcon from "@material-ui/icons/PanTool";
 
 export default {
   nav: {
@@ -109,9 +111,9 @@ export default {
           to: "/games/draft?type=settings",
           color: "secondary",
         },
-        icon: UpdateIcon,
+        icon: EditIcon,
         key: "game-btn-upate",
-        text: "update",
+        text: "edit",
         actionType: "GAME"
       },
     ],
@@ -154,6 +156,40 @@ export default {
         icon: AddIcon,
         actionType: "QUESTION"
       },
+    ],
+    "/live/player": [
+      {
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-ready",
+        text: "ready",
+        icon: ReadyIcon,
+        actionType: "LIVE_PLAYER_READY"
+      },
+      {
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-raise-hand",
+        text: "help",
+        icon: HandIcon,
+        actionType: "LIVE_PLAYER_HELP"
+      }
+    ],
+    "/live/admin": [
+      {
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-start",
+        text: "play",
+        icon: PlayIcon,
+        actionType: "LIVE_GAME_PLAY"
+      }
     ]
   }
 };

@@ -9,3 +9,4 @@ export { default as Actions } from './Actions';
 export { default as Input } from './Input';
 export { default as Empty } from './Empty';
 export { default as Links } from './Links';
+export { default as Timer } from './Timer/OldTimer';

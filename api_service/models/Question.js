@@ -5,6 +5,10 @@ const QuestionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  maxTime: {
+    type: Number,
+    required: true
+  },
   type: {
     type: String,
     enum: ['multiple', 'switch', 'order'],

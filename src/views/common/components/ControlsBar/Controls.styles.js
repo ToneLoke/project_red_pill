@@ -32,11 +32,11 @@ const styles = theme => ({
     height: 56,
     marginTop: -28
   },
-  left: {
+  right: {
     width: "60%",
     height: "inherit",
   },
-  right: {
+  left: {
     width: "40%",
     height: "inherit",
 

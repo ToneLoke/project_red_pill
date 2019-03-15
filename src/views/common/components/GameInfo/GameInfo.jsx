@@ -9,7 +9,6 @@ import {
 import { withStyles } from "@material-ui/core/styles"
 import styles from './GameInfo.styles'
 
-
 const PlayerList = ({players, selPlayer}) => {
   return (
     <List>
