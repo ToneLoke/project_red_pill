@@ -1,38 +1,23 @@
 import React from 'react';
-import { useTimer } from 'react-timer-hook';
+import useTimer  from '../../../../utils/timerHook';
 
-function MyTimer({ expiryTimestamp }) {
+export default function Timer({ maxTime, classes }) {
+  let expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + maxTime);
+
   const {
     seconds,
     minutes,
-    hours,
-    days,
     start,
     pause,
     resume
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
-
-  return (
-    <div style={{textAlign: 'center'}}>
-      <h1>react-timer-hook </h1>
-      <p>Timer Demo</p>
-      <div style={{fontSize: '100px'}}>
-        <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-      </div>
-      <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={resume}>Resume</button>
-    </div>
-  );
-}
-
-export default function App() {
-  var t = new Date();
-  t.setSeconds(t.getSeconds() + 600); // 10 minutes timer
   return (
     <div>
-      <MyTimer expiryTimestamp={t} />
+      <div>
+        <span>{minutes || '0'}</span>:<span>{seconds || '00'}</span>
+      </div>
     </div>
   );
 }

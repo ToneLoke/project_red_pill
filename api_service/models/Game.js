@@ -1,19 +1,35 @@
-import mongoose from 'mongoose';
+import {Schema, model} from 'mongoose';
 
-const GameSchema = new mongoose.Schema({
+const PlayerSchema = new Schema({
+  _id:{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  score: {
+    type: Number,
+    default: 0
+  },
+  answers: [{
+    q_id: {type: Schema.Types.ObjectId, ref: 'Question'},
+    submission: [String]
+  }]
+})
+
+const GameSchema = new Schema({
   adminId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
     index: true
   },
-  players: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  players: [PlayerSchema],
   title: {
     type: String,
     required: true
+  },
+  qNum: {
+    type: Number,
+    default: 0
   },
   questions: {
     type: Array,
@@ -23,7 +39,7 @@ const GameSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['live', 'done', 'draft'],
+    enum: ['live', 'done', 'draft', 'start', 'stop'],
     default: 'draft'
   }
 }, {
@@ -31,4 +47,4 @@ const GameSchema = new mongoose.Schema({
   });
 //add pre save method to calc totalPoints
 
-export default mongoose.model('Game', GameSchema);
+export default model('Game', GameSchema);

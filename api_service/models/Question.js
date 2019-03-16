@@ -5,18 +5,21 @@ const QuestionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  difficulty: {
+    type: String,
+    enum: ['easy', 'hard', 'medium']
+  },
   maxTime: {
-    type: Number,
+    type: Date,
     required: true
   },
   type: {
     type: String,
     enum: ['multiple', 'switch', 'order'],
   },
-  choices: [String],
+  choices: Array,
   answers: Array,
   points: Number
-
 }, {
 	timestamps: true,
 });

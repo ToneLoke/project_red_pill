@@ -10,6 +10,7 @@ const configureSocket = ({id, user}) => dispatch => {
   })
 
   socket.on('new player', data => console.log('new player',data))
+
   socket.on('connected', data => {
     console.log('connected server emition',data)
     dispatch({type: 'GAME_SET', payload: { socket: socket, ...data}})
