@@ -7,11 +7,13 @@ const QuestionSchema = new mongoose.Schema({
   },
   difficulty: {
     type: String,
-    enum: ['easy', 'hard', 'medium']
+    enum: ['easy', 'hard', 'medium'],
+    default: 'easy'
   },
   maxTime: {
-    type: Date,
-    required: true
+    type: Number,
+    required: true,
+    default: 50,
   },
   type: {
     type: String,

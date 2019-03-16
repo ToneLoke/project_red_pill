@@ -3,6 +3,7 @@ import { userInitial, USER_REDUCER } from "./userActions";
 import { ALERT_REDUCER } from "./alertActions";
 import { gameInitial, GAME_REDUCER } from "./gameActions";
 import { questionInitial, QUESTION_REDUCER } from "./questionActions";
+import { LIVE_GAME_REDUCER } from './liveActions';
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,
@@ -16,7 +17,8 @@ const Combined = {
   "ALERT": ALERT_REDUCER,
   "USER": USER_REDUCER,
   "QUESTION": QUESTION_REDUCER,
-  "GAME": GAME_REDUCER
+  "GAME": GAME_REDUCER,
+  "LIVE": LIVE_GAME_REDUCER
 };
 
 // the reducer is called whenever a dispatch action is made.

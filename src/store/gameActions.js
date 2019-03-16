@@ -24,7 +24,7 @@ export const createOrUpdateGame = async (body) => {
 }
 
 export const fetchGames = async () => {
-  return await axios.get(GAME_API)
+  return await axios.get(GAME_API, { retry: 2, retryDelay: 1000})
 }
 
 export const updateStoreGames = (games, game) => {
@@ -40,12 +40,17 @@ export const GAME_REDUCER = (action, state) => {
   switch (action.type) {
     case GAME_SET:
       let stateUpdate = setGame(action);
+      let isAdmin, question;
 
-      if(state.user._id === action.payload._id){
-        return { ...stateUpdate, user: { ...state.user, isAdmin: true}}
-      }else{
-        return { ...stateUpdate, user: { ...state.user, isAdmin: false}};
+      if(state.user._id === action.payload.adminId._id){
+        isAdmin = true
       }
+
+      if(action.payload.socket){
+        question = action.payload.questions[0]
+      }
+
+      return { ...stateUpdate, user: { ...state.user, isAdmin }, question};
     case GAME_CLEAR:
       return { game: {...gameInitial}};
     case GAME_FETCH_ALL:

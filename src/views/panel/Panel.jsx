@@ -25,7 +25,10 @@ const styles = theme => ({
     width: "100%",
     flexGrow: 1,
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignItems: "center",
+    justifyItems: "center",
+    paddingTop: "20vh"
   },
   progress: {
     margin: 12,
@@ -89,9 +92,10 @@ const Games = ({ classes, history }) => {
   const [selGames, setSelGames] = useState()
 
   useEffect(() => {
-    if (!allGames && user) {
       dispatch({ type: "GAME_FETCH_ALL" }, true);
-    }
+  }, []);
+
+  useEffect(()=> {
     if(user && allGames){
       if( getParameterByName("type") === 'live' ) {
         let grouped = groupBy(allGames, 'adminId.username')
@@ -101,7 +105,7 @@ const Games = ({ classes, history }) => {
         setSelGames(grouped)
       }
     }
-  });
+  },[history.location.search, allGames, user])
 
   const handleClick = (selGame) => {
     if (game && (selGame._id === game._id)) {
@@ -113,12 +117,13 @@ const Games = ({ classes, history }) => {
   }
 
   //TODO: fix empty state for filtered games as well
+  console.log("SELECTED GAMES", selGames)
   return (
     <Fragment>
       <NavBar title="Sessions" icon={MenuIcon} path={path} fullPath={fullPath}/>
       {!selGames ? (
         <div><CircularProgress className={classes.progress} color="primary" /></div>
-      ) : selGames.length === 0 ? (
+      ) : Object.keys(selGames).length === 0 ? (
         <Paper className={classes.container}>
           <Typography variant="body2" color="inherit">
             There are no games found.

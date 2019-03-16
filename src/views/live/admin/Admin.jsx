@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useStore } from '../../../store'
-import { GameInfo } from '../../common/components'
+import { Timer } from '../../common/components'
 
 const AdminScreens = ({classes}) => {
-  const { state: { user, game }, dispatch } = useStore()
-  // useEffect(()=>{
-  //   if(user){
-  //     clientSocket({ id: match.params.id, user })(dispatch)
-  //   }else{
-  //     dispatch({type: 'USER_INFO'}, true)
-  //   }
-  // },[user])
-  //TODO: socket logic
+  const { state: { user, game, question }, dispatch } = useStore()
+  const { maxTime } = question;
+  const { status } = game;
+  const timesUp = () => console.log("TIME UP ACTION")
   return(
-    <div>
-      Admin Screens
-      <GameInfo game={game} />
+    <div className="Admin-Container">
+      <Timer maxTime={maxTime} onExpire={timesUp} status={status}/>
     </div>
   )
 }

@@ -2,8 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function useTimer(settings) {
   const { maxTime, onExpire } = settings || {};
-  let expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + maxTime);
+  let expireTime = new Date();
+  expireTime.setSeconds(expireTime.getSeconds() + maxTime);
+
+  // didMount effect
+  useEffect(() => {
+    calculateExpiryDate();
+    return reset;
+  },[maxTime]);
+
 
   const [seconds, setSeconds] = useState(0);
   function subtractSecond() {
@@ -33,7 +40,7 @@ export default function useTimer(settings) {
   const intervalRef = useRef();
 
   function start() {
-    if(isValidExpiryTimestamp(expiryTimestamp) && !intervalRef.current) {
+    if(isValidExpiryTimestamp(expireTime) && !intervalRef.current) {
       calculateExpiryDate();
       intervalRef.current = setInterval(() => calculateExpiryDate(), 1000);
     }
@@ -56,7 +63,7 @@ export default function useTimer(settings) {
   }
 
   function resume() {
-    if(isValidExpiryTimestamp(expiryTimestamp) && !intervalRef.current) {
+    if(isValidExpiryTimestamp(expireTime) && !intervalRef.current) {
       intervalRef.current = setInterval(() => subtractSecond(), 1000);
     }
   }
@@ -64,7 +71,7 @@ export default function useTimer(settings) {
   // Timer expiry date calculation
   function calculateExpiryDate() {
     var now = new Date().getTime();
-    var distance = expiryTimestamp - now;
+    var distance = expireTime - now;
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     if(seconds < 0) {
@@ -76,16 +83,12 @@ export default function useTimer(settings) {
     }
   }
 
-  // didMount effect
-  useEffect(() => {
-    return reset;
-  },[]);
 
-  // Validate expiryTimestamp
-  function isValidExpiryTimestamp(expiryTimestamp) {
-    const isValid = (new Date(expiryTimestamp)).getTime() > 0;
+  // Validate expireTime
+  function isValidExpiryTimestamp(expireTime) {
+    const isValid = (new Date(expireTime)).getTime() > 0;
     if(!isValid) {
-      console.warn('Invalid expiryTimestamp settings', expiryTimestamp);
+      console.warn('Invalid expireTime settings', expireTime);
     }
     return isValid;
   }

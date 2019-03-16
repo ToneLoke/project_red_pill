@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React, {useState, Fragment} from "react";
+import {withStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -7,19 +7,17 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Switch from "@material-ui/core/Switch";
 
-import { useStore } from "../../store";
-import { Field } from "../common/components";
+import {useStore} from "../../store";
+import {Field} from "../common/components";
 //TODO: seperate in own file or pull from db
 const CATEGORIES = [
   {
     label: "general sales",
     value: 1
-  },
-  {
+  }, {
     label: "vehicle inventory",
     value: 2
-  },
-  {
+  }, {
     label: "company culture",
     value: 3
   }
@@ -51,23 +49,26 @@ const styles = {
   }
 };
 
-const Settings = ({ classes }) => {
-  const {
-    state: { game },
-    dispatch
-  } = useStore();
+const Settings = ({classes}) => {
+  const {state: {
+      game
+    }, dispatch} = useStore();
   const handleChange = e => {
     //TODO: Refactor this...
-    if( !game ){
+    if (!game) {
       dispatch({
         type: 'GAME_CREATE_UPDATE',
-        payload: { [e.target.name]: e.target.value }
+        payload: {
+          [e.target.name]: e.target.value
+        }
       }, true)
-    }
-    else if( game[e.target.name] !== e.target.value ){
+    } else if (game[e.target.name] !== e.target.value) {
       dispatch({
         type: "GAME_CREATE_UPDATE",
-        payload: { ...game, [e.target.name]: e.target.value }
+        payload: {
+          ...game,
+          [e.target.name]: e.target.value
+        }
       }, true);
     }
   };
@@ -80,33 +81,31 @@ const Settings = ({ classes }) => {
             label="Title"
             name="title"
             bubbleUp={handleChange}
-            value={game ? game.title : ''}
-          />
+            value={game
+            ? game.title
+            : ''}/>
         </ListItem>
         <ListItem className={classes.textField}>
           <Field
-            disabled={true}
             className={classes.full}
-            select
-            label="Category"
-            name="category"
-            items={CATEGORIES}
-            value={game ? game.category : 'general knowledge'}
-            bubbleUp={handleChange}
-          />
+            label="Total Points"
+            name="totalPoints"
+            disabled={true}
+            bubbleUp={()=>{}}
+            value={game ? game.totalPoints : 0}/>
         </ListItem>
         <ListItem className={classes.textField}>
           <ListItemText
             primary="Invite Only"
-            secondary="enable only for private sessions..."
-          />
+            secondary="enable only for private sessions..."/>
           <ListItemSecondaryAction>
             <Switch
               disabled={true}
               name="private"
               onChange={handleChange}
-              checked={game ? game.private : false}
-            />
+              checked={game
+              ? game.private
+              : false}/>
           </ListItemSecondaryAction>
         </ListItem>
       </List>

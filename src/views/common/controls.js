@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
 import PresentToAll from "@material-ui/icons/PresentToAll";
 import PlayIcon from "@material-ui/icons/PlayArrow";
+import SkipIcon from "@material-ui/icons/SkipNext";
 import EditIcon from "@material-ui/icons/Edit";
 import PublishedIcon from "@material-ui/icons/Book";
 import AccountIcon from "@material-ui/icons/Person";
@@ -185,10 +186,21 @@ export default {
           component: "button",
           color: "secondary"
         },
-        key: "btn-start",
+        key: "btn-play",
         text: "play",
         icon: PlayIcon,
-        actionType: "LIVE_GAME_PLAY"
+        actionType: "LIVE_GAME_PLAY",
+        data: {status: "play"},
+      },
+      {
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-skip",
+        text: "skip",
+        icon: SkipIcon,
+        actionType: "LIVE_GAME_SKIP"
       }
     ]
   }

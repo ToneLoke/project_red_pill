@@ -12,8 +12,9 @@ const BottomAppBar = ({ classes, history }) => {
   const fullPath = history.location.pathname + history.location.search
   //NOTE: helper to check if any field in the given state is empty
   const isEmpty = state =>  !state || Object.values(state).some(x => (x === null || x === ''));
-  if(fullPath.indexOf('live') > -1){
+  if(fullPath.indexOf('/live') > -1){
     if(state.user) actions = controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`] || null
+
   }else{
     actions = controls.actions[fullPath] || null;
     if(actions) {
@@ -36,6 +37,7 @@ const BottomAppBar = ({ classes, history }) => {
     <div position="fixed" className={classes.appBar}>
       <div className={classes.toolbar}>
         <div className={classes.left} >
+
         </div>
         <div className={classes.right}>
         <Actions actions={actions} dpHandler={handleDispatch} />

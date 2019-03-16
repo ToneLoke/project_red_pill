@@ -3,21 +3,14 @@ import { useStore } from '../../../store'
 import { GameInfo, Timer } from '../../common/components'
 
 const PlayerScreens = ({classes}) => {
-  const { state: { user, game }, dispatch } = useStore()
-  const { current, questions } = game;
-
-  // useEffect(()=>{
-  //   if(user){
-  //     clientSocket({ id: match.params.id, user })(dispatch)
-  //   }else{
-  //     dispatch({type: 'USER_INFO'}, true)
-  //   }
-  // },[user]fad
-  //TODO: socket logic
+  const { state: { user, game, question }, dispatch } = useStore()
+  const { maxTime } = question;
+  const { status } = game;
+  const timesUp = () => console.log("TIME UP ACTION")
   return(
-    <Fragment>
-      <Timer />
-    </Fragment>
+    <div className="Player-Container">
+      <Timer maxTime={maxTime} onExpire={timesUp} status={status}/>
+    </div>
   )
 }
 

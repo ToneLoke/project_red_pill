@@ -22,7 +22,7 @@ export const authenticate = async (body) => {
 }
 
 const fetchUser = async () => {
-  return await axios.get(ME_API)
+  return await axios.get(ME_API, {retry: 2, retryDelay: 1000})
 }
 
 export const register = async (body) => {
@@ -50,6 +50,7 @@ export const USER_REDUCER = (action, state) => {
       return register
     case USER_INFO:
       if(state){
+        if(!action.payload) sessionStorage.removeItem('token');
         return setUser(action)
       }
       return fetchUser

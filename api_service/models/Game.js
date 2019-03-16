@@ -1,7 +1,8 @@
 import {Schema, model} from 'mongoose';
+import Question from './Question';
 
 const PlayerSchema = new Schema({
-  _id:{
+  _id: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -9,10 +10,15 @@ const PlayerSchema = new Schema({
     type: Number,
     default: 0
   },
-  answers: [{
-    q_id: {type: Schema.Types.ObjectId, ref: 'Question'},
-    submission: [String]
-  }]
+  answers: [
+    {
+      q_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Question'
+      },
+      submission: [String]
+    }
+  ]
 })
 
 const GameSchema = new Schema({
@@ -31,20 +37,33 @@ const GameSchema = new Schema({
     type: Number,
     default: 0
   },
-  questions: {
-    type: Array,
-  },
+  questions: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Question',
+  }],
   totalPoints: {
-    type: Number
+    type: Number,
+    default: 0,
+    min: 0,
   },
   status: {
     type: String,
-    enum: ['live', 'done', 'draft', 'start', 'stop'],
-    default: 'draft'
+    enum: [
+      'live', 'done', 'draft', 'pause'
+    ],
+    default: 'draft',
+    index: true
   }
-}, {
-    timestamps: true,
-  });
-//add pre save method to calc totalPoints
+}, {timestamps: true});
+
+
+GameSchema.pre('save', async function (next) {
+  if(this.isModified('questions')){
+     const questions = this.questions.map( _id => Question.findOne({_id}).select('points -_id'))
+     const qs = await Promise.all(questions)
+      this.totalPoints = qs.reduce( (prev, cur) => prev + cur.points, 0)
+  }
+  next()
+})
 
 export default model('Game', GameSchema);

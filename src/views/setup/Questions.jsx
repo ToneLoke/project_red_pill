@@ -37,9 +37,8 @@ const Questions = ({ classes, history }) => {
     if(ck){
       updatedQuestions = [...oldQuestions, id]
     }else{
-      updatedQuestions = oldQuestions.filter( q => q._id !== id)
+      updatedQuestions = oldQuestions.filter( q => q !== id)
     }
-
     dispatch({type: 'GAME_CREATE_UPDATE', payload: {...game, questions: updatedQuestions}}, true)
   }
 

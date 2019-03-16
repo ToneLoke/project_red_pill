@@ -18,10 +18,11 @@ export default function setupGameSocket(gameIO, id){
 
   gameIO.on('connection', socket => {
     liveCtrl.connected(socket);
+    socket.on('LIVE_GAME_PLAY', data => {
+      gameIO.emit('GAME_UPDATE', data)
+    })
     //add player to game roster
   })
-  gameIO.on('disconnect', socket => {
-    console.log(".....disconnecting user --", socket.user.username)
-    socket.disconnect(true)
-  })
+
+
 }

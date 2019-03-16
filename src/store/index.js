@@ -17,7 +17,7 @@ const Provider = (props) => {
         dispatcher({ type: action.type, payload: data});
       }catch(e){
         console.log("==================REQUEST ERROR=============================")
-        console.log(e)
+        console.log(e, e.response)
         if(e.response && e.response.status && e.response.data === 401 )
         {
           localStorage.removeItem("token")
@@ -26,7 +26,10 @@ const Provider = (props) => {
             payload: { alert: {message: e.response.data.message }}
           })
         }else{
-          //dispatch error?
+          dispatcher({
+            type: "ALERT_ERROR",
+            payload: { alert: {message: "sorry, something went wrong please try again." }}
+          })
         }
       }
     }else{

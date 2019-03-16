@@ -75,7 +75,7 @@ function TopBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="headline" color="inherit" className={classes.grow}>
+          <Typography color="inherit" className={classes.grow}>
             {title}
           </Typography>
         </Toolbar>
