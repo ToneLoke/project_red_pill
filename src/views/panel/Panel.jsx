@@ -18,7 +18,6 @@ import {
   ListSubheader
 } from "@material-ui/core";
 
-// import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
   container: {
@@ -117,7 +116,6 @@ const Games = ({ classes, history }) => {
   }
 
   //TODO: fix empty state for filtered games as well
-  console.log("SELECTED GAMES", selGames)
   return (
     <Fragment>
       <NavBar title="Sessions" icon={MenuIcon} path={path} fullPath={fullPath}/>

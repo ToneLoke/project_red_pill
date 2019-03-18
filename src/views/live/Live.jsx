@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState, } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress';
+// import Avatar from '@material-ui/core/Avatar';
 import { useStore } from '../../store'
 import clientSocket from './clientSocket'
-import AdminScreens from './admin'
-import PlayerScreens from './player'
-import {NavBar} from '../common/components'
+import {NavBar, GameInfo} from '../common/components'
 
 const Live = ({classes, match, history}) => {
-  const { state: { user, game }, dispatch } = useStore()
+  const { state: { user, game, question }, dispatch } = useStore()
+  const liveData = {game, user, question};
   // const [socket, setSocket] = useState();
   const fullPath =  history.location.pathname + history.location.search
   const path = history.location.pathname
@@ -19,18 +19,16 @@ const Live = ({classes, match, history}) => {
     return function cleanup() {
       // if(game && game.socket) {
       //   console.log("socket disconnect")
-      //   game.socket.emit("disconnect")
+      //   game.socket.emit("disconnect", user)
       // }
     };
   },[user, game])
   //TODO: socket logic
   return(
     <Fragment>
-      <NavBar title={ !game ? "Loading data.." : `${game.title} - by ${game.adminId.username}`}  path={path} fullPath={fullPath}/>
+      <NavBar title={ !game ? "Loading data.." : `${game.title}`}  path={path} fullPath={fullPath}/>
       { !user || !game || !game.socket ? <div><CircularProgress color="primary"/></div> :
-        user._id === game.adminId._id ?
-        <AdminScreens /> :
-        <PlayerScreens />
+        <GameInfo {...liveData} timesUp={()=>{}} />
       }
     </Fragment>
   )

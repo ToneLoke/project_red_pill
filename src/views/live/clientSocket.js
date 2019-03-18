@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 const configureSocket = ({id, user}) => dispatch => {
   //======================= SOCKET CONNECTION =======================
-  const socket = io.connect(`http://localhost:8000/${id}?userId=${user._id}&username=${user.username}`);
+  const socket = io.connect(`http://localhost:8000/${id}?_id=${user._id}&username=${user.username}`);
   socket.on('error', error => {
     dispatch({ type: "ALERT_ERROR", payload: { alert: {message: error}}})
   })
@@ -16,8 +16,8 @@ const configureSocket = ({id, user}) => dispatch => {
     if(data !== user.username) dispatch({type: 'ALERT_SUCCESS', payload: {alert: {message: `${data} joined the game.`}}})
   })
 
-  socket.on('GAME_UPDATE', payload => {
-    dispatch({ type: 'LIVE_GAME_UPDATE', payload });
+  socket.on('GAME_UPDATED', payload => {
+    dispatch({ type: 'LIVE_GAME_UPDATED', payload });
   });
 //======================= END INCOMING FORM SERVER =======================
 //======================= ADMIN EMITIONS =======================

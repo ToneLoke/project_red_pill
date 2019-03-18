@@ -25,13 +25,13 @@ const Provider = (props) => {
         }else{
           dispatcher({
             type: "ALERT_ERROR",
-            payload: { alert: {message: `sorry, something went wrong please try again.${ e || ""}` }}
+            payload: { alert: {message: `sorry, something went wrong please try again.${JSON.stringify(e) || ""}` }}
           })
         }
       }
     }else{
       // Not a special case(API CALL), dispatch the action
-      console.log("NORMAL ACTION UPDATE")
+     console.log("NORMAL ACTION UPDATE")
      dispatcher(action);
     }
   }, []);

@@ -1,17 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useStore } from '../../../store'
-import { GameInfo, Timer } from '../../common/components'
+import { withStyles } from "@material-ui/core/styles"
+import { GameInfo } from '../../common/components'
+import styles from './Player.styles';
 
 const PlayerScreens = ({classes}) => {
-  const { state: { user, game, question }, dispatch } = useStore()
-  const { maxTime } = question;
-  const { status } = game;
+  const { state, dispatch } = useStore()
   const timesUp = () => console.log("TIME UP ACTION")
   return(
-    <div className="Player-Container">
-      <Timer maxTime={maxTime || 0} onExpire={timesUp} status={status || 'live'}/>
+    <div className={classes.container}>
+      <GameInfo {...state} timesUp={timesUp} selPlayer={state.user}/>
     </div>
   )
 }
 
-export default PlayerScreens
+export default withStyles(styles)(PlayerScreens);

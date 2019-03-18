@@ -1,43 +1,38 @@
-import React from 'react'
-import {
-  ListItemSecondaryAction,
-  List,
-  ListItem,
-  ListItemText,
-  Badge
-} from "@material-ui/core"
+import React, {Fragment} from 'react'
 import { withStyles } from "@material-ui/core/styles"
+import PersonIcon from "@material-ui/icons/Person"
+import { Typography, Fab, Badge } from '@material-ui/core'
 import styles from './GameInfo.styles'
+import Timer from '../Timer';
 
-const PlayerList = ({players, selPlayer}) => {
+const PlayerList = ({players, selPlayer, classes}) => {
   return (
-    <List>
+    <div className={classes.players}>
       {players.map( p => {
         return (
-          <ListItem key={p._id} button  selected={ selPlayer && p._id === selPlayer._id}>
-            <ListItemText primary={`${p.username}`} secondary={`2/10`}/>
-            <ListItemSecondaryAction>
-              <Badge fontSize="large" color="primary" badgeContent={5} />
-            </ListItemSecondaryAction>
-          </ListItem>
+          <Fragment>
+          <Fab key={p._id}  disabled={ selPlayer && p._id === selPlayer._id}>
+            <PersonIcon />
+            <Badge fontSize="large" color="secondary" badgeContent={10} />
+          </Fab>
+          <div>{p.username}</div>
+          </Fragment>
         );
       })}
-    </List>
+    </div>
   );
 }
 
-const GameInfo = ({game, classes}) => (
+const GameInfo = ({game, classes, timesUp, user, question}) => (
   <div className={classes.container}>
     <div className={classes.title}>
-      <div>{game.title}</div><div>{game.adminId.username}</div>
+      <div>Host: {game.adminId.username}</div>
+      <div>Max Score: {game.totalPoints}</div>
+      <div>Players: {game.players.length}</div>
+      <div>Question: {game.qNum + 1}/{game.questions.length} </div>
     </div>
-    <div className={classes.status}>
-      <div>00:00</div><div># 2/10</div>
-    </div>
-    <div className={classes.heading}>
-      <div>Players: {game.players.length}</div><div>Total: {game.totalPoints}</div>
-    </div>
-    <PlayerList players={game.players} selPlayer={null} />
+    <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status}/>
+    <PlayerList players={game.players} selPlayer={user} classes={classes}/>
   </div>
 )
 

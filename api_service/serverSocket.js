@@ -6,9 +6,9 @@ export default function setupGameSocket(gameIO, id){
   const liveCtrl = new LiveController(GameModel,gameIO, id)
   //TODO: add security for sockets via io.use
   gameIO.use( (socket, next) => {
-    let {userId, username} = socket.handshake.query
-    if(userId && username){
-      socket.user = { userId, username }
+    let {_id, username} = socket.handshake.query
+    if(_id && username){
+      socket.user = { _id, username }
       return next()
     }else{
       console.log("FAILED")
@@ -18,8 +18,12 @@ export default function setupGameSocket(gameIO, id){
 
   gameIO.on('connection', socket => {
     liveCtrl.connected(socket);
-    socket.on('LIVE_GAME_PLAY', data => {
-      gameIO.emit('GAME_UPDATE', data)
+    socket.on('LIVE_GAME_UPDATE', data => {
+      if("status" in data){
+        gameIO.emit('GAME_UPDATED', data)
+      }else{
+        liveCtrl.updateGame(data);
+      }
     })
     //add player to game roster
   })

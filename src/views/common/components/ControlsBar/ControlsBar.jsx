@@ -12,9 +12,8 @@ const BottomAppBar = ({ classes, history }) => {
   const fullPath = history.location.pathname + history.location.search
   //NOTE: helper to check if any field in the given state is empty
   const isEmpty = state =>  !state || Object.values(state).some(x => (x === null || x === ''));
-  if(fullPath.indexOf('/live') > -1){
-    if(state.user) actions = controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`] || null
-
+  if(fullPath.indexOf('/live') > -1 && state.game && state.user){
+      actions = controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`][state.game.status === 'live' ? 'pause': 'play']
   }else{
     actions = controls.actions[fullPath] || null;
     if(actions) {

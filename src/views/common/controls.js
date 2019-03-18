@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 //======================= All Icons Needed =======================
 import AddIcon from "@material-ui/icons/Add";
 import PresentToAll from "@material-ui/icons/PresentToAll";
+import PauseIcon from "@material-ui/icons/PauseCircleFilled";
 import PlayIcon from "@material-ui/icons/PlayArrow";
-import BackIcon from "@material-ui/icons/ArrowBack";
 import SkipIcon from "@material-ui/icons/SkipNext";
 import EditIcon from "@material-ui/icons/Edit";
 import PublishedIcon from "@material-ui/icons/Book";
@@ -159,8 +159,8 @@ export default {
         actionType: "QUESTION"
       },
     ],
-    "/live/player": [
-      {
+    "/live/player": {
+      pause: [{
         styles: {
           component: "button",
           color: "secondary"
@@ -179,10 +179,30 @@ export default {
         text: "help",
         icon: HandIcon,
         actionType: "LIVE_PLAYER_HELP"
-      }
-    ],
-    "/live/admin": [
+      }],
+      play: [{
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-submit",
+        text: "submit",
+        icon: CheckCircle,
+        actionType: "LIVE_PLAYER_READY"
+      },
       {
+        styles: {
+          component: "button",
+          color: "secondary"
+        },
+        key: "btn-raise-hand",
+        text: "help",
+        icon: HandIcon,
+        actionType: "LIVE_PLAYER_HELP"
+      }]
+    },
+    "/live/admin": {
+      pause: [{
         styles: {
           component: "button",
           color: "secondary"
@@ -190,7 +210,7 @@ export default {
         key: "btn-play",
         text: "play",
         icon: PlayIcon,
-        actionType: "LIVE_GAME_PLAY",
+        actionType: "LIVE_GAME_UPDATE",
         data: {status: "play"},
       },
       {
@@ -202,7 +222,30 @@ export default {
         text: "skip",
         icon: SkipIcon,
         actionType: "LIVE_GAME_SKIP"
-      }
-    ]
+      }],
+      play: [
+        {
+          styles: {
+            component: "button",
+            color: "secondary"
+          },
+          key: "btn-pause",
+          text: "pause",
+          icon: PauseIcon,
+          actionType: "LIVE_GAME_UPDATE",
+          data: {status: "pause"},
+        },
+        {
+          styles: {
+            component: "button",
+            color: "secondary"
+          },
+          key: "btn-skip",
+          text: "skip",
+          icon: SkipIcon,
+          actionType: "LIVE_GAME_SKIP"
+        }
+      ]
+    }
   }
 };

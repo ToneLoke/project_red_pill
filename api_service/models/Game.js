@@ -6,6 +6,7 @@ const PlayerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  username: String,
   score: {
     type: Number,
     default: 0
@@ -65,5 +66,10 @@ GameSchema.pre('save', async function (next) {
   }
   next()
 })
+
+GameSchema.methods.addPlayer = async function (player){
+  this.players = this.players.find( p => p._id == player._id) ? this.players : [...this.players, player]
+  await this.save()
+}
 
 export default model('Game', GameSchema);

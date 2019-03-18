@@ -84,8 +84,17 @@ const FlipTimer = ({maxTime, status, onExpire}) => {
 
   useEffect(() => {
     console.log("timer update", seconds, minutes, status)
-    if(status === 'play') start();
-    if(minutes === 'play') start();
+    switch (status) {
+      case 'play':
+        start()
+        break;
+      case 'pause':
+        pause()
+        break;
+      default:
+        break;
+    }
+
     return () => {
     console.log("timer unmount")
     }
@@ -101,7 +110,7 @@ return(
 					digit={minutes}
 					shuffle={minutesShuffle}
           />
-        <div>:</div>
+        <div className={'colon'}>:</div>
 				<FlipUnitContainer
 					unit={'seconds'}
 					digit={seconds}
