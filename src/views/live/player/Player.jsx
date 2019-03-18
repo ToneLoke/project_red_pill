@@ -9,7 +9,7 @@ const PlayerScreens = ({classes}) => {
   const timesUp = () => console.log("TIME UP ACTION")
   return(
     <div className="Player-Container">
-      <Timer maxTime={maxTime} onExpire={timesUp} status={status}/>
+      <Timer maxTime={maxTime || 0} onExpire={timesUp} status={status || 'live'}/>
     </div>
   )
 }

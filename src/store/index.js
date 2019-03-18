@@ -1,10 +1,7 @@
 import React, { useCallback, createContext, useReducer, useContext } from "react";
 import reducers, { initialState } from "./reducers";
 
-
-
 //TODO: change api calls to reducer
-
 const Store = createContext();
 //TODO: FIGURE OUT SOME TYPE OF MIDDLEWARE from the above commented code.
 const Provider = (props) => {
@@ -18,9 +15,9 @@ const Provider = (props) => {
       }catch(e){
         console.log("==================REQUEST ERROR=============================")
         console.log(e, e.response)
-        if(e.response && e.response.status && e.response.data === 401 )
+        if(e.response && e.response.status )
         {
-          localStorage.removeItem("token")
+           if( e.response.data === 401 ) localStorage.removeItem("token")
           dispatcher({
             type: "ALERT_ERROR",
             payload: { alert: {message: e.response.data.message }}
@@ -28,7 +25,7 @@ const Provider = (props) => {
         }else{
           dispatcher({
             type: "ALERT_ERROR",
-            payload: { alert: {message: "sorry, something went wrong please try again." }}
+            payload: { alert: {message: `sorry, something went wrong please try again.${ e || ""}` }}
           })
         }
       }

@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Menu from '@material-ui/core/Menu';
+import BackIcon from "@material-ui/icons/ArrowBack";
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
@@ -30,7 +31,8 @@ const styles = {
   toolbar: {
     height: 64,
     background: `url("/images/header-pattern.png") repeat top left`,
-    padding: 0
+    padding: 0,
+    justifyContent: 'space-between'
   }
 };
 
@@ -68,6 +70,17 @@ function TopBar(props) {
       <AppBar position="static" className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <IconButton
+            className={classes.backBtn}
+            color="inherit"
+            aria-label="Back"
+            onClick={() => window.history.back()}
+          >
+            <BackIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit" className={classes.grow}>
+            {title}
+          </Typography>
+          <IconButton
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
@@ -75,9 +88,6 @@ function TopBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography color="inherit" className={classes.grow}>
-            {title}
-          </Typography>
         </Toolbar>
       </AppBar>
       <Menu

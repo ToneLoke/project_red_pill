@@ -27,7 +27,7 @@ const Live = ({classes, match, history}) => {
   return(
     <Fragment>
       <NavBar title={ !game ? "Loading data.." : `${game.title} - by ${game.adminId.username}`}  path={path} fullPath={fullPath}/>
-      { !user || !game ? <div><CircularProgress color="primary"/></div> :
+      { !user || !game || !game.socket ? <div><CircularProgress color="primary"/></div> :
         user._id === game.adminId._id ?
         <AdminScreens /> :
         <PlayerScreens />
