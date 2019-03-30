@@ -17,7 +17,7 @@ class LiveController extends AppController {
 			console.log(game.adminId._id)
 			if(socket.user._id != game.adminId._id) game.addPlayer(socket.user)
 			 this.io.emit('NEW_PLAYER', socket.user.username)
-			socket.emit('connected', game)
+				this.io.emit('connected', game)
 		} catch (error) {
 			console.log("ERROR", error)
 		}

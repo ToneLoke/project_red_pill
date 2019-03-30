@@ -1,16 +1,15 @@
 import io from 'socket.io-client';
 
 const configureSocket = ({id, user}) => dispatch => {
-  //======================= SOCKET CONNECTION =======================
+//======================= SOCKET CONNECTION =======================
   const socket = io.connect(`http://localhost:8000/${id}?_id=${user._id}&username=${user.username}`);
   socket.on('error', error => {
     dispatch({ type: "ALERT_ERROR", payload: { alert: {message: error}}})
   })
   socket.on('connected', data => {
-    console.log('connected server emition',data)
     dispatch({type: 'GAME_SET', payload: { socket: socket, ...data}})
   })
-  //======================= END SOCKET CONNECTION =======================
+//======================= END SOCKET CONNECTION =======================
 //======================= INCOMING FROM SERVER =======================
   socket.on('NEW_PLAYER', data => {
     if(data !== user.username) dispatch({type: 'ALERT_SUCCESS', payload: {alert: {message: `${data} joined the game.`}}})
