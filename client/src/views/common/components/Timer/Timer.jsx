@@ -82,7 +82,7 @@ const FlipTimer = ({ maxTime, status, onExpire }) => {
   }, [status, seconds, minutes]);
 
   return (
-    <div className={"flipClock circle darkBackground alignCenter"}>
+    <div className={"flipClock darkBackground alignCenter"}>
       <FlipUnitContainer unit={"minutes"} digit={minutes} shuffle={minutesShuffle} />
       <div className={"colon"}>:</div>
       <FlipUnitContainer unit={"seconds"} digit={seconds} shuffle={secondsShuffle} />

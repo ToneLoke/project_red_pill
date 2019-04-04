@@ -2,7 +2,7 @@ export default {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    
     width: '100%',
     height: '80vh'
   },
@@ -12,6 +12,14 @@ export default {
     justifyContent: 'space-between',
     '& div': {
       width: '50%'
-    }
+    },
+    color: 'white'
+  },
+  lobbyAdminHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    justifyContent: 'space-around',
+    backgroundColor: 'black'
   },
 }
