@@ -1,28 +1,29 @@
 # Project Red Pill
+A live mobile quiz game experience for managers to test employee knowledge
 
-# Phase 1
--  Setup Admin Panel
-# Phase 2
--  Setup Live Game Sockets
-# Phase 3
--  Combine and test
-
-### DEVELOPMENT ENVIRONMENT SETUP
+### Development Setup
 
 > *Ensure mongodb 3.4 or higher is installed on machine*
-1. Run db server locally in terminal
+1. Run db server locally in new terminal
 
 ```
 mongod
 ```
-2. Install depencies
+> *Must have yarn installed globally
+> *Pull updates
+2. Install dependencies
 
 ```
 yarn install
 ```
 
-3. Start development server
+3. Start api in new terminal window
 
 ```
-yarn start
+yarn server
+```
+4. Start client in new terminal window
+
+```
+yarn client
 ```
