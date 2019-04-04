@@ -9,8 +9,8 @@ A live mobile quiz game experience for managers to test employee knowledge
 ```
 mongod
 ```
-> *Must have yarn installed globally
-> *Pull updates
+> *Pull updates*
+> *Must have yarn installed globally*
 2. Install dependencies
 
 ```
