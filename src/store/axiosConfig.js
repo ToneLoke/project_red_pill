@@ -1,10 +1,9 @@
 import axios from 'axios'
-import config from '../../config'
 
 const getToken = () => sessionStorage.getItem('token')
 
 const http = axios.create ({
-  baseURL: config.apiURL, //192.168.1.152:8000',
+  baseURL: 'http://localhost:8000', //192.168.1.152:8000',
   timeout: 10000,
   headers: {'Content-Type': 'application/json'},
 });
