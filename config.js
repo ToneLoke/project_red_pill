@@ -9,6 +9,8 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
 
 // HTTP Port to run our web application
 cfg.port = process.env.PORT ||8000
+// API BASE URL (change if testing on mobile to your comps ipv4)
+cfg.apiURL = process.env.API_URL || 'http://localhost:8000'
 
 // A random string that will help generate secure one-time passwords and
 // HTTP sessions

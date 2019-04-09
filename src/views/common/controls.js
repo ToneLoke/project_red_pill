@@ -5,6 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import PresentToAll from "@material-ui/icons/PresentToAll";
 import PauseIcon from "@material-ui/icons/PauseCircleFilled";
 import PlayIcon from "@material-ui/icons/PlayArrow";
+import RestartIcon from "@material-ui/icons/Replay";
 import SkipIcon from "@material-ui/icons/SkipNext";
 import EditIcon from "@material-ui/icons/Edit";
 import PublishedIcon from "@material-ui/icons/Book";
@@ -219,9 +220,10 @@ export default {
           color: "secondary"
         },
         key: "btn-skip",
-        text: "skip",
-        icon: SkipIcon,
-        actionType: "LIVE_GAME_SKIP"
+        text: "reset",
+        icon: RestartIcon,
+        actionType: "LIVE_GAME_RESET",
+        data: {status: "reset"}
       }],
       play: [
         {
