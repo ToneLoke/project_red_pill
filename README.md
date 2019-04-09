@@ -2,6 +2,11 @@
 A live mobile quiz game experience for managers to test employee knowledge
 
 ### Development Setup
+> *If running for the first time load the db data
+
+```
+mongorestore --db project_red_pill dbData/
+```
 
 > *Ensure mongodb 3.4 or higher is installed on machine*
 1. Run db server locally in new terminal
@@ -27,3 +32,6 @@ yarn server
 ```
 yarn client
 ```
+
+**login with test user**
+-- username: testuser, password: 12345
