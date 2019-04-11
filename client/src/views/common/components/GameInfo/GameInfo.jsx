@@ -43,12 +43,6 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
         <Typography variant="subheading" color="secondary">
           Next question In:
         </Typography>
-        {/* <Typography color="secondary">Host: {game.adminId.username}</Typography>
-        <Typography color="secondary">Max Score: {game.totalPoints}</Typography>
-        <Typography color="secondary">Players: {game.players.length}</Typography>
-        <Typography color="secondary">
-          Question: {game.qNum + 1}/{game.questions.length}{" "}
-        </Typography> */}
       </div>
       <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status} />
     </div>
