@@ -16,7 +16,7 @@ const styles = theme => ({
     top: "auto",
     bottom: 0,
     height: 60,
-    backgroundColor: "#673AB7",
+    backgroundColor: "#3B55AB",
     width: "100%",
     color: "white",
     textAlign: "center",

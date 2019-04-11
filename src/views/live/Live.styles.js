@@ -1,6 +1,6 @@
 export default {
   liveBackground: {
-    backgroundColor: "rgba(93,60,173,1)"
+    backgroundColor: "rgba(59,85,171,1)"
   },
   progress: {
     margin: "0px auto",
@@ -13,7 +13,7 @@ export default {
   overlay: {
     height: "100%",
     width: "100%",
-    backgroundColor: "rgba(93,60,173,0.8)",
+    backgroundColor: "rgba(59,85,171,0.8)",
     zIndex: 101,
     position: "relative"
   },

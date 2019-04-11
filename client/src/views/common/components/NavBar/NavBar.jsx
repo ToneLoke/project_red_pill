@@ -17,7 +17,7 @@ import controls from "../../controls";
 const styles = {
   root: {
     // flexGrow: 1,
-    backgroundColor: "rgba(93,60,173,1)",
+    backgroundColor: "#3B55AB",
     width: "100%"
   },
   grow: {
