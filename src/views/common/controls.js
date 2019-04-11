@@ -17,6 +17,7 @@ import SendIcon from "@material-ui/icons/Send";
 import CheckCircle from "@material-ui/icons/Check";
 import ReadyIcon from "@material-ui/icons/HowToReg";
 import HandIcon from "@material-ui/icons/PanTool";
+import QuestionAddIcon from "@material-ui/icons/PlaylistAdd";
 
 export default {
   nav: {
@@ -155,8 +156,8 @@ export default {
           to: "/questions/new"
         },
         key: "btn-new-question",
-        text: "new",
-        icon: AddIcon,
+        text: "Select Question",
+        icon: QuestionAddIcon,
         actionType: "QUESTION"
       },
     ],
