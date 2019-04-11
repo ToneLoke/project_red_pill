@@ -1,19 +1,29 @@
-import React, { Fragment, useEffect, useState, } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress';
-// import Avatar from '@material-ui/core/Avatar';
-import { useStore } from '../../store'
-import clientSocket from './clientSocket'
-import {NavBar, GameInfo} from '../common/components'
+import React, { Fragment, useEffect, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
 
-const Live = ({classes, match, history}) => {
-  const { state: { user, game, question }, dispatch } = useStore()
-  const liveData = {game, user, question};
+// Components
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+// import Avatar from '@material-ui/core/Avatar';
+import { useStore } from "../../store";
+import clientSocket from "./clientSocket";
+import { NavBar, GameInfo } from "../common/components";
+
+// Styles
+import styles from "./Live.styles";
+
+const Live = ({ classes, match, history }) => {
+  const {
+    state: { user, game, question },
+    dispatch
+  } = useStore();
+  const liveData = { game, user, question };
   // const [socket, setSocket] = useState();
-  const fullPath =  history.location.pathname + history.location.search
-  const path = history.location.pathname
-  useEffect(()=>{
-    if(user && (!game || !game.socket)){
-      clientSocket({ id: match.params.id, user })(dispatch)
+  const fullPath = history.location.pathname + history.location.search;
+  const path = history.location.pathname;
+  useEffect(() => {
+    if (user && (!game || !game.socket)) {
+      clientSocket({ id: match.params.id, user })(dispatch);
     }
     // Specify how to clean up after this effect:
     return function cleanup() {
@@ -22,16 +32,20 @@ const Live = ({classes, match, history}) => {
       //   game.socket.emit("disconnect", user)
       // }
     };
-  },[user, game])
+  }, [user, game]);
   //TODO: socket logic
-  return(
-    <Fragment>
-      <NavBar title={ !game ? "Loading data.." : `${game.title}`}  path={path} fullPath={fullPath}/>
-      { !user || !game || !game.socket ? <div><CircularProgress color="primary"/></div> :
-        <GameInfo {...liveData} timesUp={()=>{}} />
-      }
-    </Fragment>
-  )
-}
+  return (
+    <div className={classes.liveBackground}>
+      <NavBar title={!game ? "Loading data.." : `${game.title}`} path={path} fullPath={fullPath} />
+      {!user || !game || !game.socket ? (
+        <div>
+          <CircularProgress color="primary" />
+        </div>
+      ) : (
+        <GameInfo {...liveData} timesUp={() => {}} />
+      )}
+    </div>
+  );
+};
 
-export default Live
+export default withStyles(styles, { name: "Live" })(Live);

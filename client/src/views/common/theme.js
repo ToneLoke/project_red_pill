@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import 'typeface-roboto';
 
 const theme = createMuiTheme({
   typography: {
@@ -17,6 +18,9 @@ const theme = createMuiTheme({
       dark: '#c7c7c7',
       contrastText: '#7e57c2',
     },
+    background: {
+      default: 'rgba(93, 60, 173, 1)'
+    }
   }
 });
 
