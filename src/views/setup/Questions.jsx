@@ -65,7 +65,7 @@ const Questions = ({ classes, history }) => {
   return (
     <Fragment>
     {
-      !questions ? "Loading.." :
+      !questions ? "ITS LOADING DAMMIT" :
       questions.length === 0 ?
       (
         <Paper className={classes.container}>
