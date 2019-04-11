@@ -37,9 +37,13 @@ const Live = ({ classes, match, history }) => {
   return (
     <div className={classes.liveBackground}>
       <NavBar title={!game ? "Loading data.." : `${game.title}`} path={path} fullPath={fullPath} />
+
       {!user || !game || !game.socket ? (
-        <div>
-          <CircularProgress color="primary" />
+        <div className={classes.suspense}>
+          <div className={classes.progress}>
+            <CircularProgress color="primary" />
+          </div>
+          <div className={classes.overlay} />
         </div>
       ) : (
         <GameInfo {...liveData} timesUp={() => {}} />

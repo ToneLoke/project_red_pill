@@ -55,7 +55,11 @@ export default {
   },
   questionsBadge: {
     right: "20px",
-    marginLeft: "auto"
+    marginLeft: "auto",
+    "& span": {
+      backgroundColor: "#5763E7",
+      color: "#ffffff"
+    },
   },
   rankNum: { marginRight: "20px", marginLeft: "20px" },
   avatarFab: { marginRight: "20px" },
