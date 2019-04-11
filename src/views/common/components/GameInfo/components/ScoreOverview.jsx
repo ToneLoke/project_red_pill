@@ -10,16 +10,16 @@ const ScoreOverview = ({ score, classes, visType }) => {
   const { pass, fail, queue } = score;
   return (
     <div className={`${classes.scoreOverview} ${classes.bgWhite}`}>
-      <Typography variant="title" className={classes.rankNum}>
+      <Typography variant="h6" className={classes.rankNum}>
         SCORE
       </Typography>
 
       {visType.map((type) => {
         if (type === "bar") {
-          return <BarStack classes={classes} score={score} />;
+          return <BarStack key={`${type}-${score}`} classes={classes} score={score} />;
         }
         if (type === "pie") {
-          return <Pie classes={classes} />;
+          return <Pie key={`${type}-${score}`} classes={classes} />;
         }
       })}
     </div>

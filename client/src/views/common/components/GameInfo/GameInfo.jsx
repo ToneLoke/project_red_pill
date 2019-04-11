@@ -17,18 +17,19 @@ const PlayerList = ({ players, selPlayer, classes }) => {
     <div className={classes.players}>
       {players.map((p, i) => {
         return (
-          <div className={classes.player}>
+          <div key={p._id} className={classes.player}>
             <div className={classes.rankNum}>{i + 1}</div>
             <Fab
               className={classes.avatarFab}
               size="small"
-              key={p._id}
               disabled={selPlayer && p._id === selPlayer._id}
             >
               <PersonIcon />
             </Fab>
             <div className={classes.user}>{p.username}</div>
-            <Badge className={classes.badge} fontSize="large" color="secondary" badgeContent={10} />
+            <Badge className={classes.badge} fontSize="large" color="secondary" badgeContent={10}>
+              {" "}
+            </Badge>
           </div>
         );
       })}
@@ -40,7 +41,7 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
   <div className={classes.container}>
     <div className={classes.lobbyAdminHeader}>
       <div className={classes.title}>
-        <Typography variant="subheading" color="secondary">
+        <Typography variant="subtitle1" color="secondary">
           Next question In:
         </Typography>
       </div>

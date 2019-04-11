@@ -5,7 +5,7 @@ import { Typography, Badge } from "@material-ui/core";
 const QuestionOverview = ({ count, classes }) => {
   return (
     <div className={classes.questionsOverview}>
-      <Typography variant="title" className={classes.rankNum}>
+      <Typography variant="h6" className={classes.rankNum}>
         QUESTIONS
       </Typography>
       <Badge
@@ -13,7 +13,9 @@ const QuestionOverview = ({ count, classes }) => {
         fontSize="large"
         color="secondary"
         badgeContent="13/20"
-      />
+      >
+        {' '}
+        </Badge>
     </div>
   );
 };
