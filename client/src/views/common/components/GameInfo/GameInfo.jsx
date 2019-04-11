@@ -27,7 +27,12 @@ const PlayerList = ({ players, selPlayer, classes }) => {
               <PersonIcon />
             </Fab>
             <div className={classes.user}>{p.username}</div>
-            <Badge className={classes.badge} fontSize="large" color="secondary" badgeContent={10}>
+            <Badge
+              className={`${classes.badge} ${classes.badgeGreen}`}
+              fontSize="large"
+              color="secondary"
+              badgeContent={10}
+            >
               {" "}
             </Badge>
           </div>

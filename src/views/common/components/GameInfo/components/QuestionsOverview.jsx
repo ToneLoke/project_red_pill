@@ -9,7 +9,7 @@ const QuestionOverview = ({ count, classes }) => {
         QUESTIONS
       </Typography>
       <Badge
-        className={classes.questionsBadge}
+        className={classes.badge}
         fontSize="large"
         color="secondary"
         badgeContent="13/20"

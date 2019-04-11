@@ -53,18 +53,22 @@ export default {
     flexDirection: "column",
     justifyContent: "flex-start"
   },
-  questionsBadge: {
+  rankNum: { marginRight: "20px", marginLeft: "20px" },
+  avatarFab: { marginRight: "20px" },
+  user: { marginRight: "20px" },
+  badge: {
     right: "20px",
     marginLeft: "auto",
     "& span": {
       backgroundColor: "#5763E7",
       color: "#ffffff"
-    },
+    }
   },
-  rankNum: { marginRight: "20px", marginLeft: "20px" },
-  avatarFab: { marginRight: "20px" },
-  user: { marginRight: "20px" },
-  badge: { marginLeft: "auto", right: "20px" },
+  badgeGreen: {
+    "& span": {
+      backgroundColor: "#68CC4C"
+    }
+  },
   posRelative: { position: "relative" },
   bgWhite: {
     backgroundColor: "rgba(255,255,255,1)"
