@@ -27,7 +27,7 @@ export default {
   player: {
     alignItems: "center",
     backgroundColor: "rgba(255,255,255,1)",
-    boxShadow: "inset 0 1px 0 0 rgba(224,224,224,1), inset 0 -1px 0 0 rgba(224,224,224,1)",
+    borderBottom: "solid 1px rgba(224,224,224,1)",
     color: "rgba(0,0,0,0.54)",
     display: "flex",
     flexDirection: "row",
@@ -44,14 +44,15 @@ export default {
     flexDirection: "row",
     justifyContent: "flex-start",
     backgroundColor: "rgba(255,255,255,1)",
-    boxShadow: "inset 0 1px 0 0 rgba(224,224,224,1), inset 0 -1px 0 0 rgba(224,224,224,1)"
+    borderBottom: "solid 1px #E0E0E0"
   },
   scoreOverview: {
     color: "rgba(0,0,0,0.54)",
     display: "flex",
     padding: "30px 15px",
     flexDirection: "column",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    // borderBottom: "solid 1px #E0E0E0"
   },
   rankNum: { marginRight: "20px", marginLeft: "20px" },
   avatarFab: { marginRight: "20px" },
