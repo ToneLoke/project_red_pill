@@ -46,22 +46,24 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
       </div>
       <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status} />
     </div>
-    <PlayerList players={game.players} selPlayer={user} classes={classes} />
-    <QuestionsOverview count={game.questions.count} classes={classes} />
-    <ScoreOverview
-      score={
-        (game.score = [
-          {
-            name: "SCORE",
-            pass: 2,
-            fail: 3,
-            queue: 7
-          }
-        ])
-      }
-      visType={['bar']}
-      classes={classes}
-    />
+    <div className={classes.gameInfoFold}>
+      <PlayerList players={game.players} selPlayer={user} classes={classes} />
+      <QuestionsOverview count={game.questions.count} classes={classes} />
+      <ScoreOverview
+        score={
+          (game.score = [
+            {
+              name: "SCORE",
+              pass: 2,
+              fail: 3,
+              queue: 7
+            }
+          ])
+        }
+        visType={["bar"]}
+        classes={classes}
+      />
+    </div>
   </div>
 );
 

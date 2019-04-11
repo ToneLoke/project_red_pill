@@ -13,7 +13,7 @@ const ScoreOverview = ({ score, classes, visType }) => {
       <Typography variant="title" className={classes.rankNum}>
         SCORE
       </Typography>
-      
+
       {visType.map((type) => {
         if (type === "bar") {
           return <BarStack classes={classes} score={score} />;
@@ -22,16 +22,6 @@ const ScoreOverview = ({ score, classes, visType }) => {
           return <Pie classes={classes} />;
         }
       })}
-
-      <Typography variant="subtitle" className={classes.rankNum}>
-        {pass}
-      </Typography>
-      <Typography variant="subtitle" className={classes.rankNum}>
-        {fail}
-      </Typography>
-      <Typography variant="subtitle" className={classes.rankNum}>
-        {queue}
-      </Typography>
     </div>
   );
 };

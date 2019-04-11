@@ -72,5 +72,9 @@ export default {
   barScoreContainer: {
     width: "100%",
     height: "100%"
+  },
+  gameInfoFold: {
+    height: "100vh",
+    backgroundColor: "rgba(255,255,255,1)"
   }
 };

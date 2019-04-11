@@ -20,7 +20,6 @@ const data = [
 ];
 
 const renderCustomizedLabel = (props) => {
-	console.log("TCL: renderCustomizedLabel -> props", props)
   const { x, y, width, height, value } = props;
 
   return (
