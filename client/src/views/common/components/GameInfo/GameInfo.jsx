@@ -5,9 +5,10 @@ import PersonIcon from "@material-ui/icons/Person";
 import { Typography, Fab, Badge } from "@material-ui/core";
 
 // Components
-import Timer from "../Timer";
+import LeaderBoardOverview from "./components/LeaderBoardOverview";
 import QuestionsOverview from "./components/QuestionsOverview";
 import ScoreOverview from "./components/ScoreOverview";
+import Timer from "../Timer";
 
 // Styles
 import styles from "./GameInfo.styles";
@@ -31,7 +32,7 @@ const PlayerList = ({ players, selPlayer, classes }) => {
               className={`${classes.badge} ${classes.badgeGreen}`}
               fontSize="large"
               color="secondary"
-              badgeContent={10}
+              badgeContent="10/20"
             >
               {" "}
             </Badge>
@@ -53,6 +54,7 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
       <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status} />
     </div>
     <div className={classes.gameInfoFold}>
+      <LeaderBoardOverview count={game.players.length || 0} classes={classes} />
       <PlayerList players={game.players} selPlayer={user} classes={classes} />
       <QuestionsOverview count={game.questions.count} classes={classes} />
       <ScoreOverview
@@ -66,6 +68,7 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
             }
           ])
         }
+        playerCount={game.players.length || 0}
         visType={["bar"]}
         classes={classes}
       />

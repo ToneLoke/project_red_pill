@@ -6,7 +6,7 @@ import { Typography, Badge } from "@material-ui/core";
 import BarStack from "./BarStack";
 import Pie from "./Pie";
 
-const ScoreOverview = ({ score, classes, visType }) => {
+const ScoreOverview = ({ score, classes, visType, playerCount }) => {
   const { pass, fail, queue } = score;
   return (
     <div className={`${classes.scoreOverview} ${classes.bgWhite}`}>
@@ -16,7 +16,14 @@ const ScoreOverview = ({ score, classes, visType }) => {
 
       {visType.map((type) => {
         if (type === "bar") {
-          return <BarStack key={`${type}-${score}`} classes={classes} score={score} />;
+          return (
+            <BarStack
+              key={`${type}-${score}`}
+              classes={classes}
+              playerCount={playerCount}
+              score={score}
+            />
+          );
         }
         if (type === "pie") {
           return <Pie key={`${type}-${score}`} classes={classes} />;
