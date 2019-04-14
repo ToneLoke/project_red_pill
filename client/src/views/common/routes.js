@@ -1,5 +1,5 @@
 //======================= Load Each View Component =======================
-import { Authenticate, Panel, Setup, Live } from "../index";
+import { Authenticate, Panel, Setup, Live } from "../";
 //===================================================================
 //======================= Router Configuration=======================
 //===================================================================

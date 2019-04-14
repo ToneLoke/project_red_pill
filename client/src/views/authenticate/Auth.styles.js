@@ -1,31 +1,31 @@
-const authStyles = theme => ({
+const authStyles = (theme) => ({
   header: {
-    height: "50px",
-    width: "100%",
+    height: '50px',
+    width: '100%',
     backgroundColor: theme.palette.primary.main,
-    color: "white"
+    color: 'white'
   },
   textField: {
-    width: "90%",
+    width: '90%',
     marginBottom: 40
   },
   form: {
-    width: "100%",
+    width: '100%',
     marginBottom: 60,
-    height: "50%",
-    display: "flex",
+    height: 'calc(100vh - 64px)',
+    display: 'flex',
     flexGrow: 1,
-    alignItems: "center",
-    flexDirection: "column",
+    alignItems: 'center',
+    flexDirection: 'column',
     borderRadius: 0,
-    "& .hero-section": {
+    '& .hero-section': {
       height: 320,
-      width: "100%",
-      backgroundColor: "#512DA8",
+      width: '100%',
+      backgroundColor: '#3B55AB',
       background: `url("/images/header-pattern.png") repeat top left`,
       marginBottom: 30
     }
-  },
+  }
 });
 
-export default authStyles
+export default authStyles;

@@ -1,25 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Actions } from '../index';
+import { Actions, Navs } from '../';
 import controls from '../../controls';
 import styles from './Controls.styles';
 import { useStore } from '../../../../store';
 
 const BottomAppBar = ({ classes, history }) => {
   let actions;
+  let navs;
   const { state, dispatch } = useStore();
+  const path = history.location.pathname;
   const fullPath = history.location.pathname + history.location.search;
-
+  let page = history.location.search.split('=')[1] || "settings"
   //NOTE: helper to check if any field in the given state is empty
   const isEmpty = (state) => !state || Object.values(state).some((x) => x === null || x === '');
-	console.log("TCL: BottomAppBar -> state.game", state.game)
+
   if (fullPath.indexOf('/live') > -1 && state.game && state.user) {
     actions =
       controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`][
         state.game.status === 'live' ? 'pause' : 'play'
       ];
   } else {
+    navs = controls.nav[path] || null;
+
     actions = controls.actions[fullPath] || null;
     if (actions) {
       if (actions.length > 1) {
@@ -46,7 +50,12 @@ const BottomAppBar = ({ classes, history }) => {
   return (
     <div position="fixed" className={classes.appBar}>
       <div className={classes.toolbar}>
-        <Actions actions={actions} dpHandler={handleDispatch} />
+        <div className={classes.left}>
+          <Navs navs={navs} page={page}/>
+        </div>
+        <div className={classes.right}>
+          <Actions actions={actions} dpHandler={handleDispatch} />
+        </div>
       </div>
     </div>
   );

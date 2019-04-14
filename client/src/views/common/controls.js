@@ -23,38 +23,78 @@ export default {
   nav: {
     '/authenticate': [
       {
+        styles: {
+          login: {
+            color: 'primary'
+          },
+          register: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: AccountIcon,
         key: 'login-btn',
-        text: 'login',
+        text: 'LOGIN',
         to: '/authenticate?type=login'
       },
       {
+        styles: {
+          register: {
+            color: 'primary'
+          },
+          login: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: AccountAddIcon,
         key: 'register-btn',
-        text: 'register',
+        text: 'REGISTER',
         to: '/authenticate?type=register'
       }
     ],
     '/games': [
       {
+        styles: {
+          draft: {
+            color: 'primary'
+          },
+          live: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: EditIcon,
         key: 'draft-games-btn',
-        text: 'user sessions',
+        text: 'User Sessions',
         to: '/games?type=draft'
       },
       {
+        styles: {
+          live: {
+            color: 'primary'
+          },
+          draft: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: PublishedIcon,
         key: 'publised-games-btn',
-        text: 'public sessions',
+        text: 'Public Sessions',
         to: '/games?type=live'
       }
     ],
     '/games/draft': [
       {
+        styles: {
+          settings: {
+            color: 'primary'
+          },
+          questions: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: Settings,
         text: 'settings',
@@ -62,6 +102,14 @@ export default {
         to: '/games/draft?type=settings'
       },
       {
+        styles: {
+          questions: {
+            color: 'primary'
+          },
+          settings: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: ViewList,
         text: 'questions',
@@ -77,7 +125,7 @@ export default {
           component: 'button',
           color: 'secondary'
         },
-        text: 'sign in',
+        text: 'Sign In',
         isReq: true,
         icon: SendIcon,
         key: 'auth-btn-login',
