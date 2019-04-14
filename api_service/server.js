@@ -20,7 +20,7 @@ const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000;
 const app = express();
 const server = require('http').Server(app);
-const io = require('/socket.io')(server);
+const io = require('socket.io')(server);
 // =======================================
 // CONNECT TO LOCAL MONGO DB OR MONGOLABS
 mongoose.connect(mongodb_url, function(err) {
