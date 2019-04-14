@@ -25,7 +25,7 @@ cfg.secret = process.env.APP_SECRET || 'keyboard cat'
 // cfg.accountSid = process.env.TWILIO_ACCOUNT_SID
 // cfg.authToken = process.env.TWILIO_AUTH_TOKEN
 // cfg.sendingNumber = process.env.TWILIO_NUMBER
-// cfg.mongolabs = process.env.MONGOLAB_URI
+cfg.mongolabs = process.env.MONGOLAB_URI || 'mongodb+srv://toneloke:fefe9999@project-red-pill-dev-ud2dy.mongodb.net/project_red_pill?retryWrites=true'
 
 // var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber]
 // var isConfigured = requiredConfig.every(function (configValue) {
