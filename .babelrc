@@ -1,3 +1,4 @@
 {
-  "presets": ["@babel/preset-env"]
+  "entry": ["babel-polyfill", "api_service/server.js"],
+  "presets": ["@babel/preset-env", "es2015", "stage-0" ]
 }
