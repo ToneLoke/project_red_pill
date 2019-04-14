@@ -40,4 +40,4 @@ cfg.mongolabs = process.env.MONGOLAB_URI || 'mongodb+srv://toneloke:fefe9999@pro
 // }
 
 // Export configuration object
-export default cfg
+module.exports = cfg
