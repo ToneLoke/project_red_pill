@@ -1,5 +1,5 @@
 {
-  "name": "project_red_pill_server",
+  "name": "project_red_pill_client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,16 +21,17 @@
     "nodemon": "^1.18.9",
     "pretty-ms": "^4.0.0",
     "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
     "throttle-debounce": "^2.1.0",
     "typeface-roboto": "^0.0.54",
     "validate.js": "^0.12.0"
   },
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "node server.js",
+    "start": "concurrently \"react-scripts start\" \"nodemon --exec babel-node server.js\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "server": "nodemon --exec babel-node server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "react-scripts start",
     "debug": "nodemon --inspect --exec babel-node server.js"
   },
   "eslintConfig": {
@@ -47,5 +48,6 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
