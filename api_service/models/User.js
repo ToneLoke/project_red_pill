@@ -38,4 +38,5 @@ UserSchema.methods.authenticate = function(password) {
   return bcrypt.compareSync(password, user.password);
 };
 
-export default mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+export default User;

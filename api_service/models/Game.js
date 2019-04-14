@@ -76,4 +76,5 @@ GameSchema.methods.addPlayer = async function(player) {
   await this.save();
 };
 
-export default model('Game', GameSchema);
+const Game = model('Game', GameSchema);
+export default
