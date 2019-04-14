@@ -1,11 +1,6 @@
 // =====START GLOBAL VAR DECLARATION=====
-<<<<<<< 96f221f50584d29fe438bc98784993e005660097
 import express from 'express'
 import logger from 'morgan'
-=======
-import express from './node_modules/express';
-import logger from './node_modules/morgan';
->>>>>>> sync
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fs from 'fs';
