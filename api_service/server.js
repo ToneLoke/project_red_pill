@@ -1,10 +1,10 @@
 // =====START GLOBAL VAR DECLARATION=====
-import express from './node_modules/express'
-import logger from './node_modules/morgan'
+import express from 'express'
+import logger from 'morgan'
 import mongoose from 'mongoose';
-import bodyParser from './node_modules/body-parser';
+import bodyParser from 'body-parser';
 import fs from 'fs';
-import cors from './node_modules/cors';
+import cors from 'cors';
 import path from 'path';
 import config from '../config';
 import gameRoutes from './routes/gameRoutes';
@@ -15,7 +15,7 @@ const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000
 const app = express();
 const server = require('http').Server(app);
-const io = require('./node_modules/socket.io')(server);
+const io = require('/socket.io')(server);
 // =======================================
 // CONNECT TO LOCAL MONGO DB OR MONGOLABS
 mongoose.connect(mongodb_url, function (err) {
