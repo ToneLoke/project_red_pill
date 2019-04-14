@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   appBar: {
     position: "fixed",
-    display: "flex",
+    display: "grid",
     top: "auto",
     bottom: 0,
     height: 60,
@@ -28,10 +28,24 @@ const styles = theme => ({
     alignItems: "center",
     backgroundColor: "transparent",
     position: "relative",
-    width: "100%",
     height: 56,
-    marginTop: -28,
-    padding: '0px 20px',
+    marginTop: -40,
+    padding: '20px',
+    
+  },
+  left: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    position: "relative",
+    width: "60%",
+  },
+  right: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    position: "relative",
+    width: "40%",
   },
   
 });

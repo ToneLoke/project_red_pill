@@ -6,6 +6,9 @@ export default {
     '& div:last-child > button': {
       width: '45px',
       height: '45px'
+    },
+    '& div': {
+      paddingRight: '24px',
     }
   },
   action: {

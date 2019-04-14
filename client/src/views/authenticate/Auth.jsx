@@ -8,9 +8,7 @@ import { Field } from "../common/components";
 import styles from './Auth.styles';
 import { Typography } from "@material-ui/core";
 
-const Auth = ({ classes, history }) => {
-  const fullPath =  history.location.pathname
-  const page =  history.location.search.indexOf('login') > -1 ? 'register': 'login';
+const Auth = ({ classes }) => {
   //======================= Connect to store using hooks =======================
   const {
     state: { user },

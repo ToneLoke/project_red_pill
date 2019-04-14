@@ -58,14 +58,14 @@ export default {
         component: Link,
         icon: EditIcon,
         key: 'draft-games-btn',
-        text: 'user sessions',
+        text: 'User Sessions',
         to: '/games?type=draft'
       },
       {
         component: Link,
         icon: PublishedIcon,
         key: 'publised-games-btn',
-        text: 'public sessions',
+        text: 'Public Sessions',
         to: '/games?type=live'
       }
     ],
