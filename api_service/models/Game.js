@@ -1,3 +1,4 @@
+'use strict';
 import { Schema, model } from 'mongoose';
 import Question from './Question';
 
@@ -59,21 +60,25 @@ const GameSchema = new Schema(
   },
   { timestamps: true }
 );
-
-GameSchema.pre('save', async function(next) {
+const preSave = async function(next) {
   if (this.isModified('questions')) {
     const questions = this.questions.map((_id) => Question.findOne({ _id }).select('points -_id'));
     const qs = await Promise.all(questions);
     this.totalPoints = qs.reduce((prev, cur) => prev + cur.points, 0);
   }
   next();
-});
+}
 
-GameSchema.methods.addPlayer = async function(player) {
+GameSchema.pre('save', preSave );
+
+const addPlayer = async function(player) {
   this.players = this.players.find((p) => p._id == player._id)
     ? this.players
     : [...this.players, player];
   await this.save();
 };
 
-export default model('Game', GameSchema);
+GameSchema.methods.addPlayer = addPlayer;
+
+const Game = model('Game', GameSchema);
+export default Game;
