@@ -1,12 +1,10 @@
 import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useStore } from "../../store";
 import { Field } from "../common/components";
 import styles from './Auth.styles';
-import { Typography } from "@material-ui/core";
 
 const Auth = ({ classes }) => {
   //======================= Connect to store using hooks =======================

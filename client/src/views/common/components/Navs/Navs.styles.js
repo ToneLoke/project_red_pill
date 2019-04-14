@@ -18,6 +18,9 @@ export default {
   },
   link: {
     border: 'none',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    '& span': {
+      fontSize: '12px'
+    },
   }
 };
