@@ -55,12 +55,16 @@ const GameInfo = ({ game, classes, timesUp, user, question, handleRouteChange })
     </div>
     <div className={classes.gameInfoList}>
       <LeaderBoardOverview
-        handleRouteChange={handleRouteChange}
         count={game.players.length || 0}
         classes={classes}
+        handleRouteChange={handleRouteChange}
       />
       <PlayerList players={game.players} selPlayer={user} classes={classes} />
-      <QuestionsOverview count={game.questions.count} classes={classes} />
+      <QuestionsOverview
+        count={game.questions.count}
+        classes={classes}
+        handleRouteChange={handleRouteChange}
+      />
       <ScoreOverview
         score={
           (game.score = [

@@ -3,7 +3,6 @@ import { ALERT_REDUCER } from './alertActions';
 import { gameInitial, GAME_REDUCER } from './gameActions';
 import { questionInitial, QUESTION_REDUCER } from './questionActions';
 import { LIVE_GAME_REDUCER } from './liveActions';
-
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,

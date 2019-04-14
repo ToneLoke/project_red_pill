@@ -1,6 +1,11 @@
 // =====START GLOBAL VAR DECLARATION=====
+<<<<<<< 96f221f50584d29fe438bc98784993e005660097
 import express from 'express'
 import logger from 'morgan'
+=======
+import express from './node_modules/express';
+import logger from './node_modules/morgan';
+>>>>>>> sync
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fs from 'fs';
@@ -40,26 +45,26 @@ app.use('/games', gameRoutes(io));
 app.use('/questions', questionRoutes);
 app.use(function(req, res) {
   //======================= ERROR IN ROUTE =======================
-  console.log("=========================SERVER ERROR:")
-  console.error(req.error)
-  res.status(req.error.status).json(req.error)
-})
+  console.log('=========================SERVER ERROR:');
+  console.error(req.error);
+  res.status(req.error.status).json(req.error);
+});
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //production mode
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
   //
   app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
+    res.sendfile(path.join((__dirname = 'client/build/index.html')));
+  });
 }
 //build mode
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/public/index.html'));
-})
-server.listen(port, function () {
-  console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...')
-  fs.writeFile(__dirname + '/start.log', 'started', err => console.log("START LOGGED SAVED"));
-})
+  res.sendFile(path.join(__dirname + '/client/public/index.html'));
+});
+server.listen(port, function() {
+  console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...');
+  fs.writeFile(__dirname + '/start.log', 'started', (err) => console.log('START LOGGED SAVED'));
+});

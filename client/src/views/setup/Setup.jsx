@@ -5,9 +5,8 @@ import BackIcon from "@material-ui/icons/ArrowBack";
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
 import controls from '../common/controls';
-import { NavBar } from '../common/components';
+import { NavBar, Questions } from '../common/components';
 import Settings from './Settings';
-import Questions from './Questions';
 
 
 const styles = {

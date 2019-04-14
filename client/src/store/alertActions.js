@@ -1,18 +1,18 @@
 export const ALERT_SUCCESS = 'ALERT_SUCCESS';
 export const ALERT_ERROR = 'ALERT_ERROR';
-export const ALERT_CLEAR  = 'ALERT_CLEAR';
+export const ALERT_CLEAR = 'ALERT_CLEAR';
 
- const throwError = ({payload}) => {
-  return { ...payload, class: 'error' }
-}
+const throwError = ({ payload }) => {
+  return { ...payload, class: 'error' };
+};
 
- const throwSuccess = ({payload}) => {
-  return { ...payload, class: 'success' }
-}
+const throwSuccess = ({ payload }) => {
+  return { ...payload, class: 'success' };
+};
 
- const clearALERT = () => {
-  return { alert: null}
-}
+const clearALERT = () => {
+  return { alert: null };
+};
 
 export const ALERT_REDUCER = (action, state) => {
   switch (action.type) {
@@ -25,4 +25,4 @@ export const ALERT_REDUCER = (action, state) => {
     default:
       return state;
   }
-}
+};
