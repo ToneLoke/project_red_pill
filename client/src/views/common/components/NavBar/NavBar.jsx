@@ -4,21 +4,20 @@ import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Menu from '@material-ui/core/Menu';
+import Menu from "@material-ui/core/Menu";
 import BackIcon from "@material-ui/icons/ArrowBack";
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Fade from '@material-ui/core/Fade';
+import MenuIcon from "@material-ui/icons/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Fade from "@material-ui/core/Fade";
 import IconButton from "@material-ui/core/IconButton";
-import Links from '../Links';
-import { useStore } from '../../../../store'
-import controls from '../../controls'
-
+import Links from "../Links";
+import { useStore } from "../../../../store";
+import controls from "../../controls";
 
 const styles = {
   root: {
     // flexGrow: 1,
-    backgroundColor: "rgba(93,60,173,1)",
+    backgroundColor: "#3B55AB",
     width: "100%"
   },
   grow: {
@@ -32,7 +31,7 @@ const styles = {
     height: 64,
     background: `url("/images/header-pattern.png") repeat top left`,
     padding: 0,
-    justifyContent: 'space-between'
+    justifyContent: "space-between"
   }
 };
 
@@ -44,26 +43,29 @@ const styles = {
 
 function TopBar(props) {
   const { classes, title, path, fullPath } = props;
-  const {dispatch} = useStore();
+  const { dispatch } = useStore();
   const [menuOpen, toggleMenu] = useState(false);
   const [anchorEl, setAnchor] = useState(null);
 
   let links = controls.nav[path] || null;
   //NOTE: add extra field to detect if current route (change btn color)
-  if(links) links = links.map( l => l.to === fullPath ? {...l, selected: true} : { ...l, selected: false})
+  if (links)
+    links = links.map((l) =>
+      l.to === fullPath ? { ...l, selected: true } : { ...l, selected: false }
+    );
 
   const setMenu = (e) => {
-    if(anchorEl){
-      setAnchor(null)
-    }else{
-      setAnchor(e.currentTarget)
+    if (anchorEl) {
+      setAnchor(null);
+    } else {
+      setAnchor(e.currentTarget);
     }
-    toggleMenu(!menuOpen)
-  }
+    toggleMenu(!menuOpen);
+  };
 
   const logout = () => {
-    dispatch({type: 'USER_LOGOUT'})
-  }
+    dispatch({ type: "USER_LOGOUT" });
+  };
   //TODO: move navigation to menu items from controls
   return (
     <div className={classes.root}>
@@ -77,7 +79,7 @@ function TopBar(props) {
           >
             <BackIcon />
           </IconButton>
-          <Typography variant="title" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
           </Typography>
           <IconButton
@@ -97,9 +99,10 @@ function TopBar(props) {
         onClose={setMenu}
         TransitionComponent={Fade}
       >
-
-      <Links links={links} closeMenu={setMenu} />
-      <MenuItem selected={false} onClick={logout}>Logout</MenuItem>
+        <Links links={links} closeMenu={setMenu} />
+        <MenuItem selected={false} onClick={logout}>
+          Logout
+        </MenuItem>
       </Menu>
     </div>
   );

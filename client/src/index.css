@@ -1,3 +1,6 @@
-body{
+body {
   overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0px;
+  background-color: #3B55AB;
 }

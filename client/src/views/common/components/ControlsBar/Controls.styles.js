@@ -16,7 +16,7 @@ const styles = theme => ({
     top: "auto",
     bottom: 0,
     height: 60,
-    backgroundColor: "#673AB7",
+    backgroundColor: "#3B55AB",
     width: "100%",
     color: "white",
     textAlign: "center",
@@ -30,17 +30,10 @@ const styles = theme => ({
     position: "relative",
     width: "100%",
     height: 56,
-    marginTop: -28
+    marginTop: -28,
+    padding: '0px 20px',
   },
-  right: {
-    width: "60%",
-    height: "inherit",
-  },
-  left: {
-    width: "40%",
-    height: "inherit",
-
-  }
+  
 });
 
 export default styles;

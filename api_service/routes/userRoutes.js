@@ -7,10 +7,8 @@ const router = Router();
 
 const userCtrl = new UserController(UserModel);
 
-router.route('/register')
-	.post(userCtrl.register);
-router.route('/login')
-  .post(userCtrl.login)
-router.use(authenticate)
-router.get('/me', userCtrl.me)
+router.route('/register').post(userCtrl.register);
+router.route('/login').post(userCtrl.login);
+router.use(authenticate);
+router.get('/me', userCtrl.me);
 export default router;

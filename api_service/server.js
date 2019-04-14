@@ -1,6 +1,11 @@
 // =====START GLOBAL VAR DECLARATION=====
+<<<<<<< 96f221f50584d29fe438bc98784993e005660097
 import express from 'express'
 import logger from 'morgan'
+=======
+import express from './node_modules/express';
+import logger from './node_modules/morgan';
+>>>>>>> sync
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fs from 'fs';
@@ -12,52 +17,54 @@ import adminRoutes from './routes/userRoutes';
 import questionRoutes from './routes/questionRoutes';
 
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 const app = express();
 const server = require('http').Server(app);
 const io = require('/socket.io')(server);
 // =======================================
 // CONNECT TO LOCAL MONGO DB OR MONGOLABS
-mongoose.connect(mongodb_url, function (err) {
-  if (err) console.log(err)
-  console.log('Connected to MongoDB')
-})
+mongoose.connect(mongodb_url, function(err) {
+  if (err) console.log(err);
+  console.log('Connected to MongoDB');
+});
 // =======================================
 // SETUP MIDDLEWARE FOR API
-app.use(logger('dev'))
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-app.use(bodyParser.json())
-app.use(cors())
+app.use(logger('dev'));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+app.use(bodyParser.json());
+app.use(cors());
 // =======================================
 // Initialize routes to use
-app.use('/', adminRoutes)
+app.use('/', adminRoutes);
 //======================= pass the io server to game routes to create sockets =======================
-app.use('/games', gameRoutes(io))
-app.use('/questions',questionRoutes)
-app.use(function (req, res) {
+app.use('/games', gameRoutes(io));
+app.use('/questions', questionRoutes);
+app.use(function(req, res) {
   //======================= ERROR IN ROUTE =======================
-  console.log("=========================SERVER ERROR:")
-  console.error(req.error)
-  res.status(req.error.status).json(req.error)
-})
+  console.log('=========================SERVER ERROR:');
+  console.error(req.error);
+  res.status(req.error.status).json(req.error);
+});
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //production mode
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
   //
   app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
+    res.sendfile(path.join((__dirname = 'client/build/index.html')));
+  });
 }
 //build mode
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/public/index.html'));
-})
-server.listen(port, function () {
-  console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...')
-  fs.writeFile(__dirname + '/start.log', 'started', err => console.log("START LOGGED SAVED"));
-})
+  res.sendFile(path.join(__dirname + '/client/public/index.html'));
+});
+server.listen(port, function() {
+  console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...');
+  fs.writeFile(__dirname + '/start.log', 'started', (err) => console.log('START LOGGED SAVED'));
+});
