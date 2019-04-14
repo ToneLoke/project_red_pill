@@ -1,4 +1,5 @@
 // =====START GLOBAL VAR DECLARATION=====
+import "@babel/polyfill";
 import express from 'express'
 import logger from 'morgan'
 import mongoose from 'mongoose';
