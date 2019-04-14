@@ -1,4 +1,4 @@
-const dotenv = requre('dotenv');
+const dotenv = require('dotenv');
 const cfg = {}
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
