@@ -5,6 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import PresentToAll from "@material-ui/icons/PresentToAll";
 import PauseIcon from "@material-ui/icons/PauseCircleFilled";
 import PlayIcon from "@material-ui/icons/PlayArrow";
+import RestartIcon from "@material-ui/icons/Replay";
 import SkipIcon from "@material-ui/icons/SkipNext";
 import EditIcon from "@material-ui/icons/Edit";
 import PublishedIcon from "@material-ui/icons/Book";
@@ -16,6 +17,7 @@ import SendIcon from "@material-ui/icons/Send";
 import CheckCircle from "@material-ui/icons/Check";
 import ReadyIcon from "@material-ui/icons/HowToReg";
 import HandIcon from "@material-ui/icons/PanTool";
+import QuestionAddIcon from "@material-ui/icons/PlaylistAdd";
 
 export default {
   nav: {
@@ -154,8 +156,8 @@ export default {
           to: "/questions/new"
         },
         key: "btn-new-question",
-        text: "new",
-        icon: AddIcon,
+        text: "Select Question",
+        icon: QuestionAddIcon,
         actionType: "QUESTION"
       },
     ],
@@ -219,9 +221,10 @@ export default {
           color: "secondary"
         },
         key: "btn-skip",
-        text: "skip",
-        icon: SkipIcon,
-        actionType: "LIVE_GAME_SKIP"
+        text: "reset",
+        icon: RestartIcon,
+        actionType: "LIVE_GAME_RESET",
+        data: {status: "reset"}
       }],
       play: [
         {
