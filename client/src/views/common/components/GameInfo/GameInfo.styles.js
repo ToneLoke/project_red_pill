@@ -1,9 +1,9 @@
 export default {
   container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "80vh"
+    width: '100%',
+    position: 'relative',
+    overflow: 'overlay',
+    maxHeight: 'calc(100vh - 50px)'
   },
   title: {
     display: "flex",
@@ -75,7 +75,7 @@ export default {
     backgroundColor: "rgba(255,255,255,1)"
   },
   barScore: {
-    width: "400px",
+    width: "300px",
     height: "80px"
   },
   barScoreContainer: {
