@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStore } from '../../../store';
-import { GameInfo, LeaderBoard } from '../../common/components';
-import Questions from './components/Questions';
+import { GameInfo, LeaderBoard, Questions } from '../../common/components';
 const componentsList = {
   info: GameInfo,
   questions: Questions,
