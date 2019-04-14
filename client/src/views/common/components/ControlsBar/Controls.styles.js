@@ -30,17 +30,10 @@ const styles = theme => ({
     position: "relative",
     width: "100%",
     height: 56,
-    marginTop: -28
+    marginTop: -28,
+    padding: '0px 20px',
   },
-  right: {
-    width: "60%",
-    height: "inherit",
-  },
-  left: {
-    width: "40%",
-    height: "inherit",
-
-  }
+  
 });
 
 export default styles;

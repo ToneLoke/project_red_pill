@@ -35,6 +35,7 @@ const Sessions = ({ classes, history }) => {
     state: { games: allGames, game, user },
     dispatch
   } = useStore();
+
   const fullPath = history.location.pathname + history.location.search;
   const path = history.location.pathname;
   const [selGames, setSelGames] = useState();

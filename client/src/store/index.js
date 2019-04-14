@@ -1,5 +1,5 @@
-import React, { useCallback, createContext, useReducer, useContext } from "react";
-import reducers, { initialState } from "./reducers";
+import React, { useCallback, createContext, useReducer, useContext } from 'react';
+import reducers, { initialState } from './reducers';
 
 //TODO: change api calls to reducer
 const Store = createContext();
@@ -8,34 +8,37 @@ const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
   const customDispatch = useCallback(async (action, isReq = false) => {
-    if(isReq){
-      try{
-        const {data} = await reducers(null,action)(action.payload)
-        dispatcher({ type: action.type, payload: data});
-      }catch(e){
-        console.log("==================REQUEST ERROR=============================")
-        console.log(e, e.response)
-        if(e.response && e.response.status )
-        {
-           if( e.response.data === 401 ) localStorage.removeItem("token")
+    if (isReq) {
+      try {
+        const { data } = await reducers(null, action)(action.payload);
+        dispatcher({ type: action.type, payload: data });
+      } catch (e) {
+        console.log('==================REQUEST ERROR=============================');
+        console.log(e, e.response);
+        if (e.response && e.response.status) {
+          if (e.response.data === 401) localStorage.removeItem('token');
           dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message: e.response.data.message }}
-          })
-        }else{
+            type: 'ALERT_ERROR',
+            payload: { alert: { message: e.response.data.message } }
+          });
+        } else {
           dispatcher({
-            type: "ALERT_ERROR",
-            payload: { alert: {message: `sorry, something went wrong please try again.${JSON.stringify(e) || ""}` }}
-          })
+            type: 'ALERT_ERROR',
+            payload: {
+              alert: {
+                message: `sorry, something went wrong please try again.${JSON.stringify(e) || ''}`
+              }
+            }
+          });
         }
       }
-    }else{
+    } else {
       // Not a special case(API CALL), dispatch the action
-     console.log("NORMAL ACTION UPDATE")
-     dispatcher(action);
+      console.log('NORMAL ACTION UPDATE');
+      dispatcher(action);
     }
   }, []);
-  const store = { state, dispatch: customDispatch }
+  const store = { state, dispatch: customDispatch };
   return <Store.Provider value={store}>{children}</Store.Provider>;
 };
 
@@ -43,6 +46,6 @@ const Provider = (props) => {
 const useStore = () => {
   const { state, dispatch } = useContext(Store);
   return { state, dispatch };
-}
+};
 
 export { Store, Provider, useStore };

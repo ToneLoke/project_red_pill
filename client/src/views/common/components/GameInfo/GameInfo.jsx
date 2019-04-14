@@ -1,17 +1,17 @@
 // Packages
-import React, { Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import PersonIcon from "@material-ui/icons/Person";
-import { Typography, Fab, Badge } from "@material-ui/core";
+import React, { Fragment } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import PersonIcon from '@material-ui/icons/Person';
+import { Typography, Fab, Badge } from '@material-ui/core';
 
 // Components
-import LeaderBoardOverview from "./components/LeaderBoardOverview";
-import QuestionsOverview from "./components/QuestionsOverview";
-import ScoreOverview from "./components/ScoreOverview";
-import Timer from "../Timer";
+import LeaderBoardOverview from './components/LeaderBoardOverview';
+import QuestionsOverview from './components/QuestionsOverview';
+import ScoreOverview from './components/ScoreOverview';
+import Timer from '../Timer';
 
 // Styles
-import styles from "./GameInfo.styles";
+import styles from './GameInfo.styles';
 
 const PlayerList = ({ players, selPlayer, classes }) => {
   return (
@@ -34,7 +34,7 @@ const PlayerList = ({ players, selPlayer, classes }) => {
               color="secondary"
               badgeContent="10/20"
             >
-              {" "}
+              {' '}
             </Badge>
           </div>
         );
@@ -43,7 +43,7 @@ const PlayerList = ({ players, selPlayer, classes }) => {
   );
 };
 
-const GameInfo = ({ game, classes, timesUp, user, question }) => (
+const GameInfo = ({ game, classes, timesUp, user, question, handleRouteChange }) => (
   <div className={classes.container}>
     <div className={classes.lobbyAdminHeader}>
       <div className={classes.title}>
@@ -53,15 +53,19 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
       </div>
       <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status} />
     </div>
-    <div className={classes.gameInfoFold}>
-      <LeaderBoardOverview count={game.players.length || 0} classes={classes} />
+    <div className={classes.gameInfoList}>
+      <LeaderBoardOverview
+        handleRouteChange={handleRouteChange}
+        count={game.players.length || 0}
+        classes={classes}
+      />
       <PlayerList players={game.players} selPlayer={user} classes={classes} />
       <QuestionsOverview count={game.questions.count} classes={classes} />
       <ScoreOverview
         score={
           (game.score = [
             {
-              name: "SCORE",
+              name: 'SCORE',
               pass: 2,
               fail: 3,
               queue: 7
@@ -69,11 +73,11 @@ const GameInfo = ({ game, classes, timesUp, user, question }) => (
           ])
         }
         playerCount={game.players.length || 0}
-        visType={["bar"]}
+        visType={['bar']}
         classes={classes}
       />
     </div>
   </div>
 );
 
-export default withStyles(styles, { name: "GameInfo" })(GameInfo);
+export default withStyles(styles, { name: 'GameInfo' })(GameInfo);
