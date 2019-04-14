@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import cors from 'cors';
+import path from 'path';
 import config from './config';
 import gameRoutes from './api_service/routes/gameRoutes';
 import adminRoutes from './api_service/routes/userRoutes';
