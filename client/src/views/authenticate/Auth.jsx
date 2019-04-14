@@ -49,11 +49,6 @@ const Auth = ({ classes, history }) => {
         value={user ? user.password : ''}
         bubbleUp={handleChange}
       />
-      <Link to={`${fullPath}?type=${page}`}>
-        <Typography variant="body2" color="inherit">
-          {page}
-        </Typography>
-      </Link>
     </Paper>
   );
 };

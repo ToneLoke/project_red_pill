@@ -1,20 +1,20 @@
 const dotenv = require('dotenv');
-const cfg = {}
+const cfg = {};
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  dotenv.config({path: '.env'})
+  dotenv.config({ path: '.env' });
 } else {
-  dotenv.config({path: '.env.test', silent: true})
+  dotenv.config({ path: '.env.test', silent: true });
 }
 
 // HTTP Port to run our web application
-cfg.port = process.env.PORT ||8000
+cfg.port = process.env.PORT || 8000;
 // API BASE URL (change if testing on mobile to your comps ipv4)
-cfg.apiURL = process.env.API_URL || 'http://localhost:8000'
+cfg.apiURL = process.env.API_URL || 'http://localhost:8000';
 
 // A random string that will help generate secure one-time passwords and
 // HTTP sessions
-cfg.secret = process.env.APP_SECRET || 'keyboard cat'
+cfg.secret = process.env.APP_SECRET || 'keyboard cat';
 
 // Your Twilio account SID and auth token, both found at:
 // https://www.twilio.com/user/account
@@ -25,7 +25,9 @@ cfg.secret = process.env.APP_SECRET || 'keyboard cat'
 // cfg.accountSid = process.env.TWILIO_ACCOUNT_SID
 // cfg.authToken = process.env.TWILIO_AUTH_TOKEN
 // cfg.sendingNumber = process.env.TWILIO_NUMBER
-cfg.mongolabs = process.env.MONGOLAB_URI || 'mongodb+srv://toneloke:fefe9999@project-red-pill-dev-ud2dy.mongodb.net/project_red_pill?retryWrites=true'
+cfg.mongolabs =
+  process.env.MONGOLAB_URI ||
+  'mongodb+srv://toneloke:fefe9999@project-red-pill-dev-ud2dy.mongodb.net/project_red_pill?retryWrites=true';
 
 // var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber]
 // var isConfigured = requiredConfig.every(function (configValue) {
@@ -40,4 +42,4 @@ cfg.mongolabs = process.env.MONGOLAB_URI || 'mongodb+srv://toneloke:fefe9999@pro
 // }
 
 // Export configuration object
-export default cfg
+module.exports = cfg;

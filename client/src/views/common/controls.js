@@ -23,17 +23,33 @@ export default {
   nav: {
     '/authenticate': [
       {
+        styles: {
+          login: {
+            color: 'primary'
+          },
+          register: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: AccountIcon,
         key: 'login-btn',
-        text: 'login',
+        text: 'LOGIN',
         to: '/authenticate?type=login'
       },
       {
+        styles: {
+          register: {
+            color: 'primary'
+          },
+          login: {
+            color: 'secondary'
+          }
+        },
         component: Link,
         icon: AccountAddIcon,
         key: 'register-btn',
-        text: 'register',
+        text: 'REGISTER',
         to: '/authenticate?type=register'
       }
     ],
