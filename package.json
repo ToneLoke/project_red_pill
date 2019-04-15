@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.4.3",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
@@ -25,19 +30,14 @@
     "reset:client": "npm run reset --prefix client",
     "reset": "npm run reset:server && npm run reset:client",
     "build": "babel -d ./dist ./server -s",
-    "start": "npm run build && node ./dist",
+    "start": "node ./dist",
     "deploy": "echo DOUBLE CHECK GIT IS CLEAN && npm run build && git push heroku master",
     "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run start --prefix client",
     "dev:server": "nodemon --exec babel-node ./server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build && npm run reset:client && npm run build --prefix client"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/plugin-transform-runtime": "^7.4.3",
     "nodemon": "^1.18.9"
   }
 }
