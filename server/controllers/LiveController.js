@@ -1,4 +1,4 @@
-import AppController from './AppController';
+const AppController = require('./AppController');
 
 class LiveController extends AppController {
   // eslint-disable-next-line no-useless-constructor
@@ -31,4 +31,5 @@ class LiveController extends AppController {
       .populate('questions');
   }
 }
-export default LiveController;
+
+module.exports = LiveController;

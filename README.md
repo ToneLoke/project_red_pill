@@ -19,19 +19,15 @@ mongod
 2. Install dependencies
 
 ```
-yarn install
+npm run reset
 ```
 
-3. Start api in new terminal window
+3. start server & client concurrently
+```
+npm run start:dev
+```
 
-```
-yarn server
-```
-4. Start client in new terminal window
-
-```
-yarn client
-```
+### Deployment to Heroku
 
 **login with test user**
 -- username: testuser, password: 12345

@@ -1,8 +1,8 @@
-import GameModel from './models/Game';
-import LiveController from './controllers/LiveController';
+const GameModel = require('./models/Game');
+const LiveController = require('./controllers/LiveController');
 //======================= CONFIGURE SOCKET FOR EACH PUBLISHED GAME =======================
 
-export default function setupGameSocket(gameIO, id) {
+module.exports = function setupGameSocket(gameIO, id) {
   const liveCtrl = new LiveController(GameModel, gameIO, id);
   //TODO: add security for sockets via io.use
   gameIO.use((socket, next) => {

@@ -1,6 +1,6 @@
-import AppController from './AppController';
-import configSocket from '../serverSocket';
-import User from '../models/User';
+const AppController = require('./AppController');
+const configSocket = require('../serverSocket');
+const User = require('../models/User');
 class GameController extends AppController {
   // eslint-disable-next-line no-useless-constructor
   constructor(model, io) {
@@ -91,4 +91,4 @@ class GameController extends AppController {
     }
   }
 }
-export default GameController;
+module.exports = GameController;

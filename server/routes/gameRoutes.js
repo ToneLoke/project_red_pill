@@ -1,10 +1,9 @@
-import { Router } from 'express';
-import GameModel from '../models/Game';
-import GameController from '../controllers/GameController';
-import authenticate from './auth';
+const router = require('express').Router();
+const GameModel = require('../models/Game')'
+const GameController = require('../controllers/GameController')'
+const authenticate = require('./auth')'
 
-export default function(io) {
-  const router = Router();
+module.exports = function gameRoutes(io) {
   const gameCtrl = new GameController(GameModel, io);
   gameCtrl.setLiveGames();
   router.use(authenticate);

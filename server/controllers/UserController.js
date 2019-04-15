@@ -1,6 +1,6 @@
-import AppController from './AppController';
-import jwt from 'jsonwebtoken';
-import config from '../../config';
+const jwt = require('jsonwebtoken');
+const AppController = require('./AppController');
+const config = require('../../config');
 
 class AdminController extends AppController {
   // eslint-disable-next-line no-useless-constructor
@@ -65,4 +65,4 @@ class AdminController extends AppController {
     }
   }
 }
-export default AdminController;
+module.exports = AdminController;

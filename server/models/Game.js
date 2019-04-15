@@ -1,6 +1,7 @@
 'use strict';
-import { Schema, model } from 'mongoose';
-import Question from './Question';
+const mongoose from require('mongoose');
+const {Schema, model } = mongoose;
+const Question =  require('./Question');
 
 const PlayerSchema = new Schema({
   _id: {
@@ -60,6 +61,7 @@ const GameSchema = new Schema(
   },
   { timestamps: true }
 );
+
 const preSave = async function(next) {
   if (this.isModified('questions')) {
     const questions = this.questions.map((_id) => Question.findOne({ _id }).select('points -_id'));
@@ -81,4 +83,5 @@ const addPlayer = async function(player) {
 GameSchema.methods.addPlayer = addPlayer;
 
 const Game = model('Game', GameSchema);
-export default Game;
+
+module.exports =  Game;

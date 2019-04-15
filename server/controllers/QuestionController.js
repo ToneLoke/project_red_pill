@@ -1,4 +1,4 @@
-import AppController from './AppController';
+const AppController = require('./AppController');
 
 class QuestionController extends AppController {
   // eslint-disable-next-line no-useless-constructor
@@ -63,4 +63,4 @@ class QuestionController extends AppController {
     }
   }
 }
-export default QuestionController;
+module.exports =  QuestionController;

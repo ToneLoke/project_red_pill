@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import config from '../../config';
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 const secret = config.secret;
 
@@ -21,4 +21,4 @@ const token_auth = (req, res, next) => {
     return res.status(401).json({ message: 'please login', success: false });
   }
 };
-export default token_auth;
+module.exports = token_auth;
