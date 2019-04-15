@@ -1,7 +1,7 @@
 'use strict';
-const mongoose from require('mongoose');
-const {Schema, model } = mongoose;
+const mongoose = require('mongoose');
 const Question =  require('./Question');
+const {Schema, model } = mongoose;
 
 const PlayerSchema = new Schema({
   _id: {
@@ -84,4 +84,4 @@ GameSchema.methods.addPlayer = addPlayer;
 
 const Game = model('Game', GameSchema);
 
-module.exports =  Game;
+module.exports = Game;

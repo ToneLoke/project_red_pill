@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const GameModel = require('../models/Game')'
-const GameController = require('../controllers/GameController')'
-const authenticate = require('./auth')'
+const GameModel = require('../models/Game');
+const GameController = require('../controllers/GameController');
+const authenticate = require('./auth');
 
 module.exports = function gameRoutes(io) {
   const gameCtrl = new GameController(GameModel, io);
