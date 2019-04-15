@@ -16,9 +16,17 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 // =======================================
 // CONNECT TO LOCAL MONGO DB OR MONGOLABS
-mongoose.connect(mongodb_url, function(err) {
-  if (err) console.log('ERROR CONNECTING TO MONGODB:', err);
-  console.log('Connected to MongoDB', mongodb_url);
+// const MongoClient = require('mongodb').MongoClient
+
+// MongoClient.connect('link-to-mongodb', (err, database) => {
+//   // ... start the server
+// })
+mongoose.connect(mongodb_url, { useNewUrlParser: true }, function(err) {
+  if (err) {
+    console.log('ERROR CONNECTING TO MONGODB:', err);
+  }else{
+    console.log('Connected to MongoDB', mongodb_url);
+  }
 });
 // =======================================
 // SETUP MIDDLEWARE FOR API
