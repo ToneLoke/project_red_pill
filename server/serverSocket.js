@@ -25,6 +25,5 @@ module.exports = function setupGameSocket(gameIO, id) {
         liveCtrl.updateGame(data);
       }
     });
-    //add player to game roster
   });
 }

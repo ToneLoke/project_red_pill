@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router;
 const GameModel = require('../models/Game');
 const GameController = require('../controllers/GameController');
 const authenticate = require('./auth');

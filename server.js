@@ -3,24 +3,16 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 const config = require('./config');
 const apiService = require('./server');
-const { gameRoutes, userRoutes, questionRoutes } = apiService;
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000;
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-// =======================================
-// CONNECT TO LOCAL MONGO DB OR MONGOLABS
-// const MongoClient = require('mongodb').MongoClient
 
-// MongoClient.connect('link-to-mongodb', (err, database) => {
-//   // ... start the server
-// })
 mongoose.connect(mongodb_url, { useNewUrlParser: true }, function(err) {
   if (err) {
     console.log('ERROR CONNECTING TO MONGODB:', err);
@@ -28,8 +20,8 @@ mongoose.connect(mongodb_url, { useNewUrlParser: true }, function(err) {
     console.log('Connected to MongoDB', mongodb_url);
   }
 });
-// =======================================
-// SETUP MIDDLEWARE FOR API
+
+// MIDDLEWARE
 app.use(logger('dev'));
 app.use(
   bodyParser.urlencoded({
@@ -38,18 +30,17 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cors());
-// Initialize routes to use
+// REACT STATIC RENDER
+app.use(express.static(path.join(__dirname, 'client/build')));;
+// API ROUTES
 const base = '/api';
-app.use(base, userRoutes);
-//======================= pass the io server to game routes to create sockets =======================
-app.use(`${base}/games`, gameRoutes(io));
-app.use(`${base}/questions`, questionRoutes);
+app.use(base, apiService.userRoutes);
+app.use(`${base}/questions`, apiServicequestionRoutes);
+// GAME ROUTES WITH DYNAMIC SOCKETS
+app.use(`${base}/games`, apiService.gameRoutes(io));
 
-
-//production mode check
 if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')));
-  app.get('/*', (req, res) => {
+  app.get('*', (req, res) => {
     res.sendfile(path.join(__dirname = '/client/build/index.html'));
   })
 }else{
@@ -59,13 +50,12 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 app.use(function(req, res) {
-  //======================= ERROR IN ROUTE =======================
   console.log('========================= SERVER ERROR =========================');
   console.error(req.error);
   if(req.error && req.error.status) {
     res.status(req.error.status).json(req.error)
   }else{
-    res.status(500).json({message: "SERVER CRASHED", success: false})
+    res.status(500).json({message: "SERVER CRASHED UNKNOWN", success: false})
   }
 });
 

@@ -8,36 +8,34 @@
     "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
-    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "fs": "^0.0.1-security",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "mongoose": "^5.4.10",
+    "mongoose": "^5.5.1",
     "morgan": "^1.9.1",
     "socket.io": "^2.2.0",
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
-    "reset:server": "rm -rf ./node_modules package-lock.json && npm i",
+    "reset:server": "rm -rf ./node_modules yarn.lock && yarn install",
     "reset:client": "npm run reset --prefix client",
-    "reset": "npm run reset:server && npm run reset:client",
+    "reset": "run-p reset:server reset:client",
     "start": "node server.js",
-    "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "start:dev": "run-s dev:server dev:client",
     "dev:client": "npm run start --prefix client",
-    "dev:server": "nodemon index.js",
-    "deploy:client": "npm run reset:client && npm run build --prefex client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run deploy:client"
+    "dev:server": "nodemon server.js",
+    "deploy:client": "run-s reset:client build --prefex client",
+    "heroku-postbuild": "npm run deploy:client"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.3",
-    "nodemon": "^1.18.9"
+    "@babel/preset-env": "^7.4.3",
+    "nodemon": "^1.18.11",
+    "npm-run-all": "^4.1.5"
   }
 }
