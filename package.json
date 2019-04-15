@@ -20,27 +20,22 @@
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
-    "reset": "rm -rf node_modules client/node_modules && npm run client:install && npm i",
-    "client:install": "npm install --prefix client",
-    "build": "babel api_service --out-dir dist",
-    "start": "node dist/server.js",
-    "server": "nodemon --exec babel-node api_service/server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && npm run build",
-    "debug": "nodemon --inspect --exec babel-node server.js"
+    "reset:server": "rm -rf node_modules package-lock.json && npm i",
+    "reset:client": "npm run reset --prefix client",
+    "reset": "npm run reset:server && npm run reset:client",
+    "build": "babel-node api_service -d dist",
+    "start": "npm run build && node dist/server.js",
+    "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "npm run start --prefix client",
+    "dev:server": "nodemon --exec babel-node api_service/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client",
+    "debug": "nodemon --inspect --exec babel-node api_service/server.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
     "nodemon": "^1.18.9"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

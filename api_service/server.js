@@ -45,22 +45,24 @@ app.use(function(req, res) {
   console.error(req.error);
   res.status(req.error.status).json(req.error);
 });
-//Static file declaration
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-//production mode
+//PROD mode
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  //
   app.get('*', (req, res) => {
     res.sendfile(path.join((__dirname = 'client/build/index.html')));
   });
+}else {
+  //DEV mode
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + 'client/public/index.html'));
+  });
 }
-//build mode
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/public/index.html'));
-});
+
+
 server.listen(port, function() {
   console.log('ADMIN API SERVICE -- Listening on port: ' + port + '...');
-  fs.writeFile(__dirname + '/start.log', 'started', (err) => console.log('START LOGGED SAVED'));
+  //TODO: capture log files of crashes
+  //fs.writeFile(__dirname + '/start.log', 'started', (err) => console.log('START LOGGED SAVED'));
 });
