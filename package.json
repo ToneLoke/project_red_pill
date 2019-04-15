@@ -24,8 +24,8 @@
     "reset:client": "npm run reset --prefix client",
     "reset": "run-p reset:server reset:client",
     "start": "node server.js",
-    "start:dev": "run-s dev:server dev:client",
-    "dev:client": "npm run start --prefix client",
+    "develop": "run-p dev:server dev:client",
+    "dev:client": "yarn start --prefix client",
     "dev:server": "nodemon server.js",
     "deploy:client": "run-s reset:client build --prefex client",
     "heroku-postbuild": "npm run deploy:client"

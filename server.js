@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const config = require('./config');
-const apiService = require('./server');
+const apiService = require('./server/index');
 const mongodb_url = config.mongolabs || 'mongodb://localhost/project_red_pill';
 const port = process.env.PORT || 8000;
 const app = express();
@@ -31,11 +31,11 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 // REACT STATIC RENDER
-app.use(express.static(path.join(__dirname, 'client/build')));;
+app.use(express.static(path.join(__dirname, 'client/build')));
 // API ROUTES
 const base = '/api';
 app.use(base, apiService.userRoutes);
-app.use(`${base}/questions`, apiServicequestionRoutes);
+app.use(`${base}/questions`, apiService.questionRoutes);
 // GAME ROUTES WITH DYNAMIC SOCKETS
 app.use(`${base}/games`, apiService.gameRoutes(io));
 

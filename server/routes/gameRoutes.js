@@ -1,9 +1,10 @@
-const router = require('express').Router;
+const express = require('express');
 const GameModel = require('../models/Game');
 const GameController = require('../controllers/GameController');
 const authenticate = require('./auth');
 
 module.exports = function gameRoutes(io) {
+  const router = express.Router()
   const gameCtrl = new GameController(GameModel, io);
   gameCtrl.setLiveGames();
   router.use(authenticate);
