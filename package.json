@@ -23,7 +23,7 @@
     "reset:server": "rm -rf node_modules package-lock.json && npm i",
     "reset:client": "npm run reset --prefix client",
     "reset": "npm run reset:server && npm run reset:client",
-    "build": "babel-node api_service -d dist",
+    "build": "babel api_service -d dist",
     "start": "npm run build && node dist/server.js",
     "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run start --prefix client",
