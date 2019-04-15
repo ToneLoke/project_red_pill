@@ -20,16 +20,16 @@
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
-    "reset:server": "rm -rf node_modules package-lock.json && npm i",
+    "reset:server": "rm -rf build node_modules package-lock.json && npm i",
     "reset:client": "npm run reset --prefix client",
     "reset": "npm run reset:server && npm run reset:client",
-    "build": "babel api_service -d dist",
-    "start": "npm run build && node dist/server.js",
+    "build": "babel server -d build",
+    "start": "node build/index.js ",
+    "deploy": "echo DOUBLE CHECK GIT IS CLEAN && npm run build && git push heroku master",
     "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run start --prefix client",
-    "dev:server": "nodemon --exec babel-node api_service/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client",
-    "debug": "nodemon --inspect --exec babel-node api_service/server.js"
+    "dev:server": "nodemon --exec babel-node server/index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
