@@ -21,15 +21,15 @@
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
-    "reset:server": "rm -rf ./build ./node_modules package-lock.json && npm i",
+    "reset:server": "rm -rf ./node_modules package-lock.json && npm i",
     "reset:client": "npm run reset --prefix client",
     "reset": "npm run reset:server && npm run reset:client",
-    "build": "babel -d ./build ./server -s",
-    "start": "node ./build/index.js ",
+    "build": "babel -d ./dist ./server -s",
+    "start": "npm run build && node ./dist",
     "deploy": "echo DOUBLE CHECK GIT IS CLEAN && npm run build && git push heroku master",
     "start:dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run start --prefix client",
-    "dev:server": "nodemon --exec babel-node ./server/index.js",
+    "dev:server": "nodemon --exec babel-node ./server",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client"
   },
   "devDependencies": {

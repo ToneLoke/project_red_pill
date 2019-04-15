@@ -9,6 +9,8 @@
 # testing
 /coverage
 
+/dist
+
 
 # misc
 .DS_Store
