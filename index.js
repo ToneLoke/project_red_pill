@@ -52,9 +52,13 @@ if(process.env.NODE_ENV === 'production') {
 
 app.use(function(req, res) {
   //======================= ERROR IN ROUTE =======================
-  console.log('=================!!!!!!!!! SERVER ERROR !!!!!!!!!!===============');
+  console.log('========================= SERVER ERROR =========================');
   console.error(req.error);
-  res.status(req.error.status).json(req.error);
+  if(req.error && req.error.status) {
+    res.status(req.error.status).json(req.error)
+  }else{
+    res.status(500).json({message: "SERVER CRASHED", success: false})
+  }
 });
 
 
