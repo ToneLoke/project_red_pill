@@ -31,23 +31,33 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 // Initialize routes to use
-app.use('/user', userRoutes);
+const base = '/api';
+app.use(base, userRoutes);
 //======================= pass the io server to game routes to create sockets =======================
-app.use('/games', gameRoutes(io));
-app.use('/questions', questionRoutes);
-// app.use(function(req, res) {
-//   //======================= ERROR IN ROUTE =======================
-//   console.log('=========================SERVER ERROR:');
-//   console.error(req.error);
-//   res.status(500).json(req.error);
-// });
+app.use(`${base}/games`, gameRoutes(io));
+app.use(`${base}/questions`, questionRoutes);
 
-app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+//production mode check
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname = '/client/build/index.html'));
+  })
+}else{
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/client/public/index.html'));
+  });
+}
+
+app.use(function(req, res) {
+  //======================= ERROR IN ROUTE =======================
+  console.log('=================!!!!!!!!! SERVER ERROR !!!!!!!!!!===============');
+  console.error(req.error);
+  res.status(req.error.status).json(req.error);
 });
 
+
 server.listen(port, function() {
-  console.log('SERVER---> Listening on port: ' + port );
+  console.log('======================== SERVER RUNNING ---> Listening on port: ' + port );
 });

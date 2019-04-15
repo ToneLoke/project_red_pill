@@ -3,9 +3,9 @@ export const userInitial = {
   user: null
 };
 
-const AUTH_API = 'user/login';
-const REGISTER_API = 'user/register';
-const ME_API = 'user/me';
+const AUTH_API = '/login';
+const REGISTER_API = '/register';
+const ME_API = '/me';
 
 //======================= ACTION CONSTANTS =======================
 export const USER_AUTHENTICATE = 'USER_AUTHENTICATE';

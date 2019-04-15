@@ -39,4 +39,4 @@ UserSchema.methods.authenticate = function(password) {
 };
 
 const User = mongoose.model('User', UserSchema);
-module.export = User;
+module.exports= User;
