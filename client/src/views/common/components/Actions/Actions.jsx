@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Fab } from '@material-ui/core';
 import styles from './Actions.styles';
@@ -8,12 +8,16 @@ const CreateFab = (props) => {
   const handleClick = () => dpHandler(a.actionType, a.isReq, a.data);
   return (
     <div className={classes.btnWrapper}>
-      <Fab {...a.styles} disabled={a.disabled} onClick={handleClick} className={classes.action}>
-        {a.icon && <a.icon />}
-      </Fab>
-      <Typography variant="caption" color="secondary" className={classes.btnText}>
-        {!!a.text && a.text}
-      </Typography>
+      {!a.disabled && (
+        <Fragment>
+          <Fab {...a.styles} disabled={a.disabled} onClick={handleClick} className={classes.action}>
+            {a.icon && <a.icon />}
+          </Fab>
+          <Typography variant="caption" color="secondary" className={classes.btnText}>
+            {!!a.text && a.text}
+          </Typography>
+        </Fragment>
+      )}
     </div>
   );
 };
