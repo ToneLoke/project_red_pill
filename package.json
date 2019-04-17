@@ -28,7 +28,7 @@
     "dev:client": "npm run start --prefix client",
     "dev:server": "nodemon server.js",
     "deploy:client": "npm run reset:client && npm run build --prefex client",
-    "heroku-postbuild": "npm run deploy:client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run reset:client && npm run build --prefix client"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
