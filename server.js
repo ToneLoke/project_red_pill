@@ -10,9 +10,9 @@ const apiService = require('./server/index');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const { mongodb_url, port} = config;
+const { mongolabs, port} = config;
 
-mongoose.connect(mongodb_url, { useNewUrlParser: true }, function(err) {
+mongoose.connect(mongolabs, { useNewUrlParser: true }, function(err) {
   if (err) {
     console.log('ERROR CONNECTING TO MONGODB:', err);
   }else{
