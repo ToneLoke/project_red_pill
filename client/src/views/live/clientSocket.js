@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
-
+const baseURL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000';
 const configureSocket = ({id, user}) => dispatch => {
 //======================= SOCKET CONNECTION =======================
-  const socket = io.connect(`http://localhost:8000/${id}?_id=${user._id}&username=${user.username}`);
+  const socket = io.connect(`${baseURL}/${id}?_id=${user._id}&username=${user.username}`);
   socket.on('error', error => {
     dispatch({ type: "ALERT_ERROR", payload: { alert: {message: error}}})
   })
