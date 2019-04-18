@@ -1,14 +1,15 @@
 // Packages
-import React, { Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import PersonIcon from "@material-ui/icons/Person";
-import { Typography, Fab, Badge } from "@material-ui/core";
-
-// Components
-
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import PersonIcon from '@material-ui/icons/Person';
+import { Fab, Badge } from '@material-ui/core';
 
 // Styles
-import styles from "./LeaderBoard.styles";
+import styles from './PlayerList.styles';
+
+// Make a List component that takes a component as a parameter 
+// and then renders the children decorated.
+// Value: Can be used for questions list and player list
 
 const PlayerList = ({ players, endUser, classes }) => {
   return (
@@ -31,7 +32,7 @@ const PlayerList = ({ players, endUser, classes }) => {
               color="secondary"
               badgeContent="10/20"
             >
-              {" "}
+              {' '}
             </Badge>
           </div>
         );
@@ -40,12 +41,5 @@ const PlayerList = ({ players, endUser, classes }) => {
   );
 };
 
-const LeaderBoard = ({ game, classes, timesUp, user, question }) => (
-  <div className={classes.container}>
-    <div className={classes.gameInfoList}>
-      <PlayerList players={game.players} endUser={user} classes={classes} />
-    </div>
-  </div>
-);
 
-export default withStyles(styles, { name: "LeaderBoard" })(LeaderBoard);
+export default withStyles(styles, { name: 'PlayerList' })(PlayerList);
