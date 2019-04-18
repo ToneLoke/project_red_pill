@@ -1,6 +1,6 @@
 export default {
-  container: {
-    width: '100%',
-    height: '80vh'
+ container: {
+    maxWidth: '100%',
+    maxHeight: '80vh'
   },
 }

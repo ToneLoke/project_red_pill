@@ -1,14 +1,17 @@
 // eslint-disable-line default-case
 
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { useStore } from '../../../store';
 import { GameInfo, LeaderBoard, Questions } from '../../common/components';
+import styles from './Admin.styles';
+
 const componentsList = {
   info: GameInfo,
   questions: Questions,
   leaderBoard: LeaderBoard
 };
-const Admin = ({ history }) => {
+const Admin = ({ history, classes }) => {
   const {
     state: { user, game, question },
     dispatch
@@ -53,7 +56,7 @@ const Admin = ({ history }) => {
     }
   }
 
-  return <div className="Admin-Container">{switchView(page)}</div>;
+  return <div className={classes.container}>{switchView(page)}</div>;
 };
 
-export default Admin;
+export default withStyles(styles, {name: 'Admin'})(Admin);

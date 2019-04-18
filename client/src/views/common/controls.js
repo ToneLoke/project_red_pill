@@ -6,6 +6,7 @@ import PresentToAll from '@material-ui/icons/PresentToAll';
 import PauseIcon from '@material-ui/icons/PauseCircleFilled';
 import PlayIcon from '@material-ui/icons/PlayArrow';
 import SkipIcon from '@material-ui/icons/SkipNext';
+import JoinIcon from '@material-ui/icons/GroupAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import PublishedIcon from '@material-ui/icons/Book';
 import AccountIcon from '@material-ui/icons/Person';
@@ -176,7 +177,7 @@ export default {
           color: 'secondary'
         },
         icon: AddIcon,
-        text: 'NEW GAME',
+        text: 'ADD',
         key: 'game-btn-new',
         actionType: 'GAME'
       },
@@ -196,12 +197,12 @@ export default {
       {
         styles: {
           component: Link,
-          to: '/games/draft?type=settings',
+          to: '/games/live/',
           color: 'secondary'
         },
-        icon: AddIcon,
-        text: 'NEW GAME',
-        key: 'game-btn-new',
+        icon: JoinIcon,
+        text: 'JOIN',
+        key: 'game-btn-join',
         actionType: 'GAME'
       }
     ],

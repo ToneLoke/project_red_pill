@@ -3,14 +3,14 @@ export default {
     display: 'flex',
     justifyContent: 'space-around',
     marginLeft: 'auto',
-    '& div:last-child > button': {
-      height: '60px',
-      width: '60px'
-    }
+  },
+  secondary: {
+    width: '45px',
+    height: '45px'
   },
   action: {
     display: 'flex',
-    width: '45px',
-    height: '45px'
+    height: '60px',
+    width: '60px'
   }
 };

@@ -21,8 +21,8 @@ const BottomAppBar = ({ classes, history }) => {
       controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`][
         state.game.status === 'live' ? 'pause' : 'play'
       ];
-  } else {
-      if ( actions && actions.length > 1) {
+  } else if(actions) {
+      if ( actions.length > 1) {
         //NOTE: if state type is null or empty show action1 else show action2
         actions = isEmpty(state[actions[0].actionType.split('_')[0].toLowerCase()])
           ? [actions[0]]

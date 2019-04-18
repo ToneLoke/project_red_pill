@@ -66,6 +66,13 @@ function TopBar(props) {
   const logout = () => {
     dispatch({ type: "USER_LOGOUT" });
   };
+
+  const goBack = () => {
+    if (window.location.pathname.indexOf('live') > -1 && !window.location.search){
+      dispatch({ type: 'GAME_CLEAR', payload: null })
+    }
+    window.history.back()
+  }
   //TODO: move navigation to menu items from controls
   return (
     <div className={classes.root}>
@@ -75,7 +82,7 @@ function TopBar(props) {
             className={classes.backBtn}
             color="inherit"
             aria-label="Back"
-            onClick={() => window.history.back()}
+            onClick={goBack}
           >
             <BackIcon />
           </IconButton>

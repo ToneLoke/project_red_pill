@@ -6,7 +6,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyItems: 'center',
-    paddingTop: '20vh'
+    paddingTop: '20vh',
+    minHeight: 'calc(100vh - 50px)'
   },
   progress: {
     margin: 12,
@@ -39,7 +40,7 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     overflow: 'overlay',
-    maxHeight: 'calc(100vh - 50px)'
+    minHeight: 'calc(100vh - 50px)'
   },
   listSection: {
     backgroundColor: 'inherit'

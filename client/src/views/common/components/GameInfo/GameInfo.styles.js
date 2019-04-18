@@ -14,13 +14,11 @@ export default {
     },
     color: 'white'
   },
-  lobbyHeader: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    justifyContent: 'space-around',
-    padding: '40px 20px 20px',
-    backgroundColor: '#3B55AB'
+  lobbyAdminHeader: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    padding: "20px 20px"
   },
   players: {
     backgroundColor: 'rgba(255,255,255, 1)'
@@ -38,21 +36,20 @@ export default {
     padding: '9px'
   },
   questionsOverview: {
-    color: 'rgba(0,0,0,0.54)',
-    display: 'flex',
-    padding: '30px 15px',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    backgroundColor: 'rgba(255,255,255,1)',
-    borderBottom: 'solid 1px #E0E0E0'
+    color: "rgba(0,0,0,0.54)",
+    display: "flex",
+    padding: "20px 15px",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    backgroundColor: "rgba(255,255,255,1)",
+    borderBottom: "solid 1px #E0E0E0"
   },
   scoreOverview: {
-    color: 'rgba(0,0,0,0.54)',
-    display: 'flex',
-    padding: '30px 15px',
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
+    color: "rgba(0,0,0,0.54)",
+    display: "flex",
+    padding: "10px 15px",
+    justifyContent: "flex-start",
     // borderBottom: "solid 1px #E0E0E0"
   },
   rankNum: { marginRight: '20px', marginLeft: '20px' },
