@@ -6,6 +6,7 @@ import styles from './Navs.styles';
 
 const CreateFabNav = (props) => {
   const { classes, nav: n, page } = props;
+	console.log("TCL: CreateFabNav -> props", props)
   return (
     <div className={classes.btnWrapper}>
       <Link to={`${n.to}`} className={classes.link}>
