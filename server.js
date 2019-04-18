@@ -16,7 +16,7 @@ mongoose.connect(mongolabs, { useNewUrlParser: true }, function(err) {
   if (err) {
     console.log('ERROR CONNECTING TO MONGODB:', err);
   }else{
-    console.log('Connected to MongoDB', mongodb_url);
+    console.log('Connected to MongoDB', mongolabs);
   }
 });
 
