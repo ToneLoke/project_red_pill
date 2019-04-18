@@ -1,3 +1,5 @@
+// eslint-disable-line default-case
+
 import React from 'react';
 import { useStore } from '../../../store';
 import { GameInfo, LeaderBoard, Questions } from '../../common/components';
@@ -23,10 +25,10 @@ const Admin = ({ history }) => {
     switch (page) {
       case 'info':
         return (
-          <GameInfo
+          <GameInfo 
             {...liveData}
             timesUp={timesUp}
-            selPlayer={user}
+            endUser={user}
             handleRouteChange={handleRouteChange}
           />
         );
@@ -35,7 +37,7 @@ const Admin = ({ history }) => {
           <LeaderBoard
             {...liveData}
             timesUp={timesUp}
-            selPlayer={user}
+            endUser={user}
             handleRouteChange={handleRouteChange}
           />
         );
@@ -44,7 +46,7 @@ const Admin = ({ history }) => {
           <Questions
             {...liveData}
             timesUp={timesUp}
-            selPlayer={user}
+            endUser={user}
             handleRouteChange={handleRouteChange}
           />
         );

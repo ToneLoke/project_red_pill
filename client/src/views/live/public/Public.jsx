@@ -9,7 +9,7 @@ const PublicScreens = ({classes}) => {
   const timesUp = () => console.log("TIME UP ACTION")
   return(
     <div className={classes.container}>
-      <GameInfo {...state} timesUp={timesUp} selPlayer={state.user}/>
+      <GameInfo {...state} timesUp={timesUp} endUser={state.user}/>
     </div>
   )
 }

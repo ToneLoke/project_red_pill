@@ -30,7 +30,7 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-const Sessions = ({ classes, history }) => {
+const Games = ({ classes, history }) => {
   const {
     state: { games: allGames, game, user },
     dispatch
@@ -68,7 +68,7 @@ const Sessions = ({ classes, history }) => {
   //TODO: fix empty state for filtered games as well
   return (
     <Fragment>
-      <NavBar title="Sessions" icon={MenuIcon} path={path} fullPath={fullPath} />
+      <NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />
       {!selGames ? (
         <div>
           <CircularProgress className={classes.progress} color="primary" />
@@ -116,4 +116,4 @@ const Sessions = ({ classes, history }) => {
   );
 };
 
-export default withStyles(styles)(Sessions);
+export default withStyles(styles)(Games);

@@ -85,5 +85,9 @@ export default {
   gameInfoList: {
     height: "calc(100vh - 138px)",
     backgroundColor: "rgba(255,255,255,1)"
+  },
+  adminSession: {
+    height: "calc(100vh - 138px)",
+    backgroundColor: "rgba(255,255,255,1)"
   }
 };
