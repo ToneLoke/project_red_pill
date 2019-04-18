@@ -115,7 +115,30 @@ export default {
         text: 'questions',
         key: 'questions-btn',
         to: '/games/draft?type=questions'
-      }
+      },
+
+    ],
+    '/live': [
+      {
+        styles: {
+          component: 'button',
+          color: 'primary'
+        },
+        key: 'btn-enter-lobby',
+        text: 'LOBBY',
+        icon: AppIcon,
+        actionType: 'ADMIN_ENTER_ENTER_LOBBY'
+      },
+      {
+        styles: {
+          component: 'button',
+          color: 'secondary'
+        },
+        key: 'btn-questions',
+        text: 'QUESTIONS',
+        icon: QuestionsIcon,
+        actionType: 'ADMIN_ENTER_QUESTIONS'
+      },
     ]
   },
   actions: {
@@ -257,26 +280,6 @@ export default {
     },
     '/live/admin': {
       pause: [
-        {
-          styles: {
-            component: 'button',
-            color: 'primary'
-          },
-          key: 'btn-enter-lobby',
-          text: 'LOBBY',
-          icon: AppIcon,
-          actionType: 'ADMIN_ENTER_ENTER_LOBBY'
-        },
-        {
-          styles: {
-            component: 'button',
-            color: 'secondary'
-          },
-          key: 'btn-questions',
-          text: 'QUESTIONS',
-          icon: QuestionsIcon,
-          actionType: 'ADMIN_ENTER_QUESTIONS'
-        },
         {
           styles: {
             component: 'button',
