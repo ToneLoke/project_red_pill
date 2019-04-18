@@ -1,18 +1,12 @@
-//======================= Components =======================
+//======================= Live - Actions and Navigation - Presentation =======================
 import { Link } from 'react-router-dom';
 //======================= All Icons Needed =======================
 import AddIcon from '@material-ui/icons/Add';
 import PresentToAll from '@material-ui/icons/PresentToAll';
-import PauseIcon from '@material-ui/icons/PauseCircleFilled';
-import PlayIcon from '@material-ui/icons/PlayArrow';
-import SkipIcon from '@material-ui/icons/SkipNext';
 import EditIcon from '@material-ui/icons/Edit';
 import PublishedIcon from '@material-ui/icons/Book';
-import AccountIcon from '@material-ui/icons/Person';
-import AccountAddIcon from '@material-ui/icons/PersonAdd';
 import Settings from '@material-ui/icons/Settings';
 import ViewList from '@material-ui/icons/ViewList';
-import SendIcon from '@material-ui/icons/Send';
 import CheckCircle from '@material-ui/icons/Check';
 import ReadyIcon from '@material-ui/icons/HowToReg';
 import HandIcon from '@material-ui/icons/PanTool';
@@ -21,38 +15,6 @@ import QuestionsIcon from '@material-ui/icons/ListAltRounded';
 
 export default {
   nav: {
-    '/authenticate': [
-      {
-        styles: {
-          login: {
-            color: 'primary'
-          },
-          register: {
-            color: 'secondary'
-          }
-        },
-        component: Link,
-        icon: AccountIcon,
-        key: 'login-btn',
-        text: 'LOGIN',
-        to: '/authenticate?type=login'
-      },
-      {
-        styles: {
-          register: {
-            color: 'primary'
-          },
-          login: {
-            color: 'secondary'
-          }
-        },
-        component: Link,
-        icon: AccountAddIcon,
-        key: 'register-btn',
-        text: 'REGISTER',
-        to: '/authenticate?type=register'
-      }
-    ],
     '/games': [
       {
         styles: {
@@ -115,8 +77,7 @@ export default {
         text: 'QUESTIONS',
         key: 'questions-btn',
         to: '/games/draft?type=questions'
-      },
-
+      }
     ],
     '/live': [
       {
@@ -127,7 +88,7 @@ export default {
         key: 'btn-enter-lobby',
         text: 'LOBBY',
         icon: AppIcon,
-        actionType: 'ADMIN_ENTER_ENTER_LOBBY'
+        actionType: 'ENTER_ENTER_LOBBY'
       },
       {
         styles: {
@@ -137,37 +98,11 @@ export default {
         key: 'btn-questions',
         text: 'QUESTIONS',
         icon: QuestionsIcon,
-        actionType: 'ADMIN_ENTER_QUESTIONS'
-      },
+        actionType: 'ENTER_QUESTIONS'
+      }
     ]
   },
   actions: {
-    '/authenticate?type=login': [
-      {
-        styles: {
-          component: 'button',
-          color: 'secondary'
-        },
-        text: 'SIGN IN',
-        isReq: true,
-        icon: SendIcon,
-        key: 'auth-btn-login',
-        actionType: 'USER_AUTHENTICATE'
-      }
-    ],
-    '/authenticate?type=register': [
-      {
-        styles: {
-          component: 'button',
-          color: 'secondary'
-        },
-        key: 'auth-btn-register',
-        text: 'SIGN UP',
-        isReq: true,
-        icon: CheckCircle,
-        actionType: 'USER_REGISTER'
-      }
-    ],
     '/games?type=draft': [
       {
         styles: {
@@ -275,54 +210,6 @@ export default {
           text: 'HELP',
           icon: HandIcon,
           actionType: 'LIVE_PLAYER_HELP'
-        }
-      ]
-    },
-    '/live/admin': {
-      pause: [
-        {
-          styles: {
-            component: 'button',
-            color: 'secondary'
-          },
-          key: 'btn-play',
-          text: 'PLAY',
-          icon: PlayIcon,
-          actionType: 'LIVE_GAME_UPDATE',
-          data: { status: 'play' }
-        }
-      ],
-      play: [
-        {
-          styles: {
-            component: 'button',
-            color: 'primary'
-          },
-          key: 'btn-enter-lobby',
-          text: 'LOBBY',
-          icon: AppIcon,
-          actionType: 'ADMIN_ENTER_ENTER_LOBBY'
-        },
-        {
-          styles: {
-            component: 'button',
-            color: 'secondary'
-          },
-          key: 'btn-questions',
-          text: 'QUESTIONS',
-          icon: QuestionsIcon,
-          actionType: 'ADMIN_ENTER_QUESTIONS'
-        },
-        {
-          styles: {
-            component: 'button',
-            color: 'secondary'
-          },
-          key: 'btn-pause',
-          text: 'PAUSE',
-          icon: PauseIcon,
-          actionType: 'LIVE_GAME_UPDATE',
-          data: { status: 'pause' }
         }
       ]
     }
