@@ -5,7 +5,7 @@ export default {
     overflow: 'overlay',
     maxHeight: 'calc(100vh - 50px)'
   },
-  title: {
+  wrapper: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
