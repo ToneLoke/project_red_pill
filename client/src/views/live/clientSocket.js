@@ -7,6 +7,7 @@ const configureSocket = ({id, user}) => dispatch => {
     dispatch({ type: "ALERT_ERROR", payload: { alert: {message: error}}})
   })
   socket.on('connected', data => {
+    console.log("SOCKET CONNECTING")
     dispatch({type: 'GAME_SET', payload: { socket: socket, ...data}})
   })
 //======================= END SOCKET CONNECTION =======================

@@ -17,7 +17,7 @@ import styles from './GameInfo.styles';
 
 const Title = ({ game, classes, text, timesUp, user, question, handleRouteChange }) => {
   return (
-    <div className={classes.title}>
+    <div className={classes.wrapper}>
       <Typography variant="subtitle1" color="secondary">
         {text}
       </Typography>
@@ -27,4 +27,4 @@ const Title = ({ game, classes, text, timesUp, user, question, handleRouteChange
 
 Title.propTypes = {};
 
-export default withStyles(styles, { name: 'Title' })(Title);
+export default withStyles(styles, { name: 'TimerDisplay' })(Title);

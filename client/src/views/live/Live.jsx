@@ -36,10 +36,10 @@ const Live = ({ classes, match, history }) => {
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      // if(game && game.socket) {
-      //   console.log("socket disconnect")
-      //   game.socket.emit("disconnect", user)
-      // }
+      if(game && game.socket) {
+        console.log("SOCKET DISCONNECT")
+        // game.socket.disconnect();
+      }
     };
   }, [user, game]);
 

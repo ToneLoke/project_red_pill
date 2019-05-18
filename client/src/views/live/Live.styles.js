@@ -1,6 +1,9 @@
 export default {
   liveBackground: {
-    backgroundColor: "rgba(59,85,171,1)"
+    backgroundColor: "rgba(59,85,171,1)",
+    maxWidth: "100%",
+    maxHeight: 'calc(100vh - 50px)',
+    overflowX: 'none'
   },
   progress: {
     margin: "0px auto",
@@ -21,6 +24,6 @@ export default {
     height: "100%",
     width: "100%",
     position: "absolute",
-    
+
   }
 };

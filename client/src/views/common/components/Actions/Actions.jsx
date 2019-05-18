@@ -8,7 +8,7 @@ const CreateFab = (props) => {
   const handleClick = () => dpHandler(a.actionType, a.isReq, a.data);
   return (
     <div className={classes.btnWrapper}>
-      {!a.disabled && (
+      {(
         <Fragment>
           <Fab {...a.styles} disabled={a.disabled} onClick={handleClick} className={classes.action}>
             {a.icon && <a.icon />}
