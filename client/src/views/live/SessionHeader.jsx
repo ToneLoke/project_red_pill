@@ -31,10 +31,7 @@ const SessionHeader = ({ game, classes, timesUp, endUser, question, handleRouteC
     ) : endUser.username !== game.adminId.username ? (
       <Question game={game} question={question} classes={classes} />
     ) : (
-      <Fragment>
-      <Title text={'wowo wowow'}></Title>
-      <Timer maxTime={question.maxTime || 0} onExpire={timesUp} status={game.status} />
-      </Fragment>
+
     )}
   </div>
 );

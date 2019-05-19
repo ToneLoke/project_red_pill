@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
-
 import useTimer from "./timerHook";
-
+import { useStore } from '../../store';
 // Components
 import FlipUnitContainer from './components/FlipUnitContainer';
-
 // Styles
 import "./Timer.css";
-
-// functional component
-const FlipTimer = ({ maxTime, status, onExpire }) => {
-  const { seconds, minutes, start, pause, resume } = useTimer({ maxTime, onExpire });
+const Timer = () => {
+  const {
+    state: { game: { status }, question: { maxTime } },
+    dispatch
+  } = useStore();
+  const onExpire = () => console.log("TIME IS UP")
   const [flip, setFlip] = useState(true);
+  const { seconds, minutes, start, pause, resume } = useTimer({ maxTime, onExpire });
   let minutesShuffle, secondsShuffle;
 
   useEffect(() => {
@@ -40,4 +41,4 @@ const FlipTimer = ({ maxTime, status, onExpire }) => {
   );
 };
 
-export default FlipTimer;
+export default Timer;

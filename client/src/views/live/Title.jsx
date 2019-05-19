@@ -18,9 +18,7 @@ import styles from './GameInfo.styles';
 const Title = ({ game, classes, text, timesUp, user, question, handleRouteChange }) => {
   return (
     <div className={classes.wrapper}>
-      <Typography variant="subtitle1" color="secondary">
-        {text}
-      </Typography>
+
     </div>
   );
 };
