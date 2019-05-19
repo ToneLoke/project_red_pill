@@ -15,28 +15,28 @@ import styles from '../GameInfo.styles';
 const Overview = ({ classes, handleChangePage }) => (
   <div className={classes.adminSession}>
     <LeaderBoardOverview
-      count={game.players.length || 0}
+      count={12}
       classes={classes}
       handleChangePage={handleChangePage}
     />
-    <PlayerList players={game.players} endUser={endUser} classes={classes} />
+    <PlayerList displayCount={3} />
     <QuestionsOverview
-      count={game.questions.count}
+      count={12}
       classes={classes}
       handleChangePage={handleChangePage}
     />
     <ScoreOverview
       score={
-        (game.score = [
+         [
           {
             name: 'SCORE',
             pass: 2,
             fail: 3,
             queue: 7
           }
-        ])
+        ]
       }
-      playerCount={game.players.length || 0}
+      playerCount={12}
       visType={['bar']}
       classes={classes}
     />

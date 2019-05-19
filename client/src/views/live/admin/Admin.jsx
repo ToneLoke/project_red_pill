@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import { useStore } from '../../../store';
 import { LeaderBoard, Questions, Timer } from '../../common/components';
 import Overview from './Overview';

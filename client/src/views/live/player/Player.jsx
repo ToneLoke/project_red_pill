@@ -2,12 +2,8 @@
 
 import React, { useEffect } from 'react';
 import { useStore } from '../../../store';
-import { GameInfo, LeaderBoard, Questions } from '../../common/components';
-const componentsList = {
-  info: GameInfo,
-  questions: Questions,
-  leaderBoard: LeaderBoard
-};
+import { LeaderBoard, Questions } from '../../common/components';
+
 const Player = ({ history }) => {
   const {
     state: { user, game, question },

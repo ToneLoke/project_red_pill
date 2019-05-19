@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import useTimer from "./timerHook";
-import { useStore } from '../../store';
+import { useStore } from '../../../../store';
 // Components
 import FlipUnitContainer from './components/FlipUnitContainer';
 // Styles
