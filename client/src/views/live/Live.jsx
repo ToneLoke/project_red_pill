@@ -1,18 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-
 // Components
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-// import Avatar from '@material-ui/core/Avatar';
 import { useStore } from '../../store';
 import clientSocket from './clientSocket';
-import { NavBar, GameInfo } from '../common/components';
-
-import Public from './public/Public';
-import Admin from './admin/Admin';
-import Player from './player/Player';
-
+import { NavBar } from '../common/components';
+import Player from './player';
+import Admin from './admin';
 // Styles
 import styles from './Live.styles';
 
@@ -22,18 +16,10 @@ const Live = ({ classes, match, history }) => {
     dispatch
   } = useStore();
 
-  // check url
-  const fullPath = history.location.pathname + history.location.search;
-
-  const path = history.location.pathname;
-
   useEffect(() => {
-    // Set view for user
-
     if (user && (!game || !game.socket)) {
       clientSocket({ id: match.params.id, user })(dispatch);
     }
-
     // Specify how to clean up after this effect:
     return function cleanup() {
       if(game && game.socket) {
@@ -43,11 +29,12 @@ const Live = ({ classes, match, history }) => {
     };
   }, [user, game]);
 
-  //TODO: socket logic
+  const path = history.location.pathname;
+  const fullPath = history.location.pathname + history.location.search;
+
   return (
     <div className={classes.liveBackground}>
       <NavBar title={!game ? 'Loading data..' : `${game.title}`} path={path} fullPath={fullPath} />
-
       {!user || !game || !game.socket ? (
         <div className={classes.suspense}>
           <div className={classes.progress}>
@@ -56,9 +43,9 @@ const Live = ({ classes, match, history }) => {
           <div className={classes.overlay} />
         </div>
       ) : user.username === game.adminId.username ? (
-        <Admin history={history} />
+        <Admin />
       ) : (
-        <Player history={history} />
+        <Player />
       )}
     </div>
   );

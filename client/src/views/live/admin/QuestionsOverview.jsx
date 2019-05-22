@@ -13,9 +13,7 @@ const QuestionOverview = ({ count, classes, handleRouteChange }) => {
         fontSize="large"
         color="secondary"
         badgeContent={(count = '13/20')}
-      >
-        {' '}
-      </Badge>
+      />
     </div>
   );
 };
