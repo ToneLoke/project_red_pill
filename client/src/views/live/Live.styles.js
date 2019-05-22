@@ -1,9 +1,19 @@
 export default {
-  liveBackground: {
+  layout: {
     backgroundColor: "rgba(59,85,171,1)",
-    maxWidth: "100%",
-    maxHeight: 'calc(100vh - 50px)',
-    overflowX: 'none'
+    width: "100%",
+    height: 'calc(100vh - 50px)',
+    overflow: 'none',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  main: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'stretch',
+    height: '100%',
+    overflow: 'auto'
   },
   progress: {
     margin: "0px auto",
@@ -24,6 +34,5 @@ export default {
     height: "100%",
     width: "100%",
     position: "absolute",
-
   }
 };

@@ -1,6 +1,13 @@
 export default {
   container: {
     width: '100%',
-    height: '80vh'
+    height: '100%'
   },
+  wait: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    margin: '0 20%'
+  }
 }
