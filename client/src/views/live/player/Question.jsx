@@ -1,47 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-
-const optionStyles = theme => ({
-  container: {
-    display: 'block',
-    textTransform: 'none',
-    width: '100%',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  },
-  selected: {
-    border: 'solid rgb(0.2, 0.34, 0.7) 3px'
-  }
-});
-
-const Option = withStyles(optionStyles)(({ children, classes, selected, onClick }) => (
-  <Button
-    variant="outlined"
-    onClick={onClick}
-    className={classNames(classes.container, { [classes.selected]: selected })}
-  >
-    <Typography variant="body1" color="textSecondary" align="left">
-      {children}
-    </Typography>
-  </Button>
-));
-
+import Option from './Option';
+import Timer from './Timer';
 
 const styles = theme => ({
   container: {
+    background: 'white',
     display: 'flex',
     flexDirection: 'column',
-    height: '100%'
+    height: '100%',
+  },
+  top: {
+    background: 'radial-gradient(ellipse 118% 80% at 50% 25%, #3B55AB 0%, #3B55AB 80%, transparent 80%, transparent)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: -90,
+    zIndex: 1
   },
   question: {
     padding: theme.spacing.unit * 3
   },
   options: {
-    background: 'white',
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 2 + 90,
     paddingRight: theme.spacing.unit * 3,
     paddingLeft: theme.spacing.unit * 3,
     paddingBottom: 30 + theme.spacing.unit * 3,
@@ -49,34 +31,77 @@ const styles = theme => ({
   }
 });
 
-const Question = ({ classes}) => {
-  const sampleOptions = [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      'Cras maximus molestie auctor. Morbi vel neque in erat cursus varius.',
-      'Pellentesque ultrices bibendum aliquam.',
-      'Pellentesque dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.  Aliquam quis pretium ipsum.'
-  ];
+const totalSeconds = 160;
 
-  const [selected, setSelected] = useState()
+// TODO: extract from question
+const options = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  'Cras maximus molestie auctor. Morbi vel neque in erat cursus varius.',
+  'Pellentesque ultrices bibendum aliquam.',
+  'Pellentesque dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.  Aliquam quis pretium ipsum.'
+];
+const correctOptionIdx = 1;
+
+const getStatus = (me, selected, correct, sent) => {
+  if (sent && me === correct) return 'correct';
+  if (sent && selected === me) return 'incorrect';
+  if (me === selected) return 'selected';
+  return 'idle';
+}
+
+const Question = ({ classes }) => {
+  // TODO: `sent` and `setSent` should come from the store, `sent` should be set
+  // to true by the "Ready" button at the footer
+  const [sent, setSent] = useState(false);
+
+  const [selected, setSelected] = useState();
+  const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
+  useEffect(() => {
+    if (secondsLeft === 0) return;
+
+    const timer = setTimeout(() => {
+      const next = Math.max(secondsLeft - .25, 0);
+      setSecondsLeft(next);
+
+      if (next === 0) {
+        setSent(true);
+      }
+    }, 250);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  });
 
   return <div className={classes.container}>
-    <div className={classes.question}>
-      <Typography align="center" variant="overline" color="secondary">
-        Question 2/12
-      </Typography>
-      <Typography align="center" variant="body1" color="secondary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.
-        Aliquam quis pretium ipsum. Cras maximus molestie auctor. Morbi vel neque
-        in erat cursus varius?
-      </Typography>
+    <div className={classes.top}>
+      <div className={classes.question}>
+        <Typography align="center" variant="overline" color="secondary">
+          Question 2/12
+        </Typography>
+        <Typography align="center" variant="body1" color="secondary">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+          dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.
+          Aliquam quis pretium ipsum. Cras maximus molestie auctor. Morbi vel neque
+          in erat cursus varius?
+        </Typography>
+      </div>
+
+      <Timer totalSeconds={totalSeconds} secondsLeft={secondsLeft} />
     </div>
 
-    <div>timer</div>
-
     <div className={classes.options}>
-      {sampleOptions.map((opt, key) => (
-        <Option selected={selected === key} onClick={() => setSelected(key)}>{opt}</Option>
+      {options.map((opt, key) => (
+        <Option
+          key={key}
+          status={getStatus(
+            key,
+            selected,
+            correctOptionIdx,
+            sent
+          )}
+          onClick={sent ? null : () => setSelected(key)}
+        >{opt}</Option>
       ))}
     </div>
   </div>
