@@ -78,13 +78,21 @@ class GameController extends AppController {
         game[key] = req.body[key];
       });
 
-      await game.save();
-
-      if (game.status === 'live') {
-        console.log('CREATING STREAM');
-        this.createStream(game._id);
+      //check if there's no questions selected and continue without saving
+      if (game.status === 'live' && game.questions.length == 0) {
+        console.log('no questions return');
+        req.error = { message: 'add questions first', status: 500, errors: 'no questions selected' };
+        next();
       }
-      res.status(200).json(game);
+      else {
+        await game.save();
+
+        if (game.status === 'live') {
+          console.log('CREATING STREAM');
+          this.createStream(game._id);
+        }
+        res.status(200).json(game);
+      }
     } catch (e) {
       req.error = { message: 'cannot update game', status: 500, errors: e };
       next();
