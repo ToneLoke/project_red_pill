@@ -9,13 +9,9 @@ import styles from './Player.styles';
 import Question from './Question';
 
 const Player = ({ history, classes }) => {
-  const {
-    state: { user, game, question },
-    dispatch
-  } = useStore();
+  const { state: { game, question } } = useStore();
 
   const { status } = game;
-  const liveData = { game, user, question };
 
   function switchView(status) {
     switch (status) {
@@ -29,7 +25,12 @@ const Player = ({ history, classes }) => {
         );
       case 'play':
         return (
-          <Question question={question} />
+          <Question
+            question={question}
+            answers={game.questions[game.qNum].answers}
+            qNum={game.qNum}
+            qTotal={game.questions.length}
+          />
         );
       case 'pause':
         return (
