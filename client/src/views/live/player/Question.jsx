@@ -34,12 +34,6 @@ const styles = theme => ({
 const totalSeconds = 160;
 
 // TODO: extract from question
-const options = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  'Cras maximus molestie auctor. Morbi vel neque in erat cursus varius.',
-  'Pellentesque ultrices bibendum aliquam.',
-  'Pellentesque dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.  Aliquam quis pretium ipsum.'
-];
 const correctOptionIdx = 1;
 
 const getStatus = (me, selected, correct, sent) => {
@@ -49,7 +43,7 @@ const getStatus = (me, selected, correct, sent) => {
   return 'idle';
 }
 
-const Question = ({ classes }) => {
+const Question = ({ classes, question }) => {
   // TODO: `sent` and `setSent` should come from the store, `sent` should be set
   // to true by the "Ready" button at the footer
   const [sent, setSent] = useState(false);
@@ -80,10 +74,7 @@ const Question = ({ classes }) => {
           Question 2/12
         </Typography>
         <Typography align="center" variant="body1" color="secondary">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          dapibus lorem at sapien ultrices, vel consectetur nisi ullamcorper.
-          Aliquam quis pretium ipsum. Cras maximus molestie auctor. Morbi vel neque
-          in erat cursus varius?
+          {question.question}
         </Typography>
       </div>
 
@@ -91,7 +82,7 @@ const Question = ({ classes }) => {
     </div>
 
     <div className={classes.options}>
-      {options.map((opt, key) => (
+      {question.choices.map((opt, key) => (
         <Option
           key={key}
           status={getStatus(
