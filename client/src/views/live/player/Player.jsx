@@ -3,8 +3,12 @@
 import React, { useEffect } from 'react';
 import { useStore } from '../../../store';
 import { LeaderBoard, Questions } from '../../common/components';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import styles from './Player.styles';
+import Question from './Question';
 
-const Player = ({ history }) => {
+const Player = ({ history, classes }) => {
   const {
     state: { user, game, question },
     dispatch
@@ -17,11 +21,15 @@ const Player = ({ history }) => {
     switch (status) {
       case 'live':
         return (
-          <div>PLEASE WAIT FOR GAME TO START...</div>
+          <div className={classes.wait}>
+            <Typography color="secondary" variant="body1" align="center">
+              Quizz session will start when host is ready!
+            </Typography>
+          </div>
         );
       case 'play':
         return (
-          <div>LOAD MAIN PLAYER COMPONENT</div>
+          <Question question={question} />
         );
       case 'pause':
         return (
@@ -34,7 +42,7 @@ const Player = ({ history }) => {
     }
   }
 
-  return <div className="Player-Container">{switchView(status)}</div>;
+  return <div className={classes.container}>{switchView(status)}</div>;
 };
 
-export default Player;
+export default withStyles(styles)(Player);
