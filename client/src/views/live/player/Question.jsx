@@ -31,27 +31,22 @@ const styles = theme => ({
   }
 });
 
-const totalSeconds = 160;
-
-// TODO: extract from question
-const correctOptionIdx = 1;
-
-const getStatus = (me, selected, correct, sent) => {
-  if (sent && me === correct) return 'correct';
+const getStatus = (me, selected, answers, sent) => {
+  if (sent && answers.includes(me)) return 'correct';
   if (sent && selected === me) return 'incorrect';
   if (me === selected) return 'selected';
   return 'idle';
 }
 
-const Question = ({ classes, question }) => {
+const Question = ({ classes, question, qNum, qTotal, answers }) => {
   // TODO: `sent` and `setSent` should come from the store, `sent` should be set
   // to true by the "Ready" button at the footer
   const [sent, setSent] = useState(false);
 
   const [selected, setSelected] = useState();
-  const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
+  const [secondsLeft, setSecondsLeft] = useState(question.maxTime);
   useEffect(() => {
-    if (secondsLeft === 0) return;
+    if (sent) return;
 
     const timer = setTimeout(() => {
       const next = Math.max(secondsLeft - .25, 0);
@@ -71,14 +66,14 @@ const Question = ({ classes, question }) => {
     <div className={classes.top}>
       <div className={classes.question}>
         <Typography align="center" variant="overline" color="secondary">
-          Question 2/12
+          Question {qNum + 1}/{qTotal}
         </Typography>
         <Typography align="center" variant="body1" color="secondary">
           {question.question}
         </Typography>
       </div>
 
-      <Timer totalSeconds={totalSeconds} secondsLeft={secondsLeft} />
+      <Timer totalSeconds={question.maxTime} secondsLeft={secondsLeft} />
     </div>
 
     <div className={classes.options}>
@@ -88,7 +83,7 @@ const Question = ({ classes, question }) => {
           status={getStatus(
             key,
             selected,
-            correctOptionIdx,
+            answers,
             sent
           )}
           onClick={sent ? null : () => setSelected(key)}
