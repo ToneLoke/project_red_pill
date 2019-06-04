@@ -3,15 +3,14 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import { Fab, Badge } from '@material-ui/core';
-
+import { useStore } from '../../../../store';
 // Styles
 import styles from './PlayerList.styles';
-
-// Make a List component that takes a component as a parameter 
-// and then renders the children decorated.
-// Value: Can be used for questions list and player list
-
-const PlayerList = ({ players, endUser, classes }) => {
+const PlayerList = ({ classes, displayCount }) => {
+  const {
+    state: { user, game: { players: allPlayers } },
+  } = useStore();
+  const players = allPlayers.slice(0, displayCount );
   return (
     <div className={classes.players}>
       {players.map((p, i) => {
@@ -21,7 +20,7 @@ const PlayerList = ({ players, endUser, classes }) => {
             <Fab
               className={classes.avatarFab}
               size="small"
-              disabled={endUser && p._id === endUser._id}
+              disabled={user && p._id === user._id}
             >
               <PersonIcon />
             </Fab>
@@ -31,9 +30,7 @@ const PlayerList = ({ players, endUser, classes }) => {
               fontSize="large"
               color="secondary"
               badgeContent="10/20"
-            >
-              {' '}
-            </Badge>
+            />
           </div>
         );
       })}

@@ -1,49 +1,49 @@
 // eslint-disable-line default-case
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from '../../../store';
-import { GameInfo, LeaderBoard, Questions } from '../../common/components';
-const componentsList = {
-  info: GameInfo,
-  questions: Questions,
-  leaderBoard: LeaderBoard
-};
-const Player = ({ history }) => {
-  const {
-    state: { user, game, question },
-    dispatch
-  } = useStore();
+import { LeaderBoard, Questions } from '../../common/components';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import styles from './Player.styles';
+import Question from './Question';
 
-  const liveData = { game, user, question };
+const Player = ({ history, classes }) => {
+  const { state: { game, question } } = useStore();
 
-  const path = history.location.pathname;
-  const fullPath = history.location.pathname + history.location.search;
-  let page = history.location.search.split('=')[1] || 'info';
+  const { status } = game;
 
-  const handleRouteChange = (pageName) => history.push(`${path}?type=${pageName}`);
-  const handleAnswer = (answer) => (!answer ? 'CONNECT ME' : answer);
-
-  const timesUp = () => console.log('TIME UP ACTION');
-
-  console.log(`Player -> Render -> `, page);
-  console.log(`Player -> Render -> `, user);
-
-  function switchView(page) {
-    switch (page) {
-      case 'info':
+  function switchView(status) {
+    switch (status) {
+      case 'live':
         return (
-          <GameInfo
-            {...liveData}
-            timesUp={timesUp}
-            endUser={user}
-            handleRouteChange={handleRouteChange}
-            handleAnswer={handleAnswer}
+          <div className={classes.wait}>
+            <Typography color="secondary" variant="body1" align="center">
+              Quizz session will start when host is ready!
+            </Typography>
+          </div>
+        );
+      case 'play':
+        return (
+          <Question
+            question={question}
+            answers={game.questions[game.qNum].answers}
+            qNum={game.qNum}
+            qTotal={game.questions.length}
           />
         );
+      case 'pause':
+        return (
+          <div>ADMIN HAS PAUSED GAME PLEASE WAIT...</div>
+        );
+      default:
+        return (
+          <div>GAME OVER</div>
+        )
     }
   }
 
-  return <div className="Player-Container">{switchView(page)}</div>;
+  return <div className={classes.container}>{switchView(status)}</div>;
 };
 
-export default Player;
+export default withStyles(styles)(Player);
