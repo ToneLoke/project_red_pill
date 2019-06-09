@@ -7,6 +7,7 @@ import clientSocket from '../../store/clientSocket';
 import { NavBar } from '../common/components';
 import Player from './player';
 import Admin from './admin';
+import Lobby from './lobby';
 // Styles
 import styles from './Live.styles';
 // Utils
@@ -40,18 +41,21 @@ const Live = ({ classes, match, history }) => {
     <div className={classes.layout}>
       <NavBar title={!game ? 'Loading data..' : `${game.title}`} path={path} fullPath={fullPath} />
       <div className={classes.main}>
-        {!user || !game || !game.socket ? (
-          <div className={classes.suspense}>
-            <div className={classes.progress}>
-              <CircularProgress color="secondary" />
+        {!user || !game || !game.socket ?
+          (
+            <div className={classes.suspense}>
+              <div className={classes.progress}>
+                <CircularProgress color="secondary" />
+              </div>
+              <div className={classes.overlay} />
             </div>
-            <div className={classes.overlay} />
-          </div>
-        ) :  user.isAdmin ? (
-          <Admin />
-        ) : (
-          <Player />
-        )}
+          ) : user.username === 'lobby'
+            //NOTE: leave the navbar just remove the bottom actions
+            ? (<Lobby />)
+            :  user.isAdmin
+            ? (<Admin />)
+            : (<Player />)
+        }
       </div>
     </div>
   );

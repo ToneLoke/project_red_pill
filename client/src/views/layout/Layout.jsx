@@ -51,10 +51,10 @@ const Layout = ({ classes }) => {
           />
         )
       )}
-     
+
       <Notification />
     </Grid>
-     <Route key="/control-bar" path="/" component={ControlsBar} />
+     { user && !user.username === 'lobby' && <Route key="/control-bar" path="/" component={ControlsBar} /> }
     </Fragment>
   );
 };
