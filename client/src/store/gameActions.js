@@ -35,17 +35,17 @@ export const updateStoreGames = (games, game) => {
     return games.map((g) => (g._id === game._id ? game : g));
   }
 };
-
+//NOTE: state conditional is for non seperating api action vs normal action
 export const GAME_REDUCER = (action, state) => {
   switch (action.type) {
     case GAME_SET:
       let stateUpdate = setGame(action);
       let isAdmin, question;
-
+      //NOTE: set game admin
       if (state.user._id === action.payload.adminId._id) {
         isAdmin = true;
       }
-
+      //NOTE: set first question
       if (action.payload.socket) {
         question = action.payload.questions[0];
       }

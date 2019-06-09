@@ -27,13 +27,13 @@ const reducers = (state, action) => {
   const PORTION = action.type.split('_')[0];
   const reducer = Combined[PORTION];
   let update = reducer(action, state);
-  console.log('=====================ACTION TRIGGERED=============');
-  console.log(action);
-  console.log('=======================================================');
+  // console.log('=====================ACTION TRIGGERED=============');
+  // console.log(action);
+  // console.log('=======================================================');
   if (state) {
-    console.log('=====================STORE REDUCER UPDATED=============');
-    console.log(state, update);
-    console.log('=======================================================');
+    // console.log('=====================STORE REDUCER UPDATED=============');
+    // console.log(state, update);
+    // console.log('=======================================================');
     return { ...state, ...update };
   }
   return reducer(action);

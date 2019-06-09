@@ -28,7 +28,7 @@ const fetchUser = async () => {
 export const register = async (body) => {
   return await axios.post(REGISTER_API, body);
 };
-
+//NOTE: state conditional is for non seperating api action vs normal action
 export const USER_REDUCER = (action, state) => {
   switch (action.type) {
     case USER_SET:

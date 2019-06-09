@@ -30,13 +30,14 @@ class App extends Component {
   }
 
   connecToServer() {
-    console.log("CONTACTING SERVER")
+    // console.log("CONTACTING SERVER")
     fetch('/');
   }
 
   componentDidMount() {
     this.connecToServer();
   }
+
   render() {
     return <RouteConfig />
   }

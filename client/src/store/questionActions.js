@@ -30,6 +30,7 @@ export const fetchQuestions = async () => {
   return await axios.get(QUESTION_API);
 };
 
+//NOTE: state conditional is for non seperating api action vs normal action
 export const QUESTION_REDUCER = (action, state) => {
   switch (action.type) {
     case QUESTION_SET:
