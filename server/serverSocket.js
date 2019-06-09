@@ -19,11 +19,7 @@ module.exports = function setupGameSocket(gameIO, id) {
   gameIO.on('connection', (socket) => {
     liveCtrl.connected(socket);
     socket.on('LIVE_GAME_UPDATE', (data) => {
-      if ('status' in data) {
-        gameIO.emit('GAME_UPDATED', data);
-      } else {
         liveCtrl.updateGame(data);
-      }
     });
   });
 }

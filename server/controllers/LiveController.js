@@ -25,10 +25,15 @@ class LiveController extends AppController {
     }
   }
   async updateGame(update) {
-    const game = await this._model
-      .findOneAndUpdate({ _id: this.gameId })
-      .populate('adminId')
-      .populate('questions');
+    try {
+      const game = await this._model
+        .findOneAndUpdate({ _id: this.gameId }, { ...update})
+        .populate('adminId')
+        .populate('questions');
+      this.io.emit('GAME_UPDATED', game)
+    } catch (error) {
+      console.log('ERROR', error);
+    }
   }
 }
 

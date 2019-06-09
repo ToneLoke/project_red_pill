@@ -1,3 +1,4 @@
+import { diff } from 'deep-object-diff';
 import { userInitial, USER_REDUCER, USER_REQUESTS } from './userActions';
 import { ALERT_REDUCER } from './alertActions';
 import { gameInitial, GAME_REDUCER, GAME_REQUESTS } from './gameActions';
@@ -32,7 +33,7 @@ const pluckProp = (type, typeMap) => typeMap[type.split('_')[0]];
 //NOTE: update application state
 export const reducers = (state, action) => {
   const updatedState = { ...state, ...pluckProp(action.type, storeMap)(state, action) };
-  storeLog('UPDATED %o', updatedState);
+  storeLog('UPDATED %o', diff(state, updatedState));
   return updatedState;
 }
 

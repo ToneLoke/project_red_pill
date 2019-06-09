@@ -6,14 +6,14 @@ const LIVE_GAME_QUESTION_CHANGE = 'LIVE_GAME_QUESTION_CHANGE'
 const LIVE_GAME_ANSWER_QUESTION = 'LIVE_GAME_PLAYER_STATS_UPDATE'
 const LIVE_GAME_UPDATE = 'LIVE_GAME_UPDATE';
 
-export const LIVE_GAME_REDUCER = (action, { game }) => {
+export const LIVE_GAME_REDUCER = (state, action) => {
   switch (action.type) {
     case LIVE_GAME_UPDATE:
-      game.socket.emit(action.type, action.payload)
-      return { game: {...game, status: 'play'}};
+      state.game.socket.emit(action.type, action.payload)
+      return { game: {...state.game, status: 'play'}};
     case "LIVE_GAME_UPDATED":
-      return { game: {...game, ...action.payload}};
+      return { game: {...state.game, ...action.payload}};
     default:
-      return { game };
+      return { game: state.game };
   }
 }

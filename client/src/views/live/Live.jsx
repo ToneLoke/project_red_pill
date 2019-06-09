@@ -39,6 +39,7 @@ const Live = ({ classes, match, history }) => {
   useEffect(() => {
     //NOTE: must have a user to connect
     if (user && (!game || !game.socket)) {
+      liveLog('socket-connecting')
       clientSocket({ id: match.params.id, user })(dispatch);
     }
     // TODO: player/admin disconnects from socket

@@ -30,7 +30,9 @@ const PlayerList = ({ classes, displayCount }) => {
               fontSize="large"
               color="secondary"
               badgeContent="10/20"
-            />
+            >
+            { " " }
+            </Badge>
           </div>
         );
       })}
