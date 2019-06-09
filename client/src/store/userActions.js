@@ -43,7 +43,7 @@ export const USER_REQUESTS = (type) => {
   }
 };
 
-export const USER_REDUCER = ({ state, action }) => {
+export const USER_REDUCER = (state, action) => {
   switch (action.type) {
     case USER_SET:
       return setUser(action);

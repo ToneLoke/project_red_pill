@@ -3,6 +3,7 @@ import { ALERT_REDUCER } from './alertActions';
 import { gameInitial, GAME_REDUCER, GAME_REQUESTS } from './gameActions';
 import { questionInitial, QUESTION_REDUCER, QUESTION_REQUESTS } from './questionActions';
 import { LIVE_GAME_REDUCER } from './liveActions';
+import { storeLog } from './index';
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,
@@ -26,8 +27,14 @@ const fetchMap = {
   GAME: GAME_REQUESTS,
 }
 
-const pluckProp = ({ type }, typeMap) => typeMap[type.split('_')[0]];
+const pluckProp = (type, typeMap) => typeMap[type.split('_')[0]];
 
-export const reducers = (state, action) => pluckProp(action, storeMap)(action);
+//NOTE: update application state
+export const reducers = (state, action) => {
+  const updatedState = { ...state, ...pluckProp(action.type, storeMap)(state, action) };
+  storeLog('UPDATED => %o', updatedState);
+  return updatedState;
+}
 
+//NOTE: get current request based on action type
 export const requests = ({ type }) => pluckProp(type, fetchMap)(type)

@@ -41,7 +41,7 @@ export const QUESTION_REQUESTS = (type) => {
   }
 };
 
-export const QUESTION_REDUCER = ({ state, action }) => {
+export const QUESTION_REDUCER = (state, action) => {
   switch (action.type) {
     case QUESTION_SET:
       return setQuestion(action);

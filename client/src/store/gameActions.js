@@ -49,7 +49,7 @@ export const GAME_REQUESTS = (type) => {
   }
 };
 
-export const GAME_REDUCER = ({state, action}) => {
+export const GAME_REDUCER = (state, action) => {
   switch (action.type) {
     case GAME_SET:
       let stateUpdate = setGame(action);
