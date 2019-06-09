@@ -51,10 +51,10 @@ const Layout = ({ classes }) => {
           />
         )
       )}
-     
+
       <Notification />
     </Grid>
-     <Route key="/control-bar" path="/" component={ControlsBar} />
+    <Route key="/control-bar" path="/" component={ControlsBar} />
     </Fragment>
   );
 };

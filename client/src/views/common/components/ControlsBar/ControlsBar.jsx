@@ -17,10 +17,14 @@ const BottomAppBar = ({ classes, history }) => {
   let actions = controls.actions[fullPath] || null;
 
   if (fullPath.indexOf('/live') > -1 && state.game && state.user) {
-    actions =
-      controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`][
-        state.game.status === 'live' ? 'pause' : 'play'
-      ];
+    if(state.user.username !== 'lobby') {
+      actions =
+        controls.actions[`/live/${state.user.isAdmin ? 'admin' : 'player'}`][
+          state.game.status === 'live' ? 'pause' : 'play'
+        ];
+    }else{
+      actions = [];
+    }
   } else if(actions) {
       if ( actions.length > 1) {
         //NOTE: if state type is null or empty show action1 else show action2
