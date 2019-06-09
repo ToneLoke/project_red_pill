@@ -13,7 +13,11 @@ const configureSocket = ({id, user}) => dispatch => {
 //======================= END SOCKET CONNECTION =======================
 //======================= INCOMING FROM SERVER =======================
   socket.on('NEW_PLAYER', data => {
-    if(data !== user.username) dispatch({type: 'ALERT_SUCCESS', payload: {alert: {message: `${data} joined the game.`}}})
+    let msg = `${data} joined the game.`;
+    //TODO: does not display admin joined
+    if(user.isAdmin) msg = 'Game Admin joined.';
+    if(user.username === 'lobby') msg = 'A spectator as joined the lobby';
+    if(data !== user.username) dispatch({type: 'ALERT_SUCCESS', payload: {alert: {message: msg}}})
   })
 
   socket.on('GAME_UPDATED', payload => {

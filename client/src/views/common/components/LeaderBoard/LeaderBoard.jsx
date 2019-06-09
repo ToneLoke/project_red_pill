@@ -1,26 +1,31 @@
 // Packages
 import React, { Fragment } from "react";
+// material-ui
 import { withStyles } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
 import { Typography, Fab, Badge } from "@material-ui/core";
-
+// Hooks
+import { useStore } from '../../../../store';
 // Components
 
 
 // Styles
 import styles from "./LeaderBoard.styles";
 
-const PlayerList = ({ players, endUser, classes }) => {
+const PlayerList = ({ classes }) => {
+  const {
+    state: { user, game },
+    }  = useStore();
   return (
     <div className={classes.players}>
-      {players.map((p, i) => {
+      {game.players.map((p, i) => {
         return (
           <div key={p._id} className={classes.player}>
             <div className={classes.rankNum}>{i + 1}</div>
             <Fab
               className={classes.avatarFab}
               size="small"
-              disabled={endUser && p._id === endUser._id}
+              disabled={user && p._id === user._id}
             >
               <PersonIcon />
             </Fab>
@@ -40,10 +45,10 @@ const PlayerList = ({ players, endUser, classes }) => {
   );
 };
 
-const LeaderBoard = ({ game, classes, timesUp, user, question }) => (
+const LeaderBoard = ({classes}) => (
   <div className={classes.container}>
     <div className={classes.gameInfoList}>
-      <PlayerList players={game.players} endUser={user} classes={classes} />
+      <PlayerList classes={classes} />
     </div>
   </div>
 );

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { useStore } from '../../../store';
 import { LeaderBoard, Questions, Timer } from '../../common/components';
 import Overview from './Overview';
 import styles from './Admin.styles';
@@ -11,7 +10,7 @@ import styles from './Admin.styles';
 const componentsList = {
   overview: Overview,
   questions: Questions,
-  leaderBoard: LeaderBoard
+  leaderboard: LeaderBoard
 };
 
 const Admin = ({ classes }) => {
