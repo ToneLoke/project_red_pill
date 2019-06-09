@@ -15,7 +15,7 @@ http.interceptors.request.use(
     return config;
   },
   function(error) {
-    console.log('ERROR IN INTERCEPTOR AXIOS');
+    console.error('ERROR IN INTERCEPTOR AXIOS');
     return Promise.reject(error);
   }
 );

@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Layout from './views/layout';
-
+// Utils
+import { logger } from './utils';
+const appLog = logger('APP');
 const RouteConfig = () => {
   const loggedIn = sessionStorage.getItem('token');
   return (
@@ -30,13 +32,14 @@ class App extends Component {
   }
 
   connecToServer() {
-    console.log("CONTACTING SERVER")
+    appLog('connect-server-fetch');
     fetch('/');
   }
 
   componentDidMount() {
     this.connecToServer();
   }
+
   render() {
     return <RouteConfig />
   }

@@ -1,29 +1,33 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 // Components
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStore } from '../../store';
-import clientSocket from './clientSocket';
+import clientSocket from '../../store/clientSocket';
 import { NavBar } from '../common/components';
 import Player from './player';
 import Admin from './admin';
 // Styles
 import styles from './Live.styles';
+// Utils
+import { logger } from '../../utils';
+const liveLog = logger('LIVE')
 
 const Live = ({ classes, match, history }) => {
   const {
-    state: { user, game, question },
+    state: { user, game },
     dispatch
   } = useStore();
 
   useEffect(() => {
+    //NOTE: must have a user to connect
     if (user && (!game || !game.socket)) {
       clientSocket({ id: match.params.id, user })(dispatch);
     }
-    // Specify how to clean up after this effect:
+    // TODO: player/admin disconnects from socket
     return function cleanup() {
       if(game && game.socket) {
-        console.log("SOCKET DISCONNECT")
+        liveLog('socket-disconnect');
         // game.socket.disconnect();
       }
     };
@@ -43,7 +47,7 @@ const Live = ({ classes, match, history }) => {
             </div>
             <div className={classes.overlay} />
           </div>
-        ) : user.username === game.adminId.username ? (
+        ) :  user.isAdmin ? (
           <Admin />
         ) : (
           <Player />

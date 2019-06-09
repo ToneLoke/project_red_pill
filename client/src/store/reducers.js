@@ -1,8 +1,9 @@
-import { userInitial, USER_REDUCER } from './userActions';
+import { userInitial, USER_REDUCER, USER_REQUESTS } from './userActions';
 import { ALERT_REDUCER } from './alertActions';
-import { gameInitial, GAME_REDUCER } from './gameActions';
-import { questionInitial, QUESTION_REDUCER } from './questionActions';
+import { gameInitial, GAME_REDUCER, GAME_REQUESTS } from './gameActions';
+import { questionInitial, QUESTION_REDUCER, QUESTION_REQUESTS } from './questionActions';
 import { LIVE_GAME_REDUCER } from './liveActions';
+import { storeLog } from './index';
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,
@@ -12,31 +13,28 @@ export const initialState = {
 };
 
 // this will act as a map of actions that will trigger state mutations
-const Combined = {
+const storeMap = {
   ALERT: ALERT_REDUCER,
   USER: USER_REDUCER,
   QUESTION: QUESTION_REDUCER,
   GAME: GAME_REDUCER,
-  LIVE: LIVE_GAME_REDUCER
+  LIVE: LIVE_GAME_REDUCER,
 };
 
-// the reducer is called whenever a dispatch action is made.
-// the action.type is a string which maps to a function in Actions.
-// We apply the update to existing state, and return a new copy of state.
-const reducers = (state, action) => {
-  const PORTION = action.type.split('_')[0];
-  const reducer = Combined[PORTION];
-  let update = reducer(action, state);
-  console.log('=====================ACTION TRIGGERED=============');
-  console.log(action);
-  console.log('=======================================================');
-  if (state) {
-    console.log('=====================STORE REDUCER UPDATED=============');
-    console.log(state, update);
-    console.log('=======================================================');
-    return { ...state, ...update };
-  }
-  return reducer(action);
-};
+const fetchMap = {
+  USER: USER_REQUESTS,
+  QUESTION: QUESTION_REQUESTS,
+  GAME: GAME_REQUESTS,
+}
 
-export default reducers;
+const pluckProp = (type, typeMap) => typeMap[type.split('_')[0]];
+
+//NOTE: update application state
+export const reducers = (state, action) => {
+  const updatedState = { ...state, ...pluckProp(action.type, storeMap)(state, action) };
+  storeLog('UPDATED %o', updatedState);
+  return updatedState;
+}
+
+//NOTE: get current request based on action type
+export const requests = ({ type }) => pluckProp(type, fetchMap)(type)
