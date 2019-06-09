@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 // Components
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStore } from '../../store';
-import clientSocket from './clientSocket';
+import clientSocket from '../../store/clientSocket';
 import { NavBar } from '../common/components';
 import Player from './player';
 import Admin from './admin';
@@ -12,7 +12,7 @@ import styles from './Live.styles';
 
 const Live = ({ classes, match, history }) => {
   const {
-    state: { user, game, question },
+    state: { user, game },
     dispatch
   } = useStore();
 
@@ -20,7 +20,7 @@ const Live = ({ classes, match, history }) => {
     if (user && (!game || !game.socket)) {
       clientSocket({ id: match.params.id, user })(dispatch);
     }
-    // Specify how to clean up after this effect:
+    // TODO: player/admin disconnects from socket effect
     return function cleanup() {
       if(game && game.socket) {
         console.log("SOCKET DISCONNECT")
@@ -43,7 +43,7 @@ const Live = ({ classes, match, history }) => {
             </div>
             <div className={classes.overlay} />
           </div>
-        ) : user.username === game.adminId.username ? (
+        ) :  user.isAdmin ? (
           <Admin />
         ) : (
           <Player />
