@@ -32,7 +32,7 @@ const pluckProp = (type, typeMap) => typeMap[type.split('_')[0]];
 //NOTE: update application state
 export const reducers = (state, action) => {
   const updatedState = { ...state, ...pluckProp(action.type, storeMap)(state, action) };
-  storeLog('UPDATED => %o', updatedState);
+  storeLog('UPDATED %o', updatedState);
   return updatedState;
 }
 

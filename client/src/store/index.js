@@ -3,7 +3,7 @@ import { initialState, reducers, requests } from './reducers';
 import { logger } from '../utils';
 
 export const storeLog = logger('STORE');
-const actionLog = logger('ACTION:DISPATCHED');
+const actionLog = logger('ACTION');
 
 //TODO: change api calls to reducer
 const Store = createContext();
@@ -15,14 +15,14 @@ const Provider = (props) => {
   const customDispatch = useCallback(async (action, isPreFetch = false) => {
     if (isPreFetch) {
       try {
-        actionLog('REQUEST SENT => %o', action)
+        actionLog('REQUEST SENT %O', action)
         const { data } = await requests(action)(action.payload)
-        storeLog('REQUEST RECIEVED => %O', data);
-        storeLog('FOR ACTION => %o', action);
+        storeLog('REQUEST RECIEVED %O', data);
+        actionLog('%o', action);
         dispatcher({ type: action.type, payload: data });
       } catch (e) {
         //NOTE: custom error from server
-        storeLog('REQUEST ERROR => %o', e);
+        storeLog('REQUEST ERROR %o', e);
         if (e.response && e.response.status) {
           if (e.response.data === 401) localStorage.removeItem('token');
           dispatcher({
@@ -43,7 +43,7 @@ const Provider = (props) => {
       }
     } else {
       //NOTE: Not a special case(API CALL), dispatch the action
-      actionLog('DISPATCHED => %O', action)
+      actionLog('%o', action)
       dispatcher(action);
     }
   }, []);
