@@ -40,7 +40,7 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     overflow: 'overlay',
-    minHeight: 'calc(100vh - 50px)'
+    height: 'calc(100vh - 50px)'
   },
   listSection: {
     backgroundColor: 'inherit'

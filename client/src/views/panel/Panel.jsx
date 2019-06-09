@@ -83,34 +83,36 @@ const Games = ({ classes, history }) => {
           </Typography>
         </Paper>
       ) : (
-        <List className={classes.root} subheader={<li />}>
-          {Object.keys(selGames).map((name) => (
-            <li key={`section-${name}`} className={classes.listSection}>
-              <ul className={classes.ul}>
-                <ListSubheader> {name.toUpperCase()} </ListSubheader>
-                {selGames[name].map((g) => {
-                  return (
-                    <ListItem
-                      key={g._id}
-                      button
-                      className={classes.listItemClass}
-                      onClick={() => handleClick(g)}
-                      selected={game && g._id === game._id}
-                    >
-                      <ListItemText
-                        primary={`${g.title}`}
-                        secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}`}
-                      />
-                      <ListItemSecondaryAction>
-                        <AlbumIcon fontSize="small" className={classes[g.status]} />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  );
-                })}
-              </ul>
-            </li>
-          ))}
-        </List>
+        <div className={classes.root}>
+          <List subheader={<li />}>
+            {Object.keys(selGames).map((name) => (
+              <li key={`section-${name}`} className={classes.listSection}>
+                <ul className={classes.ul}>
+                  <ListSubheader> {name.toUpperCase()} </ListSubheader>
+                  {selGames[name].map((g) => {
+                    return (
+                      <ListItem
+                        key={g._id}
+                        button
+                        className={classes.listItemClass}
+                        onClick={() => handleClick(g)}
+                        selected={game && g._id === game._id}
+                      >
+                        <ListItemText
+                          primary={`${g.title}`}
+                          secondary={`updated: ${moment(g.updatedAt).format('MM/DD/YY @ hh:mm a')}`}
+                        />
+                        <ListItemSecondaryAction>
+                          <AlbumIcon fontSize="small" className={classes[g.status]} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    );
+                  })}
+                </ul>
+              </li>
+            ))}
+          </List>
+        </div>
       )}
     </Fragment>
   );
