@@ -30,20 +30,20 @@ const register = async body => {
   return await axios.post(REGISTER_API, body);
 };
 
-export const USER_REQUESTS = ({ type, payload }) => {
+export const USER_REQUESTS = (type) => {
   switch (type) {
     case USER_AUTHENTICATE:
-      return authenticate(payload);
+      return authenticate;
     case USER_REGISTER:
-      return register(payload);
+      return register;
     case USER_INFO:
-      return fetchUser();
+      return fetchUser;
     default:
       return Promise.reject(new Error("Missing user request."));
   }
 };
 
-export const USER_REDUCER = (action, state) => {
+export const USER_REDUCER = ({ state, action }) => {
   switch (action.type) {
     case USER_SET:
       return setUser(action);

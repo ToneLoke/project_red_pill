@@ -1,5 +1,9 @@
 import React, { useCallback, createContext, useReducer, useContext } from 'react';
 import { initialState, reducers, requests } from './reducers';
+import { logger } from '../utils';
+
+const storeLog = logger('STORE')
+
 
 //TODO: change api calls to reducer
 const Store = createContext();
@@ -8,13 +12,15 @@ const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
   //NOTE: Work around for sending API calls in useReducer hook
-  const customDispatch = useCallback(async (action, isPreFetch) => {
+  const customDispatch = useCallback(async (action, isPreFetch = false) => {
     if (isPreFetch) {
       try {
-        const { data } = await requests(action);
+        const { data } = await requests(action)(action.payload)
+        storeLog('RECIEVED RESPONSE => %o FOR ACTION => %o', data, action);
         dispatcher({ type: action.type, payload: data });
       } catch (e) {
         //NOTE: custom error from server
+        storeLog('REQUEST ERROR: %o', e);
         if (e.response && e.response.status) {
           if (e.response.data === 401) localStorage.removeItem('token');
           dispatcher({

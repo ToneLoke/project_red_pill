@@ -30,18 +30,18 @@ export const fetchQuestions = async () => {
   return await axios.get(QUESTION_API);
 };
 
-export const QUESTION_REQUESTS = ({type, payload}) => {
+export const QUESTION_REQUESTS = (type) => {
   switch (type) {
     case QUESTION_FETCH_ALL:
-      return fetchQuestions();
+      return fetchQuestions;
     case QUESTION_CREATE_UPDATE:
-      return createOrUpdateQuestion(payload);
+      return createOrUpdateQuestion;
     default:
       Promise.reject(new Error('Missing question request.'));
   }
 };
 
-export const QUESTION_REDUCER = (action, state) => {
+export const QUESTION_REDUCER = ({ state, action }) => {
   switch (action.type) {
     case QUESTION_SET:
       return setQuestion(action);

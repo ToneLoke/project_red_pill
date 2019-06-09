@@ -26,8 +26,8 @@ const fetchMap = {
   GAME: GAME_REQUESTS,
 }
 
-const pluckProp = ({type, payload}, typeMap) => typeMap[type.split('_')[0]];
+const pluckProp = ({ type }, typeMap) => typeMap[type.split('_')[0]];
 
-export const reducers = (state, action) => pluckProp(action, storeMap)({state, action});
+export const reducers = (state, action) => pluckProp(action, storeMap)(action);
 
-export const requests = (action) => pluckProp(action, fetchMap)(action)
+export const requests = ({ type }) => pluckProp(type, fetchMap)(type)

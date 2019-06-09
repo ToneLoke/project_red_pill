@@ -38,12 +38,12 @@ export const updateStoreGames = (games, game) => {
   }
 };
 
-export const GAME_REQUESTS = ({type, payload}) => {
+export const GAME_REQUESTS = (type) => {
   switch (type) {
     case GAME_FETCH_ALL:
-      return fetchGames();
+      return fetchGames;
     case GAME_CREATE_UPDATE:
-      return createOrUpdateGame(payload);
+      return createOrUpdateGame;
     default:
       return Promise.reject(new Error('No game request.'));
   }
