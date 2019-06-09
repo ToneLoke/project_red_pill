@@ -13,7 +13,6 @@ import styles from "./Questions.styles";
 const Questions = ({ classes, history }) => {
   const { state: { questions, game }, dispatch } = useStore();
   useEffect(()=>{
-    console.log("DID MOUNT", questions)
     if(!questions){
       dispatch({type: "QUESTION_FETCH_ALL"}, true)
     }

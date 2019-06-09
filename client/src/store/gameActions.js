@@ -1,4 +1,6 @@
 import axios from './axiosConfig';
+// import { logger } from '../utils';
+// const gameDataLog = logger('GAME_ACTIONS');
 
 export const gameInitial = {
   game: null,
@@ -13,6 +15,7 @@ export const GAME_FETCH_ALL = 'GAME_FETCH_ALL';
 export const GAME_CREATE_UPDATE = 'GAME_CREATE_UPDATE';
 
 export const setGame = ({ payload }) => ({ game: payload });
+
 //TODO: update games when update or create is called
 export const createOrUpdateGame = async (body) => {
   const { _id } = body;
@@ -31,12 +34,22 @@ export const updateStoreGames = (games, game) => {
   if (!games) {
     return [game];
   } else {
-    console.log('game', game);
     return games.map((g) => (g._id === game._id ? game : g));
   }
 };
-//NOTE: state conditional is for non seperating api action vs normal action
-export const GAME_REDUCER = (action, state) => {
+
+export const GAME_REQUESTS = ({type, payload}) => {
+  switch (type) {
+    case GAME_FETCH_ALL:
+      return fetchGames();
+    case GAME_CREATE_UPDATE:
+      return createOrUpdateGame(payload);
+    default:
+      return Promise.reject(new Error('No game request.'));
+  }
+};
+
+export const GAME_REDUCER = ({state, action}) => {
   switch (action.type) {
     case GAME_SET:
       let stateUpdate = setGame(action);
@@ -49,15 +62,12 @@ export const GAME_REDUCER = (action, state) => {
       if (action.payload.socket) {
         question = action.payload.questions[0];
       }
-
-      return { ...stateUpdate, user: { ...state.user, isAdmin }, question };
+      return { ...state, ...stateUpdate, user: { ...state.user, isAdmin }, question };
     case GAME_CLEAR:
       return { game: { ...gameInitial } };
     case GAME_FETCH_ALL:
-      if (state) return { games: action.payload };
-      return fetchGames;
+      return { games: action.payload };
     case GAME_CREATE_UPDATE:
-      if (state) {
         const user = state.user;
         if (!state.game || !state.game._id) {
           user.games = user.games ? [...user.games, action.payload] : [action.payload];
@@ -67,8 +77,6 @@ export const GAME_REDUCER = (action, state) => {
           games: updateStoreGames(state.games, action.payload),
           user: { ...user, games: updateStoreGames(user.games, action.payload) }
         };
-      }
-      return createOrUpdateGame;
     default:
       return state;
   }

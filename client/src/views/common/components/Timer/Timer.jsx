@@ -1,22 +1,26 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useTimer from "./timerHook";
+import { logger } from '../../../../utils';
 import { useStore } from '../../../../store';
 // Components
 import FlipUnitContainer from './components/FlipUnitContainer';
 // Styles
 import "./Timer.css";
+
+const timerLog = logger('TIMER-HOOK');
+
 const Timer = () => {
   const {
     state: { game: { status }, question: { maxTime } },
     dispatch
   } = useStore();
-  const onExpire = () => console.log("TIME IS UP")
+  const onExpire = () => timerLog('timeup');
   const [flip, setFlip] = useState(true);
   const { seconds, minutes, start, pause, resume } = useTimer({ maxTime, onExpire });
   let minutesShuffle, secondsShuffle;
 
   useEffect(() => {
-    console.log("timer update", seconds, minutes, status);
+    timerLog("update", seconds, minutes, status);
     switch (status) {
       case "play":
         start();
@@ -29,7 +33,7 @@ const Timer = () => {
     }
 
     return () => {
-      console.log("timer unmount");
+      timerLog('unmount');
     };
   }, [status, seconds, minutes]);
 

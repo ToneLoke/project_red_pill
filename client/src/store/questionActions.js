@@ -30,17 +30,25 @@ export const fetchQuestions = async () => {
   return await axios.get(QUESTION_API);
 };
 
-//NOTE: state conditional is for non seperating api action vs normal action
+export const QUESTION_REQUESTS = ({type, payload}) => {
+  switch (type) {
+    case QUESTION_FETCH_ALL:
+      return fetchQuestions();
+    case QUESTION_CREATE_UPDATE:
+      return createOrUpdateQuestion(payload);
+    default:
+      Promise.reject(new Error('Missing question request.'));
+  }
+};
+
 export const QUESTION_REDUCER = (action, state) => {
   switch (action.type) {
     case QUESTION_SET:
       return setQuestion(action);
     case QUESTION_FETCH_ALL:
-      if (state) return { questions: action.payload };
-      return fetchQuestions;
+      return { questions: action.payload };
     case QUESTION_CREATE_UPDATE:
-      if (state) setQuestion(action);
-      return createOrUpdateQuestion;
+      return setQuestion(action);
     default:
       return state;
   }

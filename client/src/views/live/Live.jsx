@@ -9,6 +9,9 @@ import Player from './player';
 import Admin from './admin';
 // Styles
 import styles from './Live.styles';
+// Utils
+import { logger } from '../../utils';
+const liveLog = logger('LIVE')
 
 const Live = ({ classes, match, history }) => {
   const {
@@ -17,13 +20,14 @@ const Live = ({ classes, match, history }) => {
   } = useStore();
 
   useEffect(() => {
+    //NOTE: must have a user to connect
     if (user && (!game || !game.socket)) {
       clientSocket({ id: match.params.id, user })(dispatch);
     }
-    // TODO: player/admin disconnects from socket effect
+    // TODO: player/admin disconnects from socket
     return function cleanup() {
       if(game && game.socket) {
-        console.log("SOCKET DISCONNECT")
+        liveLog('socket-disconnect');
         // game.socket.disconnect();
       }
     };
