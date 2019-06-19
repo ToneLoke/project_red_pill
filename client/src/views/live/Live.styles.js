@@ -1,13 +1,6 @@
 export default {
-  layout: {
-    backgroundColor: "rgba(59,85,171,1)",
-    width: "100%",
-    height: 'calc(100vh - 50px)',
-    overflow: 'none',
-    display: 'flex',
-    flexDirection: 'column'
-  },
   main: {
+    backgroundColor: "rgba(59,85,171,1)",
     flex: 1,
     display: 'flex',
     flexDirection: 'column',

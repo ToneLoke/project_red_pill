@@ -1,17 +1,11 @@
 const styles = (theme) => ({
-  container: {
-    width: '100%',
-    flexGrow: 1,
+  centered: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyItems: 'center',
-    paddingTop: '20vh',
-    minHeight: 'calc(100vh - 50px)'
-  },
-  progress: {
-    margin: 12,
-    flexGrow: 1
+    justifyContent: 'center',
+    flex: '1 0',
+    height: '100%',
+    flexDirection: 'column',
   },
   live: {
     color: 'green',
@@ -36,11 +30,9 @@ const styles = (theme) => ({
     paddingBottom: 20
   },
   root: {
-    width: '100%',
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
-    overflow: 'overlay',
-    height: 'calc(100vh - 50px)'
+    minHeight: '100%'
   },
   listSection: {
     backgroundColor: 'inherit'

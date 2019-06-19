@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useStore } from "../../store";
-import { Field } from "../common/components";
+import { Layout, Field } from "../common/components";
 import styles from './Auth.styles';
 
 const Auth = ({ classes }) => {
@@ -27,25 +27,27 @@ const Auth = ({ classes }) => {
   };
 
   return (
-    <Paper className={classes.form}>
-      <div className="hero-section" />
-      <Field
-        value={user ? user.username : ''}
-        className={classes.textField}
-        name="username"
-        label="Username"
-        type="username"
-        bubbleUp={handleChange}
-      />
-      <Field
-        name="password"
-        label="Password"
-        type="password"
-        className={classes.textField}
-        value={user ? user.password : ''}
-        bubbleUp={handleChange}
-      />
-    </Paper>
+    <Layout>
+      <Paper className={classes.form}>
+        <div className="hero-section" />
+        <Field
+          value={user ? user.username : ''}
+          className={classes.textField}
+          name="username"
+          label="Username"
+          type="username"
+          bubbleUp={handleChange}
+        />
+        <Field
+          name="password"
+          label="Password"
+          type="password"
+          className={classes.textField}
+          value={user ? user.password : ''}
+          bubbleUp={handleChange}
+        />
+      </Paper>
+    </Layout>
   );
 };
 

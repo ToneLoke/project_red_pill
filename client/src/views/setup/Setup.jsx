@@ -1,13 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import BackIcon from "@material-ui/icons/ArrowBack";
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
 import controls from '../common/controls';
-import { NavBar, Questions } from '../common/components';
+import { Layout, NavBar, Questions } from '../common/components';
 import Settings from './Settings';
-
 
 const styles = {
   btnWrapper: {
@@ -48,11 +46,11 @@ const Setup = ({ classes, history }) => {
     )
   }
   return (
-    <Fragment>
+    <Layout>
       <NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>
       { page === 'questions' ? <Questions /> :<Settings />  }
       { controls.actions[path] && controls.actions[path].map(renderActions) }
-    </Fragment>
+    </Layout>
   );
 }
 

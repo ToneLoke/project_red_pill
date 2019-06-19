@@ -12,3 +12,4 @@ export { default as Links } from './Links';
 export { default as Timer } from './Timer';
 export { default as LeaderBoard } from './LeaderBoard';
 export { default as Questions } from './Questions';
+export { default as Layout } from './Layout';

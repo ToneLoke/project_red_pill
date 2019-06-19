@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { groupBy } from 'lodash';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import AlbumIcon from '@material-ui/icons/FiberManualRecord';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { NavBar } from '../common/components';
+import { Layout, NavBar } from '../common/components';
 import { useStore } from '../../store';
 import {
   ListItemSecondaryAction,
@@ -22,6 +22,8 @@ import styles from './Panel.styles';
 
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
+
+  // eslint-disable-next-line no-useless-escape
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
     results = regex.exec(url);
@@ -67,14 +69,15 @@ const Games = ({ classes, history }) => {
 
   //TODO: fix empty state for filtered games as well
   return (
-    <Fragment>
-      <NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />
+    <Layout
+      header={<NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />}
+    >
       {!selGames ? (
-        <div>
-          <CircularProgress className={classes.progress} color="primary" />
+        <div className={classes.centered}>
+          <CircularProgress color="secondary" />
         </div>
       ) : Object.keys(selGames).length === 0 ? (
-        <Paper className={classes.container}>
+        <Paper className={classes.centered}>
           <Typography variant="body2" color="inherit">
             There are no games found.
           </Typography>
@@ -114,7 +117,7 @@ const Games = ({ classes, history }) => {
           </List>
         </div>
       )}
-    </Fragment>
+    </Layout>
   );
 };
 

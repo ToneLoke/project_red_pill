@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStore } from '../../store';
 import clientSocket from '../../store/clientSocket';
-import { NavBar } from '../common/components';
+import { Layout, NavBar } from '../common/components';
 import Player from './player';
 import Admin from './admin';
 import Lobby from './lobby';
@@ -38,8 +38,9 @@ const Live = ({ classes, match, history }) => {
   const fullPath = history.location.pathname + history.location.search;
 
   return (
-    <div className={classes.layout}>
-      <NavBar title={!game ? 'Loading data..' : `${game.title}`} path={path} fullPath={fullPath} />
+    <Layout
+      header={<NavBar title={!game ? 'Loading data..' : `${game.title}`} path={path} fullPath={fullPath} />}
+    >
       <div className={classes.main}>
         {!user || !game || !game.socket ?
           (
@@ -57,7 +58,7 @@ const Live = ({ classes, match, history }) => {
             : (<Player />)
         }
       </div>
-    </div>
+    </Layout>
   );
 };
 

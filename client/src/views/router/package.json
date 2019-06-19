@@ -1,8 +1,8 @@
 {
-  "name": "layout",
+  "name": "router",
   "version": "1.0.0",
   "description": "",
-  "main": "Layout.jsx",
+  "main": "Router.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

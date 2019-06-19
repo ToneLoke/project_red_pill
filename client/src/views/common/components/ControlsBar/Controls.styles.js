@@ -11,10 +11,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2
   },
   appBar: {
-    position: "fixed",
     display: "grid",
-    top: "auto",
-    bottom: 0,
     height: 60,
     backgroundColor: "#3B55AB",
     width: "100%",
@@ -31,7 +28,7 @@ const styles = theme => ({
     height: 56,
     marginTop: -40,
     padding: '20px',
-    
+
   },
   left: {
     display: "flex",
@@ -47,7 +44,7 @@ const styles = theme => ({
     position: "relative",
     width: "40%",
   },
-  
+
 });
 
 export default styles;
