@@ -1,6 +1,14 @@
 export default {
  container: {
-    maxWidth: '100%',
-    maxHeight: '80vh'
+   height: '100%',
+   display: 'flex',
+   flexDirection: 'column'
   },
+  content: {
+    flex: '1 0',
+    flexDirection: 'column',
+    height: '100%',
+    overflow: 'auto',
+    background: 'white',
+  }
 }

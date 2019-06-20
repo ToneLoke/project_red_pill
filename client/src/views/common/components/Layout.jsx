@@ -12,7 +12,7 @@ const styles = (theme) => ({
   },
   content: {
     flex: '1 0',
-    overflow: 'auto'
+    overflow: 'auto',
   }
 });
 

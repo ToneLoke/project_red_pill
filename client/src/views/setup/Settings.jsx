@@ -25,12 +25,11 @@ const CATEGORIES = [
 
 const styles = {
   container: {
-    width: "100%",
-    flexGrow: 1,
     display: "flex",
-    alignItems: "center",
     flexDirection: "column",
-    paddingTop: 30
+    paddingTop: 30,
+    boxSizing: 'border-box',
+    minHeight: '100%'
   },
   textField: {
     width: "calc(100% - 28px)",

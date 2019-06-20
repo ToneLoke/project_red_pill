@@ -22,7 +22,9 @@ const Admin = ({ classes }) => {
       Next Question In:
     </Typography>
     <Timer />
-    <Component handleChangePage={changePage}/>
+    <div className={classes.content}>
+      <Component handleChangePage={changePage}/>
+    </div>
   </div>
   );
 };

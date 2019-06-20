@@ -87,6 +87,6 @@ export default {
     height: 'calc(100vh - 138px)'
   },
   adminSession: {
-    height: 'calc(100vh - 138px)'
+    paddingBottom: 60
   }
 };

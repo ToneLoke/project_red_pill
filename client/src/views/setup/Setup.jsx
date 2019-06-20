@@ -46,8 +46,9 @@ const Setup = ({ classes, history }) => {
     )
   }
   return (
-    <Layout>
-      <NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>
+    <Layout
+      header={<NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>}
+    >
       { page === 'questions' ? <Questions /> :<Settings />  }
       { controls.actions[path] && controls.actions[path].map(renderActions) }
     </Layout>

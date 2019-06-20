@@ -3,7 +3,6 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: '1 0',
     height: '100%',
     flexDirection: 'column',
   },
