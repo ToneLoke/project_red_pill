@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 // Components
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStore } from '../../store';
 import clientSocket from '../../store/clientSocket';
-import { Layout, NavBar } from '../common/components';
+import { NavBar } from '../common/components';
+import Loader from './Loader';
 import Player from './player';
 import Admin from './admin';
 import Lobby from './lobby';
@@ -13,6 +13,22 @@ import styles from './Live.styles';
 // Utils
 import { logger } from '../../utils';
 const liveLog = logger('LIVE')
+
+const getComponent = (game, user) => {
+  if (!user || !game || !game.socket) {
+    return Loader;
+  }
+
+  if (user.username === 'lobby') {
+    return Lobby;
+  }
+
+  if (user.isAdmin) {
+    return Admin;
+  }
+
+  return Player;
+}
 
 const Live = ({ classes, match, history }) => {
   const {
@@ -36,30 +52,11 @@ const Live = ({ classes, match, history }) => {
 
   const path = history.location.pathname;
   const fullPath = history.location.pathname + history.location.search;
+  const title = !game ? 'Loading data..' : `${game.title}`;
+  const header = <NavBar title={title} path={path} fullPath={fullPath} />;
 
-  return (
-    <Layout
-      header={<NavBar title={!game ? 'Loading data..' : `${game.title}`} path={path} fullPath={fullPath} />}
-    >
-      <div className={classes.main}>
-        {!user || !game || !game.socket ?
-          (
-            <div className={classes.suspense}>
-              <div className={classes.progress}>
-                <CircularProgress color="secondary" />
-              </div>
-              <div className={classes.overlay} />
-            </div>
-          ) : user.username === 'lobby'
-            //NOTE: leave the navbar just remove the bottom actions
-            ? (<Lobby />)
-            :  user.isAdmin
-            ? (<Admin />)
-            : (<Player />)
-        }
-      </div>
-    </Layout>
-  );
+  const Component = getComponent(game, user);
+  return <Component header={header} />
 };
 
 export default withStyles(styles, { name: 'Live' })(Live);

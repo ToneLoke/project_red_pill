@@ -1,15 +1,14 @@
-// eslint-disable-line default-case
-
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import { useStore } from '../../../store';
-import { LeaderBoard, Questions } from '../../common/components';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { Layout, ControlsBar } from '../../common/components';
 import styles from './Player.styles';
 import Question from './Question';
 import Score from './Score';
 
-const Player = ({ history, classes }) => {
+const Player = ({ history, classes, header }) => {
   const { state: { game, question } } = useStore();
 
   const { status } = game;
@@ -44,7 +43,14 @@ const Player = ({ history, classes }) => {
     }
   }
 
-  return <div className={classes.container}>{switchView(status)}</div>;
+  return (
+    <Layout
+      header={header}
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+    >
+      {switchView(status)}
+    </Layout>
+  );
 };
 
 export default withStyles(styles)(Player);

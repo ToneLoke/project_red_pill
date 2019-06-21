@@ -1,6 +1,6 @@
-// eslint-disable-line default-case
-
 import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
+import { Layout, ControlsBar } from '../../common/components';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { LeaderBoard, Questions, Timer } from '../../common/components';
@@ -13,19 +13,24 @@ const componentsList = {
   leaderboard: LeaderBoard
 };
 
-const Admin = ({ classes }) => {
+const Admin = ({ classes, header }) => {
   const [page, changePage] = useState('overview');
   const Component = componentsList[page];
   return (
-  <div className={classes.container}>
-    <Typography variant="subtitle1" color="secondary">
-      Next Question In:
-    </Typography>
-    <Timer />
-    <div className={classes.content}>
-      <Component handleChangePage={changePage}/>
-    </div>
-  </div>
+    <Layout
+      header={header}
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+    >
+      <div className={classes.container}>
+        <Typography variant="subtitle1" color="secondary">
+          Next Question In:
+        </Typography>
+        <Timer />
+        <div className={classes.content}>
+          <Component handleChangePage={changePage}/>
+        </div>
+      </div>
+    </Layout>
   );
 };
 

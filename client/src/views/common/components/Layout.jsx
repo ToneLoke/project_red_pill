@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import ControlsBar from './ControlsBar';
 import Notifications from './Notifications';
 
 const styles = (theme) => ({
@@ -16,7 +14,7 @@ const styles = (theme) => ({
   }
 });
 
-const Layout = ({ children, header, classes }) => (
+const Layout = ({ children, header, footer, classes }) => (
   <Fragment>
     <Grid
       container
@@ -27,7 +25,7 @@ const Layout = ({ children, header, classes }) => (
     >
       {header}
       <div className={classes.content}>{children}</div>
-      <Route key="/control-bar" path="/" component={ControlsBar} />
+      {footer}
     </Grid>
     <Notifications />
   </Fragment>

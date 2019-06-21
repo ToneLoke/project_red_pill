@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import { useStore } from '../../store';
 import controls from '../common/controls';
-import { Layout, NavBar, Questions } from '../common/components';
+import { Layout, NavBar, Questions, ControlsBar } from '../common/components';
 import Settings from './Settings';
 
 const styles = {
@@ -48,6 +49,7 @@ const Setup = ({ classes, history }) => {
   return (
     <Layout
       header={<NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>}
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
     >
       { page === 'questions' ? <Questions /> :<Settings />  }
       { controls.actions[path] && controls.actions[path].map(renderActions) }

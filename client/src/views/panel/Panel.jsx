@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Route } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { groupBy } from 'lodash';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -7,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import AlbumIcon from '@material-ui/icons/FiberManualRecord';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Layout, NavBar } from '../common/components';
+import { Layout, NavBar, ControlsBar } from '../common/components';
 import { useStore } from '../../store';
 import {
   ListItemSecondaryAction,
@@ -71,6 +72,7 @@ const Games = ({ classes, history }) => {
   return (
     <Layout
       header={<NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />}
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
     >
       {!selGames ? (
         <div className={classes.centered}>

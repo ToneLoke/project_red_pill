@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
+import { Route } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useStore } from "../../store";
-import { Layout, Field } from "../common/components";
+import { Layout, Field, ControlsBar } from "../common/components";
 import styles from './Auth.styles';
 
 const Auth = ({ classes }) => {
@@ -27,7 +28,9 @@ const Auth = ({ classes }) => {
   };
 
   return (
-    <Layout>
+    <Layout
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+    >
       <Paper className={classes.form}>
         <div className="hero-section" />
         <Field

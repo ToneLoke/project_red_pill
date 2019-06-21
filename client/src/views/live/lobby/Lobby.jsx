@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
+import { Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { useStore } from '../../../store';
+import { Layout, ControlsBar } from '../../common/components';
 import Question from './Question';
 import Leaderboard from './Leaderboard';
 
@@ -21,7 +23,7 @@ const styles = {
   }
 }
 
-const Lobby = ({ classes }) => {
+const Lobby = ({ classes, header }) => {
   const { state: { game, question } } = useStore();
 
   const answersCount = useMemo(
@@ -33,18 +35,23 @@ const Lobby = ({ classes }) => {
   )
 
   return (
-    <div className={classes.container}>
-      <Question
-        question={question}
-        answers={game.questions[game.qNum].answers}
-        qNum={game.qNum}
-        qTotal={game.questions.length}
-        answersCount={answersCount}
-      />
-      <div className={classes.leaderboardContainer}>
-        <Leaderboard />
+    <Layout
+      header={header}
+      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+    >
+      <div className={classes.container}>
+        <Question
+          question={question}
+          answers={game.questions[game.qNum].answers}
+          qNum={game.qNum}
+          qTotal={game.questions.length}
+          answersCount={answersCount}
+        />
+        <div className={classes.leaderboardContainer}>
+          <Leaderboard />
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
