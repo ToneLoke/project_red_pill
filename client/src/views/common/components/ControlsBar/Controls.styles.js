@@ -18,7 +18,6 @@ const styles = theme => ({
     color: "white",
     textAlign: "center",
     zIndex: 100,
-    background: `url("/images/header-pattern.png") repeat top left`
   },
   toolbar: {
     display: "flex",

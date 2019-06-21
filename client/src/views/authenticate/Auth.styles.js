@@ -18,7 +18,6 @@ const authStyles = (theme) => ({
       height: 320,
       width: '100%',
       backgroundColor: '#3B55AB',
-      background: `url("/images/header-pattern.png") repeat top left`,
       marginBottom: 30
     }
   }
