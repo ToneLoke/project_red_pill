@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const baseURL = process.env.NODE_ENV === 'production' ? '' : 'http://192.168.1.3:8000';
+const baseURL = process.env.NODE_ENV === 'production' ? '' : 'http://192.168.1.7:8000';
 const configureSocket = ({id, user}) => dispatch => {
 //======================= SOCKET CONNECTION =======================
   const socket = io.connect(`${baseURL}/${id}?_id=${user._id}&username=${user.username}`);
