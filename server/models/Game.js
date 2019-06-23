@@ -54,7 +54,7 @@ const GameSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['live', 'done', 'draft', 'pause', 'play'],
+      enum: ['live', 'done', 'draft', 'pause', 'play', 'open'],
       default: 'draft',
       index: true
     }

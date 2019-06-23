@@ -5,9 +5,12 @@ import AddIcon from '@material-ui/icons/Add';
 import PresentToAll from '@material-ui/icons/PresentToAll';
 import PauseIcon from '@material-ui/icons/PauseCircleFilled';
 import PlayIcon from '@material-ui/icons/PlayArrow';
-import SkipIcon from '@material-ui/icons/SkipNext';
+import LaunchIcon from '@material-ui/icons/Launch';
 import JoinIcon from '@material-ui/icons/GroupAdd';
+import ViewIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
+import TrashIcon from '@material-ui/icons/Delete';
+import CopyIcon from '@material-ui/icons/FileCopy';
 import PublishedIcon from '@material-ui/icons/Book';
 import AccountIcon from '@material-ui/icons/Person';
 import AccountAddIcon from '@material-ui/icons/PersonAdd';
@@ -83,7 +86,7 @@ export default {
         icon: PublishedIcon,
         key: 'publised-games-btn',
         text: 'PUBLIC GAMES',
-        to: '/games?type=live'
+        to: '/games?type=public'
       }
     ],
     '/games/draft': [
@@ -191,9 +194,42 @@ export default {
         key: 'game-btn-upate',
         text: 'EDIT',
         actionType: 'GAME'
+      },
+      {
+        styles: {
+          component: Link,
+          to: '/games/live/',
+          color: 'secondary'
+        },
+        icon: LaunchIcon,
+        key: 'game-btn-resume',
+        text: 'RESUME',
+        actionType: 'GAME'
+      },
+      {
+        styles: {
+          component: Link,
+          to: '/games?type=draft',
+          color: 'secondary'
+        },
+        icon: TrashIcon,
+        key: 'game-btn-delete',
+        text: 'DELETE',
+        actionType: 'GAME'
+      },
+      {
+        styles: {
+          component: Link,
+          to: '/games/draft?type=settings',
+          color: 'secondary'
+        },
+        icon: CopyIcon,
+        key: 'game-btn-copy',
+        text: 'COPY',
+        actionType: 'GAME'
       }
     ],
-    '/games?type=live': [
+    '/games?type=public': [
       {
         styles: {
           component: Link,
@@ -203,6 +239,17 @@ export default {
         icon: JoinIcon,
         text: 'JOIN',
         key: 'game-btn-join',
+        actionType: 'GAME'
+      },
+      {
+        styles: {
+          component: Link,
+          to: '/games/live/:id/spectator',
+          color: 'secondary'
+        },
+        icon: ViewIcon,
+        text: 'Spectate',
+        key: 'game-btn-spectate',
         actionType: 'GAME'
       }
     ],
