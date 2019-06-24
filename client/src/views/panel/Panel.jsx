@@ -35,11 +35,12 @@ const _PRIVATE_STATUS_TITLES = {
   done: "COMPLETED"
 };
 
-const Groups = ({ name, games, classes, handleClick, game }) => {
+
+const Groups = ({ title, games, classes, handleClick, game }) => {
   return (
-    <li key={`section-${name}`} className={classes.listSection}>
+    <li key={title} className={classes.listSection}>
       <ul className={classes.ul}>
-        <ListSubheader> {name.toUpperCase()} </ListSubheader>
+        <ListSubheader> {title.toUpperCase()} </ListSubheader>
         {games.map(g => {
           return (
             <ListItem
@@ -75,8 +76,8 @@ const Games = ({ classes, history }) => {
   const fullPath = history.location.pathname + history.location.search;
   const path = history.location.pathname;
   const [games, setGames] = useState(null);
-  const [page, setPage] = useState(null)
-  const isPublic = page === 'public';
+  const [page, setPage] = useState(null);
+  const isPublic = page === "public";
 
   useEffect(() => {
     dispatch({ type: "GAME_FETCH_ALL" }, true);
@@ -87,11 +88,11 @@ const Games = ({ classes, history }) => {
     if (user && allGames) {
       if (getParameterByName("type") === "public") {
         let publicGames = groupBy(allGames, "adminId.username");
-        setPage('public');
+        setPage("public");
         setGames(publicGames);
       } else {
         let privateGames = groupBy(user.games, "status");
-        setPage('private');
+        setPage("private");
         setGames(privateGames);
       }
     }
@@ -112,13 +113,7 @@ const Games = ({ classes, history }) => {
       header={
         <NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />
       }
-      footer={ () =>
-        <Route
-          key="/panel-control-bar"
-          path="/games"
-          component={<PanelControls page={page} />}
-        />
-      }
+      footer={<PanelControls />}
     >
       {!games ? (
         <div className={classes.centered}>
@@ -138,7 +133,8 @@ const Games = ({ classes, history }) => {
           <List subheader={<li />}>
             {Object.keys(games).map(status => (
               <Groups
-                title={ isPublic ? status : _PRIVATE_STATUS_TITLES[status] }
+                key={status}
+                title={isPublic ? status : _PRIVATE_STATUS_TITLES[status]}
                 classes={classes}
                 handleClick={handleGameClick}
                 games={games[status]}
