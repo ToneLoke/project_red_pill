@@ -1,13 +1,16 @@
 // import external
 import React, { useEffect, useState } from "react";
 import { groupBy } from "lodash";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Paper } from "@material-ui/core";
 
 // import internal
 import { useStore } from "../../store";
+import { Layout, Actions, ActionBtn } from "../common/components";
 import { getParameterByName } from "../common/helpers";
 import PrivateGames from "./PrivateGames";
 import PublicGames from "./PublicGames";
@@ -54,18 +57,33 @@ const Panel = ({ classes, history }) => {
   const passProps = { game, games, fullPath, path, handleGameClick };
   const Component = getComponent(page);
   return !games ? (
-    <Paper className={classes.centered}>
-      <CircularProgress color="secondary" />
-    </Paper>
+    <Layout>
+      <Paper className={classes.centered}>
+        <CircularProgress color="secondary" />
+      </Paper>
+    </Layout>
   ) : Object.keys(games).length === 0 ? (
-    <Paper className={classes.centered}>
-      <Typography variant="body2" color="inherit">
-        There are no games found.
-      </Typography>
-      <Typography variant="body2" color="inherit">
-        Create one by pressing '+' below.
-      </Typography>
-    </Paper>
+    <Layout
+      footer={
+        <Actions>
+          <ActionBtn
+            component={Link}
+            to="/games/draft?type=settings"
+            icon={<AddIcon />}
+            text="ADD"
+          />
+        </Actions>
+      }
+    >
+      <Paper className={classes.centered}>
+        <Typography variant="body2" color="inherit">
+          There are no games found.
+        </Typography>
+        <Typography variant="body2" color="inherit">
+          Create one by pressing '+' below.
+        </Typography>
+      </Paper>
+    </Layout>
   ) : (
     <Component {...passProps} />
   );

@@ -48,6 +48,7 @@ const Setup = ({ history }) => {
       {
         type: "GAME_CREATE_UPDATE",
         payload: {
+          ...game,
           status: "live"
         }
       },

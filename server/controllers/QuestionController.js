@@ -26,17 +26,27 @@ class QuestionController extends AppController {
   }
 
   async createQuestions(req, res, next) {
-    //create promise array to create all questions
-    await fs
-      .createReadStream("../../question-data.csv")
-      .pipe(csv())
-      .on("data", data => results.push(data))
-      .on("end", () => {
-        console.log("ADDING QUESTIONS:", results);
-      });
-    const promiseQuestions = questions.map(this.create);
-    const questions = [];
+    const findFile = new Promise((resolve,reject) => {
+      const questions = []
+       fs.createReadStream(__dirname + "/question-data.csv")
+        .pipe(csv())
+        .on("data", row => {
+          console.log(row);
+          questions.push(row);
+        })
+        .on("end", () => {
+          console.log("CSV file successfully processed");
+          resolve(questions);
+        })
+        .on("error", e => {
+          console.log("ERROR READING CSV", e);
+          reject(e);
+        })
+    });
+
     try {
+      const questions = await findFile;
+      const promiseQuestions = questions.map(this.create);
       const qs = await Promise.all(promiseQuestions);
       res.status(200).json(qs);
     } catch (e) {
