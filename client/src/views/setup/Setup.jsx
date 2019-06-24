@@ -1,64 +1,95 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import { useStore } from '../../store';
-import controls from '../common/controls';
-import { Layout, NavBar, Questions, ControlsBar } from '../common/components';
-import Settings from './Settings';
+import React, { useEffect } from "react";
+import PublishIcon from "@material-ui/icons/PresentToAll";
+import AddIcon from "@material-ui/icons/Add";
+import { useStore } from "../../store";
+import {
+  Layout,
+  NavBar,
+  Questions,
+  Actions,
+  ActionBtn
+} from "../common/components";
 
-const styles = {
-  btnWrapper: {
-    width: '90%',
-  },
-  btn: {
-    marginTop: '20px',
-    width: '100%',
-  },
-  full: {
-    width: '100%',
-  }
+import Settings from "./Settings";
+
+const BLOCKED_STATUSES = ["live", "play", "pause", "done"];
+
+const ActionBar = ({ isQuestions, publishGame, game }) => {
+  return (
+    <Actions>
+      {isQuestions ? (
+        <ActionBtn disabled={true} text="Create New" icon={<AddIcon />} />
+      ) : (
+        <ActionBtn
+          disabled={game && game.questions.length > 0 ? false : true}
+          text="PUBLISH"
+          onClick={publishGame}
+          icon={<PublishIcon />}
+        />
+      )}
+    </Actions>
+  );
 };
 
-const Setup = ({ classes, history }) => {
+const Setup = ({ history }) => {
   //======================= Connect to store using hooks =======================
-  const { state: {game}, dispatch } = useStore();
+  const {
+    state: { game },
+    dispatch
+  } = useStore();
 
-  const path = history.location.pathname
-  const fullPath =  history.location.pathname + history.location.search
-  let page = history.location.search.split('=')[1] || "settings"
-  useEffect(()=>{
-    if(page === 'questions' && !game){
-      history.push('/games?type=draft')
+  const path = history.location.pathname;
+  const fullPath = history.location.pathname + history.location.search;
+  const page = history.location.search.split("=")[1] || "settings";
+  const isQuestions = page === "questions";
+
+  const handlePublishGame = () => {
+    dispatch(
+      {
+        type: "GAME_CREATE_UPDATE",
+        payload: {
+          status: "live"
+        }
+      },
+      true
+    );
+  };
+
+  useEffect(() => {
+    if (page === "questions" && !game) {
+      dispatch({
+        type: "ALERT_ERROR",
+        payload: {
+          alert: { message: "Title cannot be blank" }
+        }
+      });
+      history.push("/games/draft?type=settings");
     }
-    if(game && game.status === 'live'){
-      history.push('/games?type=live')
+    if (game && BLOCKED_STATUSES.includes(game.status)) {
+      history.push("/games?type=private");
     }
-  })
-  const renderActions = (a) => {
-    return (
-      <div key={a.key} className={classes.btnWrapper}>
-        <Fab {...a.styles} disabled={true} onClick={() => dispatch({ type: 'GAME_NEW' })} className={classes.btn}>
-          {!!a.text && a.text}
-          {a.icon && <a.icon />}
-        </Fab>
-      </div>
-    )
-  }
+  });
+
   return (
     <Layout
-      header={<NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>}
-      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+      header={
+        <NavBar
+          title={`${game ? game.title : "New Session"} - ${page.toUpperCase()}`}
+          path={path}
+          fullPath={fullPath}
+        />
+      }
+      footer={
+        <ActionBar
+          game={game}
+          isQuestions={isQuestions}
+          publishGame={handlePublishGame}
+        />
+      }
     >
-      { page === 'questions' ? <Questions /> :<Settings />  }
-      { controls.actions[path] && controls.actions[path].map(renderActions) }
+      {isQuestions ? <Questions /> : <Settings />}
     </Layout>
   );
-}
-
-Setup.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Setup);
+export default Setup;

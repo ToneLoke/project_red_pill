@@ -3,43 +3,13 @@ import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { useStore } from "../../store";
 import styles from "./Panel.styles";
-import { Typography, Fab } from "@material-ui/core";
-import navStyles from "../common/components/Navs/Navs.styles";
-import actStyles from "../common/components/Actions/Actions.styles";
+import { ActionBtn, Actions } from '../common/components';
 //======================= MaterialUI Icons =======================
 import AddIcon from "@material-ui/icons/Add";
 import LaunchIcon from "@material-ui/icons/Launch";
 import EditIcon from "@material-ui/icons/Edit";
 import TrashIcon from "@material-ui/icons/Delete";
 import CopyIcon from "@material-ui/icons/FileCopy";
-// import { log } from "util";
-
-const StyledBtn = props => {
-  const { classes, text, icon, ...other } = props;
-  return (
-    <div className={classes.btnWrapper}>
-      <Fab color="secondary" className={classes.nav} {...other}>
-        {icon}
-      </Fab>
-      <Typography
-        variant="caption"
-        color="secondary"
-        className={classes.btnText}
-      >
-        {text}
-      </Typography>
-    </div>
-  );
-};
-
-const Btn = withStyles(navStyles)(StyledBtn);
-
-const StyledActions = props => {
-  const { children, classes } = props;
-  return <div className={classes.container}>{children}</div>;
-};
-
-const Actions = withStyles(actStyles)(StyledActions);
 
 const PanelControls = ({ classes }) => {
   const {
@@ -48,6 +18,7 @@ const PanelControls = ({ classes }) => {
   } = useStore();
 
   const handleDispatch = (type, isReq, data) => {
+    //TODO: create actions for delete and copy
     const reducer = type.split("_")[0].toLowerCase();
     // dispatch({ type, payload: { ...state[reducer], ...data } }, isReq);
   };
@@ -63,13 +34,13 @@ const PanelControls = ({ classes }) => {
                 case "pause":
                   return (
                     <Fragment>
-                      <Btn
+                      <ActionBtn
                         component={Link}
                         icon={<LaunchIcon />}
-                        to={`/games/live/${game._id}`}
+                        to={`/live/${game._id}`}
                         text="RESUME"
                       />
-                      <Btn
+                      <ActionBtn
                         component={Link}
                         onClick={handleDispatch}
                         icon={<CopyIcon />}
@@ -81,12 +52,13 @@ const PanelControls = ({ classes }) => {
                 case "draft":
                   return (
                     <Fragment>
-                      <Btn
+                      <ActionBtn
+                        component={Link}
                         icon={<EditIcon />}
                         to="/games/draft?type=settings"
                         text="EDIT"
                       />
-                      <Btn
+                      <ActionBtn
                         onClick={handleDispatch}
                         icon={<TrashIcon />}
                         text="DELETE"
@@ -96,12 +68,12 @@ const PanelControls = ({ classes }) => {
                 case "done":
                   return (
                     <Fragment>
-                      <Btn
+                      <ActionBtn
                         onClick={handleDispatch}
                         icon={<TrashIcon />}
                         text="DELETE"
                       />
-                      <Btn
+                      <ActionBtn
                         dpHandler={handleDispatch}
                         icon={<CopyIcon />}
                         text="COPY"
@@ -110,7 +82,7 @@ const PanelControls = ({ classes }) => {
                   );
                 default:
                   return (
-                    <Btn
+                    <ActionBtn
                       component={Link}
                       to="/games/draft?type=settings"
                       icon={<AddIcon />}

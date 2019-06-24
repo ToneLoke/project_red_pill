@@ -12,6 +12,12 @@ import Groups from "./Groups";
 import styles from "./Panel.styles";
 
 // local constants
+const _PUBLIC_STATUS_TITLES = {
+  live: "JOINABLE",
+  play: "RE-CONNECT",
+  pause: "PAUSED",
+  done: "COMPLETED"
+};
 
 const PublicGames = ({
   classes,
@@ -31,11 +37,12 @@ const PublicGames = ({
           {Object.keys(games).map(status => (
             <Groups
               key={status}
-              title={status}
+              title={_PUBLIC_STATUS_TITLES[status]}
               classes={classes}
               handleClick={handleGameClick}
               games={games[status]}
               game={game}
+              isPublic={true}
             />
           ))}
         </List>

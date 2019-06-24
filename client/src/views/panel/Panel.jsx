@@ -1,7 +1,6 @@
 // import external
 import React, { useEffect, useState } from "react";
 import { groupBy } from "lodash";
-import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -33,7 +32,7 @@ const Panel = ({ classes, history }) => {
   useEffect(() => {
     if (user && allGames) {
       if (getParameterByName("type") === "public") {
-        let publicGames = groupBy(allGames, "adminId.username");
+        let publicGames = groupBy(allGames, "status");
         setPage("public");
         setGames(publicGames);
       } else {

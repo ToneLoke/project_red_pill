@@ -1,22 +1,63 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import SendIcon from "@material-ui/icons/Send";
+import CheckCircle from "@material-ui/icons/Check";
 import { useStore } from "../../store";
-import { Layout, Field, ControlsBar } from "../common/components";
-import styles from './Auth.styles';
+import {
+  Layout,
+  Field,
+  NavBar,
+  Actions,
+  ActionBtn
+} from "../common/components";
+import { getParameterByName, isEmpty } from "../common/helpers";
+import styles from "./Auth.styles";
 
-const Auth = ({ classes }) => {
+const ActionsBar = ({ isLogin, dispatch, user }) => {
+  const missingData = isEmpty(user);
+
+  const handleClick = () =>
+    isLogin && !missingData
+      ? dispatch({ type: "USER_AUTHENTICATE", payload: user }, true)
+      : dispatch({ type: "USER_REGISTER", payload: user }, true);
+
+  return (
+    <Actions>
+      {isLogin ? (
+        <ActionBtn
+          disabled={missingData}
+          text="LOG IN"
+          icon={<SendIcon />}
+          onClick={handleClick}
+        />
+      ) : (
+        <ActionBtn
+          disabled={missingData}
+          text="SIGN UP"
+          icon={<CheckCircle />}
+          onClick={handleClick}
+        />
+      )}
+    </Actions>
+  );
+};
+const Auth = ({ classes, history }) => {
   //======================= Connect to store using hooks =======================
   const {
     state: { user },
     dispatch
   } = useStore();
+  const fullPath = history.location.pathname + history.location.search;
+  const path = history.location.pathname;
+  const isLogin = getParameterByName("type") === "login";
 
-  useEffect(()=>{
-    if(!user) dispatch({ type: 'USER_SET', payload: { username: '', password: ''}})
-  }, [])
+  useEffect(() => {
+    if (!user)
+      dispatch({ type: "USER_SET", payload: { username: "", password: "" } });
+  }, []);
 
   //======================= combine form data =======================
   const handleChange = e => {
@@ -29,12 +70,13 @@ const Auth = ({ classes }) => {
 
   return (
     <Layout
-      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+      header={<NavBar title={isLogin ? "LOG IN" : "REGISTER"} path={path} fullPath={fullPath} showBack={false} />}
+      footer={<ActionsBar isLogin={isLogin} dispatch={dispatch} user={user} />}
     >
       <Paper className={classes.form}>
         <div className="hero-section" />
         <Field
-          value={user ? user.username : ''}
+          value={user ? user.username : ""}
           className={classes.textField}
           name="username"
           label="Username"
@@ -46,7 +88,7 @@ const Auth = ({ classes }) => {
           label="Password"
           type="password"
           className={classes.textField}
-          value={user ? user.password : ''}
+          value={user ? user.password : ""}
           bubbleUp={handleChange}
         />
       </Paper>
