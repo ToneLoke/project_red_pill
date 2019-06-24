@@ -8,3 +8,6 @@ export const getParameterByName = (name, url) => {
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 };
+
+export const isEmpty = state =>
+  !state || Object.values(state).some(x => x === null || x === "");

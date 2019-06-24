@@ -28,14 +28,14 @@ import styles from "./Panel.styles";
 
 // local constants
 const _PRIVATE_STATUS_TITLES = {
-  live: "IN PROGRESS",
+  live: "IN-PROGRESS",
   draft: "DRAFTING",
-  play: "IN PROGRESS",
+  play: "RE-CONNECT",
   pause: "PAUSED",
   done: "COMPLETED"
 };
 
-const Groups = ({ name, games, classes, handleClick }) => {
+const Groups = ({ name, games, classes, handleClick, game }) => {
   return (
     <li key={`section-${name}`} className={classes.listSection}>
       <ul className={classes.ul}>
@@ -75,6 +75,8 @@ const Games = ({ classes, history }) => {
   const fullPath = history.location.pathname + history.location.search;
   const path = history.location.pathname;
   const [games, setGames] = useState(null);
+  const [page, setPage] = useState(null)
+  const isPublic = page === 'public';
 
   useEffect(() => {
     dispatch({ type: "GAME_FETCH_ALL" }, true);
@@ -85,9 +87,11 @@ const Games = ({ classes, history }) => {
     if (user && allGames) {
       if (getParameterByName("type") === "public") {
         let publicGames = groupBy(allGames, "adminId.username");
+        setPage('public');
         setGames(publicGames);
       } else {
         let privateGames = groupBy(user.games, "status");
+        setPage('private');
         setGames(privateGames);
       }
     }
@@ -108,11 +112,11 @@ const Games = ({ classes, history }) => {
       header={
         <NavBar title="Games" icon={MenuIcon} path={path} fullPath={fullPath} />
       }
-      footer={
+      footer={ () =>
         <Route
           key="/panel-control-bar"
           path="/games"
-          component={PanelControls}
+          component={<PanelControls page={page} />}
         />
       }
     >
@@ -132,12 +136,13 @@ const Games = ({ classes, history }) => {
       ) : (
         <div className={classes.root}>
           <List subheader={<li />}>
-            {Object.keys(games).map(name => (
+            {Object.keys(games).map(status => (
               <Groups
-                title={name}
+                title={ isPublic ? status : _PRIVATE_STATUS_TITLES[status] }
                 classes={classes}
                 handleClick={handleGameClick}
-                games={games}
+                games={games[status]}
+                game={game}
               />
             ))}
           </List>
