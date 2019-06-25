@@ -1,9 +1,9 @@
 export default {
   container: {
-    width: '100%',
-    position: 'relative',
-    overflow: 'overlay',
-    maxHeight: 'calc(100vh - 50px)'
+    width: "100%",
+    position: "relative",
+    overflow: "overlay",
+    maxHeight: "calc(100vh - 50px)"
   },
   title: {
     display: "flex",
@@ -34,7 +34,7 @@ export default {
     flex: "1",
     height: "49px",
     justifyContent: "flex-start",
-    padding: "9px"
+    padding: "9px 15px"
   },
   questionsOverview: {
     color: "rgba(0,0,0,0.54)",
@@ -51,7 +51,7 @@ export default {
     display: "flex",
     padding: "30px 15px",
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "flex-start"
     // borderBottom: "solid 1px #E0E0E0"
   },
   rankNum: { marginRight: "20px", marginLeft: "20px" },
@@ -62,7 +62,8 @@ export default {
     marginLeft: "auto",
     "& span": {
       backgroundColor: "#5763E7",
-      color: "#ffffff"
+      color: "#ffffff",
+      padding: "10px"
     }
   },
   badgeGreen: {

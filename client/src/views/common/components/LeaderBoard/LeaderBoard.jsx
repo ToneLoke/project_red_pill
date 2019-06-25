@@ -1,14 +1,11 @@
 // Packages
-import React, { Fragment } from "react";
+import React from "react";
 // material-ui
 import { withStyles } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
-import { Typography, Fab, Badge } from "@material-ui/core";
+import { Fab, Badge } from "@material-ui/core";
 // Hooks
 import { useStore } from '../../../../store';
-// Components
-
-
 // Styles
 import styles from "./LeaderBoard.styles";
 

@@ -5,6 +5,7 @@ import styles from './Links.styles'
 
 const NavLink = props => {
   const { classes, link: l, closeMenu} = props;
+  delete l.icon;
   return (
       <MenuItem selected={l.selected} onClick={closeMenu} to={l.to} className={classes.link} {...l}>
         { l.text && l.text }

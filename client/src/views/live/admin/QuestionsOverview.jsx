@@ -12,8 +12,10 @@ const QuestionOverview = ({ count, classes, handleChangePage }) => {
         className={classes.badge}
         fontSize="large"
         color="secondary"
-        badgeContent={(count = '13/20')}
-      />
+        badgeContent={count}
+      >
+      {" "}
+      </Badge>
     </div>
   );
 };

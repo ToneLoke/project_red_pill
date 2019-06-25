@@ -1,53 +1,56 @@
-const styles = (theme) => ({
-  container: {
-    width: '100%',
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyItems: 'center',
-    paddingTop: '20vh',
-    minHeight: 'calc(100vh - 50px)'
-  },
-  progress: {
-    margin: 12,
-    flexGrow: 1
+const styles = theme => ({
+  centered: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    flexDirection: "column"
   },
   live: {
-    color: 'green',
+    color: "green",
     marginRight: theme.spacing.unit * 2
   },
   draft: {
-    color: 'orange',
+    color: "orange",
     marginRight: theme.spacing.unit * 2
   },
   done: {
-    color: 'gray',
+    color: "gray",
     marginRight: theme.spacing.unit * 2
   },
   btnWrapper: {
-    width: '90%'
+    width: "90%"
   },
   btn: {
-    width: '100%'
+    width: "100%"
   },
   listItem: {
-    borderBottom: '1px solid #dddddd',
+    borderBottom: "1px solid #dddddd",
     paddingBottom: 20
   },
   root: {
-    width: '100%',
     backgroundColor: theme.palette.background.paper,
-    position: 'relative',
-    overflow: 'overlay',
-    height: 'calc(100vh - 50px)'
+    position: "relative",
+    minHeight: "100%"
   },
   listSection: {
-    backgroundColor: 'inherit'
+    backgroundColor: "inherit"
   },
   ul: {
-    backgroundColor: 'inherit',
+    backgroundColor: "inherit",
     padding: 0
+  },
+  badge: {
+    right: "18px",
+    marginLeft: "auto",
+    "& span": {
+      backgroundColor: "#5763E7",
+      color: "#ffffff",
+      padding: "9px"
+    }
+  },
+  icon: {
+    right: "20px"
   }
 });
 

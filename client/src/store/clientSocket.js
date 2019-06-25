@@ -1,5 +1,8 @@
 import io from 'socket.io-client';
-const baseURL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000';
+import { logger } from '../utils';
+const logSocket = logger('client:socket');
+
+const baseURL = process.env.NODE_ENV === 'production' ? '' : `http://${process.env.IP || 'localhost'}:8000`;
 const configureSocket = ({id, user}) => dispatch => {
 //======================= SOCKET CONNECTION =======================
   const socket = io.connect(`${baseURL}/${id}?_id=${user._id}&username=${user.username}`);
@@ -21,7 +24,13 @@ const configureSocket = ({id, user}) => dispatch => {
   })
 
   socket.on('GAME_UPDATED', payload => {
+    logSocket('game updated: %o', payload);
     dispatch({ type: 'LIVE_GAME_UPDATED', payload });
+  });
+
+  socket.on('LIVE_GAME_PLAYER_UPDATED', payload => {
+    logSocket('live player updated: %o', payload);
+    dispatch({ type: 'LIVE_GAME_PLAYER_UPDATED', payload });
   });
 //======================= END INCOMING FORM SERVER =======================
 //======================= ADMIN EMITIONS =======================

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Layout from './views/layout';
+import InnerRouter from './views/router';
 // Utils
 import { logger } from './utils';
 const appLog = logger('APP');
@@ -17,7 +17,7 @@ const RouteConfig = () => {
               <Redirect to='/authenticate?type=register' />
             )
           )}/>
-          <Layout />
+          <InnerRouter />
         </Switch>
       </Router>
     </Fragment>

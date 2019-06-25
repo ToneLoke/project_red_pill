@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Actions, Navs } from '../';
 import controls from '../../controls';
@@ -47,7 +46,7 @@ const BottomAppBar = ({ classes, history }) => {
   };
 
   return (
-    <div position="fixed" className={classes.appBar}>
+    <div className={classes.appBar}>
       <div className={classes.toolbar}>
         <div className={classes.left}>
           <Navs navs={navs} page={page}/>
@@ -58,10 +57,6 @@ const BottomAppBar = ({ classes, history }) => {
       </div>
     </div>
   );
-};
-
-BottomAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(BottomAppBar);

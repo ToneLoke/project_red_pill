@@ -1,16 +1,13 @@
 export default {
   container: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    marginLeft: 'auto',
+    display: "flex",
+    justifyContent: "space-around"
   },
   secondary: {
-    width: '45px',
-    height: '45px'
+    textAlign: "center"
   },
   action: {
-    display: 'flex',
-    height: '60px',
-    width: '60px'
+    display: "flex",
+    marginTop: "-30px"
   }
 };

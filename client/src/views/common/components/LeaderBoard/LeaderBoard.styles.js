@@ -83,7 +83,6 @@ export default {
     height: "100%"
   },
   gameInfoList: {
-    height: "calc(100vh - 138px)",
     backgroundColor: "rgba(255,255,255,1)"
   }
 };

@@ -1,34 +1,27 @@
-import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Typography, Fab } from '@material-ui/core';
-import styles from './Actions.styles';
+import React from "react";
+import { Typography, Fab } from "@material-ui/core";
+import styles from "./Actions.styles";
+import { useStyles } from "../../useStyles";
 
-const CreateFab = (props) => {
-  const { classes, action: a, dpHandler } = props;
-  const handleClick = () => dpHandler(a.actionType, a.isReq, a.data);
+export const ActionBtn = ({ icon, text, ...other }) => {
+  const classes = useStyles(styles);
   return (
     <div className={classes.btnWrapper}>
-      {(
-        <Fragment>
-          <Fab {...a.styles} disabled={a.disabled} onClick={handleClick} className={classes.action}>
-            {a.icon && <a.icon />}
-          </Fab>
-          <Typography variant="caption" color="secondary" className={classes.btnText}>
-            {!!a.text && a.text}
-          </Typography>
-        </Fragment>
-      )}
+      <Fab color="secondary" className={classes.action} {...other}>
+        {icon}
+      </Fab>
+      <Typography
+        variant="caption"
+        color="secondary"
+        className={classes.secondary}
+      >
+        {text}
+      </Typography>
     </div>
   );
 };
 
-const Actions = (props) => {
-  const { actions, classes } = props;
-  return (
-    <div className={classes.container}>
-      {actions && actions.map((a) => <CreateFab key={a.key} action={a} {...props} />)}
-    </div>
-  );
+export const Actions = ({ children }) => {
+  const classes = useStyles(styles);
+  return <div className={classes.container}>{children}</div>;
 };
-
-export default withStyles(styles)(Actions);

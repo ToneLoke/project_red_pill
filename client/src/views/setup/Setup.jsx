@@ -1,63 +1,96 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import BackIcon from "@material-ui/icons/ArrowBack";
-import Fab from '@material-ui/core/Fab';
-import { useStore } from '../../store';
-import controls from '../common/controls';
-import { NavBar, Questions } from '../common/components';
-import Settings from './Settings';
+import React, { useEffect } from "react";
+import PublishIcon from "@material-ui/icons/PresentToAll";
+import AddIcon from "@material-ui/icons/Add";
+import { useStore } from "../../store";
+import {
+  Layout,
+  NavBar,
+  Questions,
+  Actions,
+  ActionBtn
+} from "../common/components";
 
+import Settings from "./Settings";
 
-const styles = {
-  btnWrapper: {
-    width: '90%',
-  },
-  btn: {
-    marginTop: '20px',
-    width: '100%',
-  },
-  full: {
-    width: '100%',
-  }
-};
+const BLOCKED_STATUSES = ["live", "play", "pause", "done"];
 
-const Setup = ({ classes, history }) => {
-  //======================= Connect to store using hooks =======================
-  const { state: {game}, dispatch } = useStore();
-
-  const path = history.location.pathname
-  const fullPath =  history.location.pathname + history.location.search
-  let page = history.location.search.split('=')[1] || "settings"
-  useEffect(()=>{
-    if(page === 'questions' && !game){
-      history.push('/games?type=draft')
-    }
-    if(game && game.status === 'live'){
-      history.push('/games?type=live')
-    }
-  })
-  const renderActions = (a) => {
-    return (
-      <div key={a.key} className={classes.btnWrapper}>
-        <Fab {...a.styles} disabled={true} onClick={() => dispatch({ type: 'GAME_NEW' })} className={classes.btn}>
-          {!!a.text && a.text}
-          {a.icon && <a.icon />}
-        </Fab>
-      </div>
-    )
-  }
+const ActionBar = ({ isQuestions, publishGame, game }) => {
   return (
-    <Fragment>
-      <NavBar title={`${ game ? game.title : 'New Session'} - ${page}`} path={path} fullPath={fullPath}/>
-      { page === 'questions' ? <Questions /> :<Settings />  }
-      { controls.actions[path] && controls.actions[path].map(renderActions) }
-    </Fragment>
+    <Actions>
+      {isQuestions ? (
+        <ActionBtn disabled={true} text="Create New" icon={<AddIcon />} />
+      ) : (
+        <ActionBtn
+          disabled={game && game.questions.length > 0 ? false : true}
+          text="PUBLISH"
+          onClick={publishGame}
+          icon={<PublishIcon />}
+        />
+      )}
+    </Actions>
   );
-}
-
-Setup.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Setup);
+const Setup = ({ history }) => {
+  //======================= Connect to store using hooks =======================
+  const {
+    state: { game },
+    dispatch
+  } = useStore();
+
+  const path = history.location.pathname;
+  const fullPath = history.location.pathname + history.location.search;
+  const page = history.location.search.split("=")[1] || "settings";
+  const isQuestions = page === "questions";
+
+  const handlePublishGame = () => {
+    dispatch(
+      {
+        type: "GAME_CREATE_UPDATE",
+        payload: {
+          ...game,
+          status: "live"
+        }
+      },
+      true
+    );
+  };
+
+  useEffect(() => {
+    if (page === "questions" && !game) {
+      dispatch({
+        type: "ALERT_ERROR",
+        payload: {
+          alert: { message: "Title cannot be blank" }
+        }
+      });
+      history.push("/games/draft?type=settings");
+    }
+    if (game && BLOCKED_STATUSES.includes(game.status)) {
+      history.push("/games?type=private");
+    }
+  });
+
+  return (
+    <Layout
+      header={
+        <NavBar
+          title={`${game ? game.title : "New Session"} - ${page.toUpperCase()}`}
+          path={path}
+          fullPath={fullPath}
+        />
+      }
+      footer={
+        <ActionBar
+          game={game}
+          isQuestions={isQuestions}
+          publishGame={handlePublishGame}
+        />
+      }
+    >
+      {isQuestions ? <Questions /> : <Settings />}
+    </Layout>
+  );
+};
+
+export default Setup;

@@ -28,6 +28,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
 app.use(cors());
 // REACT STATIC RENDER
 app.use(express.static(path.join(__dirname, 'client/build')));

@@ -10,19 +10,14 @@ const authStyles = (theme) => ({
     marginBottom: 40
   },
   form: {
-    width: '100%',
-    marginBottom: 60,
-    height: 'calc(100vh - 64px)',
+    height: '100%',
     display: 'flex',
-    flexGrow: 1,
     alignItems: 'center',
     flexDirection: 'column',
-    borderRadius: 0,
     '& .hero-section': {
       height: 320,
       width: '100%',
       backgroundColor: '#3B55AB',
-      background: `url("/images/header-pattern.png") repeat top left`,
       marginBottom: 30
     }
   }

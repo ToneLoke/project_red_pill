@@ -8,7 +8,9 @@ const LeaderBoardOverview = ({ count, classes, handleChangePage }) => {
       <Typography variant="h6" className={classes.rankNum}>
         LEADERBOARD
       </Typography>
-      <Badge className={classes.badge} fontSize="large" color="secondary" badgeContent={count} />
+      <Badge className={classes.badge} fontSize="large" color="secondary" badgeContent={count}>
+        {" "}
+      </Badge>
     </div>
   );
 };
