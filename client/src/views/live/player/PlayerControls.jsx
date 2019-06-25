@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { useStore } from "../../../store";
@@ -9,15 +9,33 @@ import CheckCircle from "@material-ui/icons/Check";
 import ReadyIcon from "@material-ui/icons/HowToReg";
 import HandIcon from "@material-ui/icons/PanTool";
 import HomeIcon from "@material-ui/icons/Home";
+import CloseIcon from "@material-ui/icons/Close";
 
+const PLAYER_ACTION = "LIVE_GAME_PLAYER_UPDATE";
 const PlayerControls = () => {
   const {
-    state: { game },
+    state: { game, live, user },
     dispatch
   } = useStore();
 
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    const player = getPlayer();
+    if(!player) return;
+    setStatus(player.status);
+  }, [live]);
+
+  const getPlayer = () => live.players.find(p => p._id === user._id);
+
   const handleDispatch = payload => () => {
-    dispatch({ type: "LIVE_GAME_PLAYER_UPDATE", payload });
+    dispatch({ type: PLAYER_ACTION, payload });
+  };
+
+  const handlePlay = () => {};
+
+  const handleReady = status => () => {
+    dispatch({ type: PLAYER_ACTION, payload: { _id: user._id, status } });
   };
 
   return (
@@ -43,11 +61,19 @@ const PlayerControls = () => {
           case "pause":
             return (
               <Fragment>
-                <ActionBtn
-                  onClick={handleDispatch({ status: "ready" })}
-                  icon={<ReadyIcon />}
-                  text="READY"
-                />
+                {status === "ready" ? (
+                  <ActionBtn
+                    onClick={handleReady("not ready")}
+                    icon={<CloseIcon />}
+                    text="NOT READY"
+                  />
+                ) : (
+                  <ActionBtn
+                    onClick={handleReady("ready")}
+                    icon={<ReadyIcon />}
+                    text="READY"
+                  />
+                )}
               </Fragment>
             );
           default:

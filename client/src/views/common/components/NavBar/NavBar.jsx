@@ -41,7 +41,7 @@ const styles = {
 function TopBar(props) {
   const { classes, title, path, fullPath, showBack = true } = props;
   const {
-    state: { user },
+    state: { user, router },
     dispatch
   } = useStore();
   const [menuOpen, toggleMenu] = useState(false);
@@ -68,13 +68,16 @@ function TopBar(props) {
   };
 
   const goBack = () => {
+    let go = true
     if (
-      window.location.pathname.indexOf("live") > -1 &&
-      !window.location.search
+      router.location.pathname.indexOf("live") > -1 &&
+      !router.location.search
     ) {
-      alert("You are attempting to leave a live session, are you sure?");
+      go = window.confirm(
+        "You are attempting to leave a live session, are you sure?"
+      );
     }
-    window.history.back();
+    return go ? router.goBack() : null;
   };
   //TODO: move navigation to menu items from controls
   return (

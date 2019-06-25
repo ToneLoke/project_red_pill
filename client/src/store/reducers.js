@@ -9,13 +9,23 @@ import {
 } from "./questionActions";
 import { LIVE_GAME_REDUCER, liveInitial } from "./liveActions";
 import { storeLog } from "./index";
+
+export const ROUTER_REDUCER = (state, action) => {
+  switch (action.type) {
+    case "ROUTER_SET":
+      return { ...state, router: action.payload };
+    default:
+      return { ...state };
+  }
+};
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,
   ...gameInitial,
   ...questionInitial,
   ...liveInitial,
-  alert: null
+  alert: null,
+  router: null
 };
 
 // this will act as a map of actions that will trigger state mutations
@@ -24,7 +34,8 @@ const storeMap = {
   USER: USER_REDUCER,
   QUESTION: QUESTION_REDUCER,
   GAME: GAME_REDUCER,
-  LIVE: LIVE_GAME_REDUCER
+  LIVE: LIVE_GAME_REDUCER,
+  ROUTER: ROUTER_REDUCER
 };
 
 const fetchMap = {

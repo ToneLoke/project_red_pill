@@ -62,10 +62,27 @@ export const GAME_REDUCER = (state, action) => {
       if (action.payload.socket) {
         question = action.payload.questions[0];
       }
+      let players;
+      if (
+        state.live.players &&
+        state.live.players.length !== newGame.game.players.length
+      ) {
+        players =
+          newGame.game.players.length > 0
+            ? newGame.game.players.map(p => ({
+                _id: p._id,
+                status: ""
+              }))
+            : [];
+      } else {
+        players = [...state.live.players];
+      }
+
       return {
         ...state,
         ...newGame,
         user: { ...state.user, isAdmin },
+        live: { status: newGame.game.status, players },
         question
       };
     case GAME_CLEAR:

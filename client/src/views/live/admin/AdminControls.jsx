@@ -17,11 +17,12 @@ const AdminControls = () => {
     dispatch
   } = useStore();
 
-  const [allReady, setAllReady] = useState(false);
+  const [allReady, setAllReady] = useState(true);
   const [needsHelp, setNeedsHelp] = useState([]);
 
   useEffect(() => {
-    let readyStatus = !live.players.some(p => p.status !== "ready");
+    adminLog("before ready status", live.players);
+    let readyStatus = live.players.filter(p => p.status !== "ready").length > 0;
     let grabNeededHelp = live.players.reduce(
       (acc, curr) => (curr.status === "help" ? acc.push(curr._id) : acc),
       []
@@ -55,7 +56,7 @@ const AdminControls = () => {
                 onClick={handleDispatch({ status: "play" })}
                 icon={<PlayIcon />}
                 text="PLAY"
-                disabled={!allReady}
+                disabled={allReady}
               />
             );
           default:
