@@ -5,6 +5,7 @@
 
 .flipClock.alignCenter {
   align-items: center;
+  justify-content: center;
 }
 
 .flipClock.circle.darkBackground {
@@ -20,7 +21,6 @@
   width: 200px;
   height: 200px;
 }
-
 
 .flipClock.default {
   width: 100%;
@@ -49,16 +49,12 @@
   color: white;
 }
 
-
-
-
 .flipUnitContainer {
   display: block;
   position: relative;
   width: 125px;
   height: 70px;
 }
-
 
 .upperCard.border,
 .lowerCard.border {
@@ -75,7 +71,6 @@
   overflow: hidden;
 }
 
-
 .upperCard span,
 .lowerCard span {
   font-size: 4em;
@@ -86,7 +81,6 @@
 
 .upperCard {
   align-items: flex-end;
-
 }
 
 .upperCard.border {
@@ -166,16 +160,12 @@
   backface-visibility: hidden;
 }
 
-
 .colon {
   font-family: "Droid Sans Mono", monospace;
   font-size: 4em;
   font-weight: lighter;
   color: #333333;
 }
-
-
-
 
 .flipCard.fold {
   top: 0%;
@@ -197,15 +187,19 @@
 }
 
 .fold {
-  -webkit-animation: fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal forwards;
-  animation: fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal forwards;
+  -webkit-animation: fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1
+    normal forwards;
+  animation: fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal
+    forwards;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
 .unfold {
-  -webkit-animation: unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal forwards;
-  animation: unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal forwards;
+  -webkit-animation: unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1
+    normal forwards;
+  animation: unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 1 normal
+    forwards;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }

@@ -6,7 +6,8 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  withStyles
+  withStyles,
+  Badge
 } from "@material-ui/core";
 import styles from "./Panel.styles";
 
@@ -30,8 +31,13 @@ const Groups = ({ title, games, classes, handleClick, game, isPublic }) => {
               <ListItemText primary={`${g.title}`} secondary={secondaryText} />
               {g.players && g.players.length > 0 && (
                 <ListItemSecondaryAction>
-                  {g.players.length}
-                  <PersonIcon fontSize="small" />
+                  <PersonIcon className={classes.icon} color="primary" fontSize="large" />
+                  <Badge
+                    className={classes.badge}
+                    fontSize="large"
+                    color="secondary"
+                    badgeContent={g.players.length}
+                  />
                 </ListItemSecondaryAction>
               )}
             </ListItem>
