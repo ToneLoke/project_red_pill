@@ -1,21 +1,24 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { useStore } from '../../../store';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { Layout, ControlsBar } from '../../common/components';
-import styles from './Player.styles';
-import Question from './Question';
-import Score from './Score';
+import React from "react";
+import { Route } from "react-router-dom";
+import { useStore } from "../../../store";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { Layout, ControlsBar } from "../../common/components";
+import styles from "./Player.styles";
+import Question from "./Question";
+import PlayerControls from "./PlayerControls";
+import Score from "./Score";
 
 const Player = ({ history, classes, header }) => {
-  const { state: { game, question } } = useStore();
+  const {
+    state: { game, question }
+  } = useStore();
 
   const { status } = game;
 
   function switchView(status) {
     switch (status) {
-      case 'live':
+      case "live":
         return (
           <div className={classes.wait}>
             <Typography color="secondary" variant="body1" align="center">
@@ -23,7 +26,7 @@ const Player = ({ history, classes, header }) => {
             </Typography>
           </div>
         );
-      case 'play':
+      case "play":
         return (
           <Question
             question={question}
@@ -32,21 +35,23 @@ const Player = ({ history, classes, header }) => {
             qTotal={game.questions.length}
           />
         );
-      case 'pause':
+      case "pause":
         return (
-          <div>ADMIN HAS PAUSED GAME PLEASE WAIT...</div>
+          <div className={classes.wait}>
+            <Typography color="secondary" variant="body1" align="center">
+              Quizz session is paused it will return shortly!
+            </Typography>
+          </div>
         );
       default:
-        return (
-          <Score />
-        )
+        return <Score />;
     }
   }
 
   return (
     <Layout
       header={header}
-      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+      footer={<PlayerControls />}
     >
       {switchView(status)}
     </Layout>

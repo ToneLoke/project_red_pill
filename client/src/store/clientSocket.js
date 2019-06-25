@@ -1,4 +1,7 @@
 import io from 'socket.io-client';
+import { logger } from '../utils';
+const logSocket = logger('client:socket');
+
 const baseURL = process.env.NODE_ENV === 'production' ? '' : 'http://192.168.1.7:8000';
 const configureSocket = ({id, user}) => dispatch => {
 //======================= SOCKET CONNECTION =======================
@@ -21,7 +24,13 @@ const configureSocket = ({id, user}) => dispatch => {
   })
 
   socket.on('GAME_UPDATED', payload => {
+    logSocket('game updated: %o', payload);
     dispatch({ type: 'LIVE_GAME_UPDATED', payload });
+  });
+
+  socket.on('LIVE_GAME_PLAYER_UPDATED', payload => {
+    logSocket('live player updated: %o', payload);
+    dispatch({ type: 'LIVE_GAME_PLAYER_UPDATED', payload });
   });
 //======================= END INCOMING FORM SERVER =======================
 //======================= ADMIN EMITIONS =======================

@@ -10,7 +10,7 @@ import { Paper } from "@material-ui/core";
 
 // import internal
 import { useStore } from "../../store";
-import { Layout, Actions, ActionBtn } from "../common/components";
+import { Layout, Actions, ActionBtn, NavBar } from "../common/components";
 import { getParameterByName } from "../common/helpers";
 import PrivateGames from "./PrivateGames";
 import PublicGames from "./PublicGames";
@@ -64,6 +64,13 @@ const Panel = ({ classes, history }) => {
     </Layout>
   ) : Object.keys(games).length === 0 ? (
     <Layout
+      header={
+        <NavBar
+          title={`${(page || "loading").toUpperCase()} GAMES`}
+          path={path}
+          fullPath={fullPath}
+        />
+      }
       footer={
         <Actions>
           <ActionBtn

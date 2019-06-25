@@ -7,9 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PublishedIcon from '@material-ui/icons/Book';
 import Settings from '@material-ui/icons/Settings';
 import ViewList from '@material-ui/icons/ViewList';
-import CheckCircle from '@material-ui/icons/Check';
-import ReadyIcon from '@material-ui/icons/HowToReg';
-import HandIcon from '@material-ui/icons/PanTool';
+
 import AppIcon from '@material-ui/icons/AppsRounded';
 import QuestionsIcon from '@material-ui/icons/ListAltRounded';
 

@@ -7,13 +7,14 @@ import {
   QUESTION_REDUCER,
   QUESTION_REQUESTS
 } from "./questionActions";
-import { LIVE_GAME_REDUCER } from "./liveActions";
+import { LIVE_GAME_REDUCER, liveInitial } from "./liveActions";
 import { storeLog } from "./index";
 // we'll leave this empty for now
 export const initialState = {
   ...userInitial,
   ...gameInitial,
   ...questionInitial,
+  ...liveInitial,
   alert: null
 };
 

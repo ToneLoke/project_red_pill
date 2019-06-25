@@ -26,12 +26,14 @@ class QuestionController extends AppController {
   }
 
   async createQuestions(req, res, next) {
-    const findFile = new Promise((resolve,reject) => {
-      const questions = []
-       fs.createReadStream(__dirname + "/question-data.csv")
+    const findFile = new Promise((resolve, reject) => {
+      const questions = [];
+      fs.createReadStream(__dirname + "/question-data.csv")
         .pipe(csv())
         .on("data", row => {
           console.log(row);
+          row.choices = row.choices.split(',');
+          row.answers = row.answers.split(',');
           questions.push(row);
         })
         .on("end", () => {
@@ -41,7 +43,7 @@ class QuestionController extends AppController {
         .on("error", e => {
           console.log("ERROR READING CSV", e);
           reject(e);
-        })
+        });
     });
 
     try {

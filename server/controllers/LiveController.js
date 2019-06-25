@@ -1,4 +1,4 @@
-const AppController = require('./AppController');
+const AppController = require("./AppController");
 
 class LiveController extends AppController {
   // eslint-disable-next-line no-useless-constructor
@@ -14,25 +14,37 @@ class LiveController extends AppController {
     try {
       const game = await this._model
         .findOne({ _id: this.gameId })
-        .populate('adminId')
-        .populate('questions');
+        .populate("adminId")
+        .populate("questions");
       console.log(game.adminId._id);
       if (socket.user._id != game.adminId._id) game.addPlayer(socket.user);
-      this.io.emit('NEW_PLAYER', socket.user.username);
-      this.io.emit('connected', game);
+      this.io.emit("NEW_PLAYER", socket.user.username);
+      this.io.emit("connected", game);
     } catch (error) {
-      console.log('ERROR', error);
+      console.log("ERROR", error);
     }
   }
   async updateGame(update) {
     try {
       const game = await this._model
-        .findOneAndUpdate({ _id: this.gameId }, { ...update})
-        .populate('adminId')
-        .populate('questions');
-      this.io.emit('GAME_UPDATED', game)
+        .findOneAndUpdate({ _id: this.gameId }, { ...update }, { new: true })
+        .populate("adminId")
+        .populate("questions");
+      this.io.emit("GAME_UPDATED", game);
     } catch (error) {
-      console.log('ERROR', error);
+      console.log("ERROR", error);
+    }
+  }
+  async updatePlayer(update) {
+    try {
+      const game = await this._model
+        .findOne({ _id: this.gameId })
+
+      
+
+      this.io.emit("GAME_UPDATED", game);
+    } catch (error) {
+      console.log("ERROR", error);
     }
   }
 }

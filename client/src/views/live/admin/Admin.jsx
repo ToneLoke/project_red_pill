@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
-import { Layout, ControlsBar } from '../../common/components';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { LeaderBoard, Questions, Timer } from '../../common/components';
+import { Layout, LeaderBoard, Questions, Timer } from '../../common/components';
 import Overview from './Overview';
+import AdminControls from './AdminControls';
 import styles from './Admin.styles';
 
 const componentsList = {
@@ -19,7 +18,7 @@ const Admin = ({ classes, header }) => {
   return (
     <Layout
       header={header}
-      footer={<Route key="/control-bar" path="/" component={ControlsBar} />}
+      footer={<AdminControls />}
     >
       <div className={classes.container}>
         <Typography variant="subtitle1" color="secondary">

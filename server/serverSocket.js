@@ -1,5 +1,5 @@
-const GameModel = require('./models/Game');
-const LiveController = require('./controllers/LiveController');
+const GameModel = require("./models/Game");
+const LiveController = require("./controllers/LiveController");
 //======================= CONFIGURE SOCKET FOR EACH PUBLISHED GAME =======================
 
 module.exports = function setupGameSocket(gameIO, id) {
@@ -11,15 +11,22 @@ module.exports = function setupGameSocket(gameIO, id) {
       socket.user = { _id, username };
       return next();
     } else {
-      console.log('FAILED');
-      return next(new Error('no user in socket'));
+      console.log("FAILED");
+      return next(new Error("no user in socket"));
     }
   });
 
-  gameIO.on('connection', (socket) => {
+  gameIO.on("connection", socket => {
     liveCtrl.connected(socket);
-    socket.on('LIVE_GAME_UPDATE', (data) => {
-        liveCtrl.updateGame(data);
+    socket.on("LIVE_GAME_UPDATE", data => {
+      console.log("UPDATING LIVE GAME", data);
+      liveCtrl.updateGame(data);
+    });
+    socket.on("LIVE_GAME_PLAYER_UPDATE", data => {
+      console.log("UPDATING LIVE PLAYER", data);
+      gameIO.emit("LIVE_GAME_PLAYER_UPDATED", data);
+      //TODO: decide what and when player info should be saved.
+      // liveCtrl.updatePlayer(data);
     });
   });
-}
+};

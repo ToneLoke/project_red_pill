@@ -114,7 +114,7 @@ function TopBar(props) {
         <Links links={links} closeMenu={setMenu} />
         {!isEmpty(user) && (
           <MenuItem selected={false} onClick={logout}>
-            Logout
+            {`LOGOUT ${user.username || "?"}`}
           </MenuItem>
         )}
       </Menu>
