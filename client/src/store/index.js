@@ -1,20 +1,26 @@
 import React, { useCallback, createContext, useReducer, useContext } from 'react';
-import reducers, { initialState } from './reducers';
+import { initialState, reducers, requests } from './reducers';
+import { logger } from '../utils';
 
-//TODO: change api calls to reducer
+export const storeLog = logger('STORE');
+const actionLog = logger('ACTION');
+
 const Store = createContext();
-//TODO: FIGURE OUT SOME TYPE OF MIDDLEWARE from the above commented code.
+
 const Provider = (props) => {
   const { children } = props;
   const [state, dispatcher] = useReducer(reducers, initialState);
-  const customDispatch = useCallback(async (action, isReq = false) => {
-    if (isReq) {
+  //NOTE: Work around for sending API calls in useReducer hook
+  const customDispatch = useCallback(async (action, isPreFetch = false) => {
+    if (isPreFetch) {
       try {
-        const { data } = await reducers(null, action)(action.payload);
+        actionLog('API REQUEST SENT %o', action)
+        const { data } = await requests(action)(action.payload)
+        actionLog('API REQUEST RECIEVED %o', data);
         dispatcher({ type: action.type, payload: data });
       } catch (e) {
-        console.log('==================REQUEST ERROR=============================');
-        console.log(e, e.response);
+        //NOTE: custom error from server
+        actionLog('API REQUEST ERROR %o', e);
         if (e.response && e.response.status) {
           if (e.response.data === 401) localStorage.removeItem('token');
           dispatcher({
@@ -22,6 +28,7 @@ const Provider = (props) => {
             payload: { alert: { message: e.response.data.message } }
           });
         } else {
+          //NOTE: unknown error
           dispatcher({
             type: 'ALERT_ERROR',
             payload: {
@@ -33,11 +40,12 @@ const Provider = (props) => {
         }
       }
     } else {
-      // Not a special case(API CALL), dispatch the action
-      console.log('NORMAL ACTION UPDATE');
+      //NOTE: Not a special case(API CALL), dispatch the action
+      actionLog('NORMAL DISPATCH %o', action)
       dispatcher(action);
     }
   }, []);
+  //TIP: maybe convert to flatter object or array
   const store = { state, dispatch: customDispatch };
   return <Store.Provider value={store}>{children}</Store.Provider>;
 };

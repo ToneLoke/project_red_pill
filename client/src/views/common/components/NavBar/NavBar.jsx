@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Links from "../Links";
 import { useStore } from "../../../../store";
 import controls from "../../controls";
+import { isEmpty } from "../../helpers";
 
 const styles = {
   root: {
@@ -22,6 +23,7 @@ const styles = {
   },
   grow: {
     // flexGrow: 1,
+    marginLeft: "8px"
   },
   menuButton: {
     // marginLeft: -12,
@@ -29,32 +31,30 @@ const styles = {
   },
   toolbar: {
     height: 64,
-    background: `url("/images/header-pattern.png") repeat top left`,
     padding: 0,
     justifyContent: "space-between"
   }
 };
 
-// const { state, dispatch } = useStore();
-// const fullPath = history.location.pathname + history.location.search
-// //NOTE: helper to check if any field in the given state is empty
-// const isEmpty = state =>  !state || Object.values(state).some(x => (x === null || x === ''));
 // //======================= Find the controls to display based off the current url =======================
 
 function TopBar(props) {
-  const { classes, title, path, fullPath } = props;
-  const { dispatch } = useStore();
+  const { classes, title, path, fullPath, showBack = true } = props;
+  const {
+    state: { user, router },
+    dispatch
+  } = useStore();
   const [menuOpen, toggleMenu] = useState(false);
   const [anchorEl, setAnchor] = useState(null);
 
   let links = controls.nav[path] || null;
   //NOTE: add extra field to detect if current route (change btn color)
   if (links)
-    links = links.map((l) =>
+    links = links.map(l =>
       l.to === fullPath ? { ...l, selected: true } : { ...l, selected: false }
     );
 
-  const setMenu = (e) => {
+  const setMenu = e => {
     if (anchorEl) {
       setAnchor(null);
     } else {
@@ -68,24 +68,32 @@ function TopBar(props) {
   };
 
   const goBack = () => {
-    if (window.location.pathname.indexOf('live') > -1 && !window.location.search){
-      dispatch({ type: 'GAME_CLEAR', payload: null })
+    let go = true
+    if (
+      router.location.pathname.indexOf("live") > -1 &&
+      !router.location.search
+    ) {
+      go = window.confirm(
+        "You are attempting to leave a live session, are you sure?"
+      );
     }
-    window.history.back()
-  }
+    return go ? router.goBack() : null;
+  };
   //TODO: move navigation to menu items from controls
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            className={classes.backBtn}
-            color="inherit"
-            aria-label="Back"
-            onClick={goBack}
-          >
-            <BackIcon />
-          </IconButton>
+          {showBack && (
+            <IconButton
+              className={classes.backBtn}
+              color="inherit"
+              aria-label="Back"
+              onClick={goBack}
+            >
+              <BackIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
           </Typography>
@@ -107,9 +115,11 @@ function TopBar(props) {
         TransitionComponent={Fade}
       >
         <Links links={links} closeMenu={setMenu} />
-        <MenuItem selected={false} onClick={logout}>
-          Logout
-        </MenuItem>
+        {!isEmpty(user) && (
+          <MenuItem selected={false} onClick={logout}>
+            {`LOGOUT ${user.username || "?"}`}
+          </MenuItem>
+        )}
       </Menu>
     </div>
   );

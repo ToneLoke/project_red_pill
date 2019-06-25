@@ -1,2 +1,3 @@
 export { default as ErrorTracker } from './AppError';
-export { default as useTimer } from './timerHook.jsx'
+//NOTE:DEBUG: to turn on in browser use localStorage.debug = "*, -sockjs-client:*, -*socket*, -*polling*""
+export { default as logger } from 'debug';

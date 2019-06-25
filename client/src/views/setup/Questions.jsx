@@ -8,11 +8,9 @@ import { ListItemSecondaryAction, Checkbox, Paper, List, ListItem, ListItemText 
 
 const styles = theme => ({
   container: {
-    width: '100%',
-    flexGrow: 1,
     display: 'flex',
-    alignItems: 'center',
     flexDirection: 'column',
+    minHeight: '100%'
   },
   btnWrapper: {
     width: '90%',

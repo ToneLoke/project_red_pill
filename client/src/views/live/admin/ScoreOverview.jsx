@@ -10,11 +10,12 @@ const ScoreOverview = ({ score, classes, visType, playerCount }) => {
   const { pass, fail, queue } = score;
   return (
     <div className={`${classes.scoreOverview} ${classes.bgWhite}`}>
-      <Typography variant="h6" className={classes.rankNum}>
-        SCORE
-      </Typography>
-
-      {visType.map((type) => {
+      <div className={classes.status}>
+        <Typography variant="h6" className={classes.rankNum}>
+          STATUS
+        </Typography>
+      </div>
+      {visType.map(type => {
         if (type === "bar") {
           return (
             <BarStack

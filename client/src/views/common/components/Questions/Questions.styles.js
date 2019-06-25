@@ -1,10 +1,8 @@
 const styles = (theme) => ({
   container: {
-    width: '100%',
-    flexGrow: 1,
     display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minHeight: '100%'
   },
   btnWrapper: {
     width: '90%'
@@ -13,3 +11,5 @@ const styles = (theme) => ({
     width: '100%'
   }
 });
+
+export default styles;

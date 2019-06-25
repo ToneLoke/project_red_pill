@@ -1,20 +1,23 @@
-import axios from './axiosConfig';
+import axios from "./axiosConfig";
+// import { logger } from '../utils';
+// const gameDataLog = logger('GAME_ACTIONS');
 
 export const gameInitial = {
   game: null,
   games: null
 };
-const GAME_API = '/games';
+const GAME_API = "/games";
 
 //======================= ACTION CONSTANTS =======================
-export const GAME_SET = 'GAME_SET';
-export const GAME_CLEAR = 'GAME_CLEAR';
-export const GAME_FETCH_ALL = 'GAME_FETCH_ALL';
-export const GAME_CREATE_UPDATE = 'GAME_CREATE_UPDATE';
+export const GAME_SET = "GAME_SET";
+export const GAME_CLEAR = "GAME_CLEAR";
+export const GAME_FETCH_ALL = "GAME_FETCH_ALL";
+export const GAME_CREATE_UPDATE = "GAME_CREATE_UPDATE";
 
-export const setGame = ({ payload }) => ({ game: payload });
+export const setGame = ({ update, game }) => ({ game: { ...game, ...update } });
+
 //TODO: update games when update or create is called
-export const createOrUpdateGame = async (body) => {
+export const createOrUpdateGame = async body => {
   const { _id } = body;
   if (_id) {
     return await axios.put(GAME_API + `/${_id}`, { ...body });
@@ -31,44 +34,73 @@ export const updateStoreGames = (games, game) => {
   if (!games) {
     return [game];
   } else {
-    console.log('game', game);
-    return games.map((g) => (g._id === game._id ? game : g));
+    return games.map(g => (g._id === game._id ? game : g));
   }
 };
 
-export const GAME_REDUCER = (action, state) => {
+export const GAME_REQUESTS = type => {
+  switch (type) {
+    case GAME_FETCH_ALL:
+      return fetchGames;
+    case GAME_CREATE_UPDATE:
+      return createOrUpdateGame;
+    default:
+      return Promise.reject(new Error("No game request."));
+  }
+};
+
+export const GAME_REDUCER = (state, action) => {
   switch (action.type) {
     case GAME_SET:
-      let stateUpdate = setGame(action);
+      let newGame = setGame({ update: action.payload, game: state.game });
       let isAdmin, question;
-
+      //NOTE: set game admin
       if (state.user._id === action.payload.adminId._id) {
         isAdmin = true;
       }
-
+      //NOTE: set first question
       if (action.payload.socket) {
         question = action.payload.questions[0];
       }
+      let players;
+      if (
+        state.live.players &&
+        state.live.players.length !== newGame.game.players.length
+      ) {
+        players =
+          newGame.game.players.length > 0
+            ? newGame.game.players.map(p => ({
+                _id: p._id,
+                status: ""
+              }))
+            : [];
+      } else {
+        players = [...state.live.players];
+      }
 
-      return { ...stateUpdate, user: { ...state.user, isAdmin }, question };
+      return {
+        ...state,
+        ...newGame,
+        user: { ...state.user, isAdmin },
+        live: { status: newGame.game.status, players },
+        question
+      };
     case GAME_CLEAR:
       return { game: { ...gameInitial } };
     case GAME_FETCH_ALL:
-      if (state) return { games: action.payload };
-      return fetchGames;
+      return { games: action.payload };
     case GAME_CREATE_UPDATE:
-      if (state) {
-        const user = state.user;
-        if (!state.game || !state.game._id) {
-          user.games = user.games ? [...user.games, action.payload] : [action.payload];
-        }
-        return {
-          game: { ...state.game, ...action.payload },
-          games: updateStoreGames(state.games, action.payload),
-          user: { ...user, games: updateStoreGames(user.games, action.payload) }
-        };
+      const user = state.user;
+      if (!state.game || !state.game._id) {
+        user.games = user.games
+          ? [...user.games, action.payload]
+          : [action.payload];
       }
-      return createOrUpdateGame;
+      return {
+        game: { ...state.game, ...action.payload },
+        games: updateStoreGames(state.games, action.payload),
+        user: { ...user, games: updateStoreGames(user.games, action.payload) }
+      };
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getToken = () => sessionStorage.getItem('token');
-const baseURL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8000/api';
+const baseURL = process.env.NODE_ENV === 'production' ? '/api' : `http://${ process.env.IP || 'localhost:8000'}/api`;
 const http = axios.create({
   baseURL,
   timeout: 10000,
@@ -15,7 +15,7 @@ http.interceptors.request.use(
     return config;
   },
   function(error) {
-    console.log('ERROR IN INTERCEPTOR AXIOS');
+    console.error('ERROR IN INTERCEPTOR AXIOS');
     return Promise.reject(error);
   }
 );
