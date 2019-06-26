@@ -31,13 +31,14 @@ const Groups = ({ title, games, classes, handleClick, game, isPublic }) => {
               <ListItemText primary={`${g.title}`} secondary={secondaryText} />
               {g.players && g.players.length > 0 && (
                 <ListItemSecondaryAction>
-                  <PersonIcon className={classes.icon} color="primary" fontSize="large" />
                   <Badge
                     className={classes.badge}
                     fontSize="large"
                     color="secondary"
                     badgeContent={g.players.length}
-                  />
+                  >
+                    <PersonIcon className={classes.icon} color="primary" fontSize="large" />
+                  </Badge>
                 </ListItemSecondaryAction>
               )}
             </ListItem>

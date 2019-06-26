@@ -1,9 +1,8 @@
-import React from "react";
-import { Route } from "react-router-dom";
+import React, { useState } from "react";
 import { useStore } from "../../../store";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Layout, ControlsBar } from "../../common/components";
+import { Layout } from "../../common/components";
 import styles from "./Player.styles";
 import Question from "./Question";
 import PlayerControls from "./PlayerControls";
@@ -11,10 +10,13 @@ import Score from "./Score";
 
 const Player = ({ history, classes, header }) => {
   const {
-    state: { game, question }
+    state: { game, live, user, question }
   } = useStore();
-
+  const [selected, setSelected] = useState();
   const { status } = game;
+
+  const getPlayer = () => live.players.find(p => p._id === user._id);
+  const getIsAnswered = () => !!getPlayer().answers.find(a => a.q_id === question._id);
 
   function switchView(status) {
     switch (status) {
@@ -33,6 +35,9 @@ const Player = ({ history, classes, header }) => {
             answers={game.questions[game.qNum].answers}
             qNum={game.qNum}
             qTotal={game.questions.length}
+            selected={selected}
+            onSelectedChange={setSelected}
+            isAnswered={getIsAnswered()}
           />
         );
       case "pause":
@@ -51,7 +56,14 @@ const Player = ({ history, classes, header }) => {
   return (
     <Layout
       header={header}
-      footer={<PlayerControls />}
+      footer={
+        <PlayerControls
+          selected={selected}
+          status={status}
+          player={getPlayer()}
+          isAnswered={getIsAnswered()}
+        />
+      }
     >
       {switchView(status)}
     </Layout>
