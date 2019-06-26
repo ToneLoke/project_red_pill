@@ -39,12 +39,20 @@ const getStatus = (me, selected, answers, sent) => {
   return "idle";
 };
 
-const Question = ({ classes, question, qNum, qTotal, answers }) => {
+const Question = ({
+  classes,
+  question,
+  qNum,
+  qTotal,
+  answers,
+  selected,
+  onSelectedChange,
+  isAnswered
+}) => {
   // TODO: `sent` and `setSent` should come from the store, `sent` should be set
   // to true by the "Ready" button at the footer
   const [sent, setSent] = useState(false);
 
-  const [selected, setSelected] = useState();
   const [secondsLeft, setSecondsLeft] = useState(question.maxTime);
   useEffect(() => {
     if (sent) return;
@@ -55,6 +63,9 @@ const Question = ({ classes, question, qNum, qTotal, answers }) => {
 
       if (next === 0) {
         setSent(true);
+        if (!isAnswered) {
+          onSelectedChange(null);
+        }
       }
     }, 250);
 
@@ -83,8 +94,12 @@ const Question = ({ classes, question, qNum, qTotal, answers }) => {
           return (
             <Option
               key={key}
-              status={getStatus(key, selected, answers, sent)}
-              onClick={sent ? null : () => setSelected(key)}
+              status={getStatus(key.toString(), selected, answers, sent)}
+              onClick={
+                sent || isAnswered
+                  ?  null
+                  : () => onSelectedChange(key.toString())
+              }
             >
               {opt}
             </Option>
