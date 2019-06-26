@@ -1,3 +1,4 @@
+import isNil from 'lodash/isNil';
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -12,21 +13,11 @@ import HomeIcon from "@material-ui/icons/Home";
 import CloseIcon from "@material-ui/icons/Close";
 
 const PLAYER_ACTION = "LIVE_GAME_PLAYER_UPDATE";
-const PlayerControls = () => {
+const PlayerControls = ({ status, selected, player, isAnswered }) => {
   const {
-    state: { game, live, user },
+    state: { game, user, question },
     dispatch
   } = useStore();
-
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    const player = getPlayer();
-    if(!player) return;
-    setStatus(player.status);
-  }, [live]);
-
-  const getPlayer = () => live.players.find(p => p._id === user._id);
 
   const handleDispatch = payload => () => {
     dispatch({ type: PLAYER_ACTION, payload });
@@ -46,9 +37,16 @@ const PlayerControls = () => {
             return (
               <Fragment>
                 <ActionBtn
-                  onClick={handleDispatch({ status: "submit" })}
+                  onClick={handleDispatch({
+                    status: "submit",
+                    answers: [
+                      ...player.answers,
+                      {q_id:  question._id, submission: [selected]}
+                    ]
+                  })}
                   icon={<CheckCircle />}
                   text="SUBMIT"
+                  disabled={isNil(selected) || isAnswered}
                 />
                 <ActionBtn
                   onClick={handleDispatch({ status: "help" })}

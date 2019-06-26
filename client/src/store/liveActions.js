@@ -23,7 +23,7 @@ export const LIVE_GAME_REDUCER = (state, action) => {
       return { ...state };
     case "LIVE_GAME_UPDATED":
       let players;
-      if (state.live.players.length !== state.game.players) {
+      if (state.live.players.length !== state.game.players.length) {
         players =
           state.game.players > 0
             ? state.game.players.map(p => ({ _id: p._id, status: "" }))
@@ -41,7 +41,7 @@ export const LIVE_GAME_REDUCER = (state, action) => {
       if (state.live.players.length > 0) {
         updatedPlayers = state.live.players.map(p =>
           p._id === action.payload._id
-            ? { ...p, status: action.payload.status }
+            ? { ...p, ...action.payload }
             : p
         );
       } else {

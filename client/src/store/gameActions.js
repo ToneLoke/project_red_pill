@@ -71,7 +71,8 @@ export const GAME_REDUCER = (state, action) => {
           newGame.game.players.length > 0
             ? newGame.game.players.map(p => ({
                 _id: p._id,
-                status: ""
+                status: "",
+                answers: []
               }))
             : [];
       } else {
