@@ -1,5 +1,7 @@
 export default {
   container: {
+    height: '70px',
+    weight: '70px',
     position: 'fixed',
     bottom: '10%',
     left: '45%',
