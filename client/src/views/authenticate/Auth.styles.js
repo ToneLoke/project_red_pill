@@ -1,26 +1,17 @@
 const authStyles = (theme) => ({
-  header: {
-    minHeight: '50px',
-    minWidth: '100%',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white'
-  },
   textField: {
     minWidth: '90%',
-    marginBottom: '30px'
+    margin: '11px'
   },
   form: {
-    minHeight: '100%',
     display: 'flex',
-    alignItems: 'center',
+    flex: '1 0',
     flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
+    margin: '8px',
+    padding: '16px'
   },
-  heroSection: {
-    minHeight: '320px',
-    minWidth: '100%',
-    backgroundColor: '#3B55AB',
-    marginBottom: '30px'
-  }
 });
 
 export default authStyles;

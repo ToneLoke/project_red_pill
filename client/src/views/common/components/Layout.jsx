@@ -9,6 +9,10 @@ const styles = (theme) => ({
     overflow: 'hidden'
   },
   content: {
+    display: 'flex',
+    flex: '1 0',
+    flexFlow: 'row wrap',
+    alignContent: 'center',
     overflow: 'auto',
   }
 });

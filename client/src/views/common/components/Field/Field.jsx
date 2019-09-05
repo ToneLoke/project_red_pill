@@ -29,7 +29,6 @@ const Field = ({ bubbleUp, ...rest }) => {
     const validError = validate({ [name]: state }, constraints)
     if (validError && touched) {
       const errors = validError[name];
-      console.log('validation', validError[name])
       if (errors && errors.length > 1) {
         setError(errors[0])
       } else {

@@ -73,7 +73,6 @@ const Auth = ({ classes, history }) => {
       footer={<ActionsBar isLogin={isLogin} dispatch={dispatch} user={user} />}
     >
       <Paper className={classes.form}>
-        <div className={classes.heroSection} />
         <Field
           value={user ? user.username : ""}
           className={classes.textField}
