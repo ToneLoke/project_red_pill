@@ -84,7 +84,7 @@ function TopBar(props) {
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar className={classes.toolbar}>
-          {showBack && (
+          {showBack ? (
             <IconButton
               className={classes.backBtn}
               color="inherit"
@@ -93,7 +93,7 @@ function TopBar(props) {
             >
               <BackIcon />
             </IconButton>
-          )}
+          ) : (<div />)}
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {title}
           </Typography>
