@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Option from "./Option";
-import Timer from "./Timer";
+import Option from "./presentational/Option";
+import Timer from "./presentational/Timer";
 
 const styles = theme => ({
   container: {

@@ -1,5 +1,5 @@
 import isNil from 'lodash/isNil';
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { useStore } from "../../../store";
@@ -23,8 +23,6 @@ const PlayerControls = ({ status, selected, player, isAnswered }) => {
     dispatch({ type: PLAYER_ACTION, payload });
   };
 
-  const handlePlay = () => {};
-
   const handleReady = status => () => {
     dispatch({ type: PLAYER_ACTION, payload: { _id: user._id, status } });
   };
@@ -41,7 +39,7 @@ const PlayerControls = ({ status, selected, player, isAnswered }) => {
                     status: "submit",
                     answers: [
                       ...player.answers,
-                      {q_id:  question._id, submission: [selected]}
+                      { q_id: question._id, submission: [selected] }
                     ]
                   })}
                   icon={<CheckCircle />}
@@ -66,12 +64,12 @@ const PlayerControls = ({ status, selected, player, isAnswered }) => {
                     text="NOT READY"
                   />
                 ) : (
-                  <ActionBtn
-                    onClick={handleReady("ready")}
-                    icon={<ReadyIcon />}
-                    text="READY"
-                  />
-                )}
+                    <ActionBtn
+                      onClick={handleReady("ready")}
+                      icon={<ReadyIcon />}
+                      text="READY"
+                    />
+                  )}
               </Fragment>
             );
           default:

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import SendIcon from "@material-ui/icons/Send";
@@ -34,13 +33,13 @@ const ActionsBar = ({ isLogin, dispatch, user }) => {
           onClick={handleClick}
         />
       ) : (
-        <ActionBtn
-          disabled={missingData}
-          text="SIGN UP"
-          icon={<CheckCircle />}
-          onClick={handleClick}
-        />
-      )}
+          <ActionBtn
+            disabled={missingData}
+            text="SIGN UP"
+            icon={<CheckCircle />}
+            onClick={handleClick}
+          />
+        )}
     </Actions>
   );
 };
@@ -74,7 +73,7 @@ const Auth = ({ classes, history }) => {
       footer={<ActionsBar isLogin={isLogin} dispatch={dispatch} user={user} />}
     >
       <Paper className={classes.form}>
-        <div className="hero-section" />
+        <div className={classes.heroSection} />
         <Field
           value={user ? user.username : ""}
           className={classes.textField}

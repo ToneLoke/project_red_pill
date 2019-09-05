@@ -6,7 +6,7 @@ import { Layout } from "../../common/components";
 import styles from "./Player.styles";
 import Question from "./Question";
 import PlayerControls from "./PlayerControls";
-import Score from "./Score";
+import Score from "./presentational/Score";
 
 const Player = ({ history, classes, header }) => {
   const {

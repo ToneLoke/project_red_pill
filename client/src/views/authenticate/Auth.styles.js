@@ -14,12 +14,12 @@ const authStyles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    '& .hero-section': {
-      height: 320,
-      width: '100%',
-      backgroundColor: '#3B55AB',
-      marginBottom: 30
-    }
+  },
+  heroSection: {
+    height: 320,
+    width: '100%',
+    backgroundColor: '#3B55AB',
+    marginBottom: 30
   }
 });
 

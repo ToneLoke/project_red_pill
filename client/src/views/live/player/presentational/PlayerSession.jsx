@@ -9,7 +9,7 @@ import Answers from './player/Answers';
 import styles from './GameInfo.styles';
 
 const PlayerSession = (props) => {
-  const { game, classes, timesUp, endUser, question, handleAnswer } = props;
+  const { game, classes, question, handleAnswer } = props;
   return (
     <div className={classes.playerSession}>
       <Answers

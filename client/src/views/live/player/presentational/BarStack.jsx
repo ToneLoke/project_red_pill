@@ -20,7 +20,7 @@ const data = [
 ];
 
 const renderCustomizedLabel = (props) => {
-  const { x, y, width, height, value, playerCount } = props;
+  const { x, y, width, value, playerCount } = props;
 
   return (
     <g>
