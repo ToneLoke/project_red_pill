@@ -14,7 +14,7 @@ const RouteConfig = () => {
             loggedIn ? (
               <Redirect to="/games?type=draft" />
             ) : (
-              <Redirect to='/authenticate?type=register' />
+              <Redirect to='/authenticate?type=login' />
             )
           )}/>
           <InnerRouter />
