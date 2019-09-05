@@ -27,9 +27,14 @@ const Field = ({ bubbleUp, ...rest }) => {
 
   useEffect(() => {
     const validError = validate({ [name]: state }, constraints)
-    if (validError[name] && touched) {
+    if (validError && touched) {
+      const errors = validError[name];
       console.log('validation', validError[name])
-      setError(validError[name][0]);
+      if (errors && errors.length > 1) {
+        setError(errors[0])
+      } else {
+        setError(errors);
+      }
     }
   }, [state, touched])
 

@@ -9,7 +9,6 @@ const styles = (theme) => ({
     overflow: 'hidden'
   },
   content: {
-    flex: '1 0',
     overflow: 'auto',
   }
 });
