@@ -40,7 +40,7 @@ app.use(`${base}/games`, apiService.gameRoutes(io));
 
 if (process.env.NODE_ENV === 'production') {
   // REACT STATIC RENDER
-  console.log('STATIC RENDER *********')
+  console.log('STATIC RENDER *********');
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
     res.sendfile(path.join(__dirname, 'client/build', 'index.html'));

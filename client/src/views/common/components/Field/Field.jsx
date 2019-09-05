@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import validate from 'validate.js'
 import { constraints } from '../../../../utils/validations'
 import Input from '../Input';
@@ -14,30 +14,30 @@ const Field = ({ bubbleUp, ...rest }) => {
   }
 
   const handleBlur = e => {
-    if(error){
+    if (error) {
       console.log(`Error from field:`, e.target.name)
-    }else{
+    } else {
       bubbleUp(e)
     }
   }
 
   const handleFocus = () => {
-    if(!touched) setTouched(true)
+    if (!touched) setTouched(true)
   }
 
   useEffect(() => {
-    const validError = validate({ [name]: state}, constraints)
+    const validError = validate({ [name]: state }, constraints)
     if (validError && touched) {
-      setError(validError[name]);
+      setError(validError[name][0]);
     }
   }, [state, touched])
 
-  const mergeProps = {  ...rest, onChange: handleChange, onFocus: handleFocus, onBlur: handleBlur, error: !!error , helperText: error, value: state }
+  const mergeProps = { ...rest, onChange: handleChange, onFocus: handleFocus, onBlur: handleBlur, error: !!error, helperText: error, value: state }
 
   return (
-      <Fragment>
-          <Input {...mergeProps} />
-      </Fragment>
+    <Fragment>
+      <Input {...mergeProps} />
+    </Fragment>
   )
 }
 

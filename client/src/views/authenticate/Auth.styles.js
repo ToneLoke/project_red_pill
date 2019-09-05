@@ -1,25 +1,25 @@
 const authStyles = (theme) => ({
   header: {
-    height: '50px',
-    width: '100%',
+    minHeight: '50px',
+    minWidth: '100%',
     backgroundColor: theme.palette.primary.main,
     color: 'white'
   },
   textField: {
-    width: '90%',
-    marginBottom: 40
+    minWidth: '90%',
+    marginBottom: '30px'
   },
   form: {
-    height: '100%',
+    minHeight: '100%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
   },
   heroSection: {
-    height: 320,
-    width: '100%',
+    minHeight: '320px',
+    minWidth: '100%',
     backgroundColor: '#3B55AB',
-    marginBottom: 30
+    marginBottom: '30px'
   }
 });
 
