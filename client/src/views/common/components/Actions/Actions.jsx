@@ -6,11 +6,9 @@ import { useStyles } from "../../useStyles";
 export const ActionBtn = ({ icon, text, ...other }) => {
   const classes = useStyles(styles);
   return (
-    <div className={classes.btnWrapper}>
-      <Fab color="secondary" size="large" className={classes.action} {...other}>
-        {icon}
-      </Fab>
-    </div>
+    <Fab color="secondary" className={classes.action} {...other}>
+      {icon}
+    </Fab>
   );
 };
 

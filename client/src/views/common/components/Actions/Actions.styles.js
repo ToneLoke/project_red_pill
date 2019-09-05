@@ -1,10 +1,8 @@
 export default {
   container: {
-    height: '70px',
-    weight: '70px',
     position: 'fixed',
     bottom: '10%',
-    left: '45%',
+    left: '40%',
     display: "flex",
     justifyContent: "space-around"
   },
@@ -12,6 +10,7 @@ export default {
     textAlign: "center"
   },
   action: {
-    padding: '16px'
+    height: '70px',
+    width: '70px',
   }
 };
