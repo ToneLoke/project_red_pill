@@ -1,10 +1,11 @@
 const styles = theme => ({
   centered: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%",
-    flexDirection: "column"
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
   },
   live: {
     color: "green",

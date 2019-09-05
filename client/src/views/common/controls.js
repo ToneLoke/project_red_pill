@@ -70,7 +70,7 @@ export default {
         component: Link,
         icon: EditIcon,
         key: "draft-games-btn",
-        text: "PRIVATE GAMES",
+        text: "private",
         to: "/games?type=draft"
       },
       {
@@ -85,7 +85,7 @@ export default {
         component: Link,
         icon: PublishedIcon,
         key: "publised-games-btn",
-        text: "PUBLIC GAMES",
+        text: "public",
         to: "/games?type=public"
       }
     ],

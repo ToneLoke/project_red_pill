@@ -66,7 +66,7 @@ const Panel = ({ classes, history }) => {
     <Layout
       header={
         <NavBar
-          title={`${(page || "loading").toUpperCase()} GAMES`}
+          title={`${(page || "loading").toUpperCase()}`}
           path={path}
           fullPath={fullPath}
         />
@@ -83,17 +83,17 @@ const Panel = ({ classes, history }) => {
       }
     >
       <Paper className={classes.centered}>
-        <Typography variant="body2" color="inherit">
-          There are no games found.
+          <Typography variant="body2" color="inherit">
+            There are no sessions found.
         </Typography>
-        <Typography variant="body2" color="inherit">
-          Create one by pressing '+' below.
+          <Typography variant="body2" color="inherit">
+            Create one by pressing '+' below.
         </Typography>
       </Paper>
     </Layout>
   ) : (
-    <Component {...passProps} />
-  );
+        <Component {...passProps} />
+      );
 };
 
 export default withStyles(styles)(Panel);

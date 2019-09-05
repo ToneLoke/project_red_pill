@@ -1,5 +1,8 @@
 export default {
   container: {
+    position: 'fixed',
+    bottom: '10%',
+    left: '45%',
     display: "flex",
     justifyContent: "space-around"
   },
@@ -7,7 +10,6 @@ export default {
     textAlign: "center"
   },
   action: {
-    display: "flex",
-    marginTop: "-30px"
+    padding: '16px'
   }
 };
