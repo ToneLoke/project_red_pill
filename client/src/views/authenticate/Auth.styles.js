@@ -1,12 +1,10 @@
 const authStyles = {
   textField: {
-    root: {
       minWidth: '90%',
       margin: '11px'
-    }
   },
-  form: {
-    root: {
+  paper: {
+
       display: 'flex',
       flex: '1 0',
       flexDirection: 'column',
@@ -15,7 +13,7 @@ const authStyles = {
       margin: '8px',
       padding: '16px'
     }
-  },
+
 }
   ;
 

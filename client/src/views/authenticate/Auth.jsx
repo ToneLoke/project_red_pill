@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import SendIcon from "@material-ui/icons/Send";
 import CheckCircle from "@material-ui/icons/Check";
@@ -75,7 +74,7 @@ const Auth = ({ history }) => {
       header={<NavBar title={isLogin ? "LOG IN" : "REGISTER"} path={path} fullPath={fullPath} showBack={false} />}
       footer={<ActionsBar isLogin={isLogin} dispatch={dispatch} user={user} />}
     >
-      <Paper className={classes.root}>
+      <Paper className={classes.paper}>
         <Field
           value={user ? user.username : ""}
           className={classes.textField.root}
@@ -88,7 +87,7 @@ const Auth = ({ history }) => {
           name="password"
           label="Password"
           type="password"
-          className={classes.textField.root}
+          className={classes.textField}
           value={user ? user.password : ""}
           bubbleUp={handleChange}
         />
