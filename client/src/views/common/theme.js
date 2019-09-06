@@ -1,5 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import 'typeface-roboto';
+import { createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
   typography: {

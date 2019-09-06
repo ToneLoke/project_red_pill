@@ -1,37 +1,35 @@
 import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Notifications from './Notifications';
 
-const styles = (theme) => ({
-  root: {
+const useStyles = makeStyles({
+  grid: {
     height: '100vh',
     overflow: 'hidden'
-  },
-  content: {
-    display: 'flex',
-    flex: '1 0',
-    flexFlow: 'row wrap',
-    alignContent: 'center',
-    overflow: 'auto', 
   }
 });
 
-const Layout = ({ children, header, footer, classes }) => (
-  <Fragment>
-    <Grid
-      container
-      alignItems="stretch"
-      direction="column"
-      wrap="nowrap"
-      className={classes.root}
-    >
-      {header}
-      <div className={classes.content}>{children}</div>
-      {footer}
-    </Grid>
-    <Notifications />
-  </Fragment>
-);
+const Layout = ({ children, header, footer }) => {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <Grid
+        container
+        alignItems="stretch"
+        direction="column"
+        wrap="nowrap"
+        className={classes.grid}
+      >
+        {header}
+        <Grid item xs={12}>
+          {children}
+        </Grid>
+        {footer}
+      </Grid>
+      <Notifications />
+    </Fragment>
+  );
+}
 
-export default withStyles(styles)(Layout);
+export default Layout;
