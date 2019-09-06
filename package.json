@@ -15,6 +15,7 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
+    "jss-rtl": "^0.2.3",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "mongoose": "^5.6.0",

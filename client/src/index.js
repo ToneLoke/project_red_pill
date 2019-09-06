@@ -1,22 +1,24 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { StylesProvider } from '@material-ui/styles';
+import { create } from 'jss';
+import { StylesProvider, jssPreset } from '@material-ui/styles';
 import { Provider } from "./store";
-import theme from './views/common/theme';
+import rtl from 'jss-rtl';
 import App from './AppRouter';
 import 'typeface-roboto';
 import './index.css';
 
+const jss = create({
+  plugins: [...jssPreset().plugins, rtl()],
+});
+
 function Main() {
   return (
     <Fragment>
-      <StylesProvider injectFirst>
-        <MuiThemeProvider theme={theme}>
-          <Provider>
-            <App />
-          </Provider>
-        </MuiThemeProvider>
+      <StylesProvider injectFirst jss={jss}>
+        <Provider>
+          <App />
+        </Provider>
       </StylesProvider>
     </Fragment>
   );

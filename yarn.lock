@@ -632,7 +632,7 @@
     js-levenshtein "^1.1.3"
     semver "^5.5.0"
 
-"@babel/runtime@^7.3.1", "@babel/runtime@^7.4.3", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.3", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
@@ -2364,6 +2364,13 @@ jss-plugin-vendor-prefixer@10.0.0-alpha.24:
     css-vendor "^2.0.5"
     jss "10.0.0-alpha.24"
 
+jss-rtl@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/jss-rtl/-/jss-rtl-0.2.3.tgz#fe76010d7d1041ca9d61e0011fa71d344ba0b696"
+  integrity sha512-c9yOhTWldABdx+dds0XSXIbUcEWajBv+e7fl3zaiHCwOqbq4QiAdDTw7l4l5nqHAaGV6+33zMoS//KMMGpPA1A==
+  dependencies:
+    rtl-css-js "^1.8.0"
+
 jss@10.0.0-alpha.24:
   version "10.0.0-alpha.24"
   resolved "https://registry.yarnpkg.com/jss/-/jss-10.0.0-alpha.24.tgz#f8e2044b6b2f034db05a685d99c599095baf8b61"
@@ -3342,6 +3349,13 @@ rimraf@^2.6.1:
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
   dependencies:
     glob "^7.1.3"
+
+rtl-css-js@^1.8.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/rtl-css-js/-/rtl-css-js-1.13.0.tgz#e97ebb67dd9fc6c4be1278730901967fc432ed9f"
+  integrity sha512-zUydBqLfSKEk6XF+OiK1fmReAsnoZz0MKIYPsAfP4DZuCdLewtH7nDwXpnqd8jbL7J1pE9uCaOLTkfQGAFfJRw==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
