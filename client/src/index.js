@@ -17,13 +17,13 @@ const jss = create({
 const Main = React.memo(() => {
   return (
     <Fragment>
-      <ThemeProvider theme={theme}>
-        <StylesProvider injectFirst jss={jss}>
+      <StylesProvider jss={jss}>
+        <ThemeProvider theme={theme}>
           <Provider>
             <App />
           </Provider>
-        </StylesProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </StylesProvider>
     </Fragment>
   );
 }
