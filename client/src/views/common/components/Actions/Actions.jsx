@@ -1,10 +1,10 @@
 import React from "react";
 import { Fab } from "@material-ui/core";
 import styles from "./Actions.styles";
-import { useStyles } from "../../useStyles";
-
+import { makeStyles } from '@material-ui/styles';
+const useStyles = makeStyles(styles);
 export const ActionBtn = ({ icon, text, ...other }) => {
-  const classes = useStyles(styles);
+  const classes = useStyles();
   return (
     <Fab color="secondary" className={classes.action} {...other}>
       {icon}
@@ -13,6 +13,6 @@ export const ActionBtn = ({ icon, text, ...other }) => {
 };
 
 export const Actions = ({ children }) => {
-  const classes = useStyles(styles);
-  return <div className={classes.container}>{children}</div>;
+  const classes = useStyles();
+  return <div className={classes.root}>{children}</div>;
 };

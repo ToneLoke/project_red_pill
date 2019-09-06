@@ -13,7 +13,7 @@ const styles = (theme) => ({
     flex: '1 0',
     flexFlow: 'row wrap',
     alignContent: 'center',
-    overflow: 'auto',
+    overflow: 'auto', 
   }
 });
 
