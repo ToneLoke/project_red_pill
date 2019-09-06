@@ -15,7 +15,9 @@ import { getParameterByName, isEmpty } from "../common/helpers";
 import styles from "./Auth.styles";
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(
+  styles
+);
 const ActionsBar = ({ isLogin, dispatch, user }) => {
   const missingData = isEmpty(user);
   const handleClick = () =>
@@ -73,10 +75,10 @@ const Auth = ({ history }) => {
       header={<NavBar title={isLogin ? "LOG IN" : "REGISTER"} path={path} fullPath={fullPath} showBack={false} />}
       footer={<ActionsBar isLogin={isLogin} dispatch={dispatch} user={user} />}
     >
-      <Paper className={classes.form}>
+      <Paper className={classes.root}>
         <Field
           value={user ? user.username : ""}
-          className={classes.textField}
+          className={classes.textField.root}
           name="username"
           label="Username"
           type="username"
@@ -86,7 +88,7 @@ const Auth = ({ history }) => {
           name="password"
           label="Password"
           type="password"
-          className={classes.textField}
+          className={classes.textField.root}
           value={user ? user.password : ""}
           bubbleUp={handleChange}
         />

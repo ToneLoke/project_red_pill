@@ -14,5 +14,5 @@ export const ActionBtn = ({ icon, text, ...other }) => {
 
 export const Actions = ({ children }) => {
   const classes = useStyles();
-  return <div className={classes.root}>{children}</div>;
+  return <div className={classes.container}>{children}</div>;
 };
