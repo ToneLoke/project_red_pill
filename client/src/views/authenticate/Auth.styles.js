@@ -1,4 +1,4 @@
-const authStyles = (theme) => ({
+const authStyles = {
   textField: {
     minWidth: '90%',
     margin: '11px'
@@ -12,6 +12,6 @@ const authStyles = (theme) => ({
     margin: '8px',
     padding: '16px'
   },
-});
+};
 
 export default authStyles;
