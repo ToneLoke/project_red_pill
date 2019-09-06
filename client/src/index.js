@@ -1,6 +1,7 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { StylesProvider } from '@material-ui/styles';
 import { Provider } from "./store";
 import theme from './views/common/theme';
 import App from './AppRouter';
@@ -10,11 +11,13 @@ import './index.css';
 function Main() {
   return (
     <Fragment>
-      <MuiThemeProvider theme={theme}>
-        <Provider>
-          <App/>
-        </Provider>
-      </MuiThemeProvider>
+      <StylesProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <Provider>
+            <App />
+          </Provider>
+        </MuiThemeProvider>
+      </StylesProvider>
     </Fragment>
   );
 }
