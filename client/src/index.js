@@ -10,6 +10,7 @@ import './index.css';
 
 const jss = create({
   plugins: [...jssPreset().plugins, rtl()],
+  insertionPoint: document.getElementById('jss-insertion-point'),
 });
 
 function Main() {
