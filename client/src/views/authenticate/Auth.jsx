@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import SendIcon from "@material-ui/icons/Send";
 import CheckCircle from "@material-ui/icons/Check";
@@ -14,10 +13,11 @@ import {
 } from "../common/components";
 import { getParameterByName, isEmpty } from "../common/helpers";
 import styles from "./Auth.styles";
+import { makeStyles } from "@material-ui/styles";
 
+const useStyles = makeStyles(styles);
 const ActionsBar = ({ isLogin, dispatch, user }) => {
   const missingData = isEmpty(user);
-
   const handleClick = () =>
     isLogin && !missingData
       ? dispatch({ type: "USER_AUTHENTICATE", payload: user }, true)
@@ -43,7 +43,7 @@ const ActionsBar = ({ isLogin, dispatch, user }) => {
     </Actions>
   );
 };
-const Auth = ({ classes, history }) => {
+const Auth = ({ history }) => {
   //======================= Connect to store using hooks =======================
   const {
     state: { user },
@@ -53,6 +53,7 @@ const Auth = ({ classes, history }) => {
   const path = history.location.pathname;
   const isLogin = getParameterByName("type") === "login";
 
+  const classes = useStyles();
   useEffect(() => {
     if (!user)
       dispatch({ type: "USER_SET", payload: { username: "", password: "" } });
@@ -94,8 +95,5 @@ const Auth = ({ classes, history }) => {
   );
 };
 
-Auth.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
-export default withStyles(styles)(Auth);
+export default Auth;
